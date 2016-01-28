@@ -20,6 +20,8 @@ class UipaOrgThemeBase(ThemeBase):
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     STATIC_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "public"))
 
+    FIXTURE_DIRS = ('fixtures',)
+
     @property
     def INSTALLED_APPS(self):
         installed = super(UipaOrgThemeBase, self).INSTALLED_APPS
