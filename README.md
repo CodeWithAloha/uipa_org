@@ -77,24 +77,26 @@ python manage.py dumpdata | python -m json.tool > db-dump.json
 
 ### Page data in JSON format
 
-Here's an example of the page data in JSON format for the About page:
+Here's an example of the page data for the About page:
 
 ```
-{
-    "fields": {
-        "content": "UIPA.org is the place where you can request information from your State of Hawaii government.\r\n\r\nUIPA stands for Uniform Information Practices Act and is the law covered by HRS Chapter 92F. It requires open access to government records. More information about the law can be seen at the State of Hawaii Office of Information Practices (OIP) website at <a href=\"http://oip.hawaii.gov/laws-rules-opinions/uipa/\">http://oip.hawaii.gov/laws-rules-opinions/uipa/</a>.",
-        "enable_comments": false,
-        "registration_required": false,
-        "sites": [
-            1
-         ],
-        "template_name": "help/page.html",
-        "title": "About UIPA.org",
-        "url": "/help/about/"
-    },
-    "model": "flatpages.flatpage",
-    "pk": 1
-}
+[
+    {
+        "fields": {
+            "content": "<p>UIPA.org is the place where you can request information from your State of Hawaii government.</p>\r\n\r\n<p>UIPA stands for Uniform Information Practices Act and is the law covered by HRS Chapter 92F. It requires open access to government records. More information about the law can be seen at the State of Hawaii Office of Information Practices (OIP) website at <a href=\"http://oip.hawaii.gov/laws-rules-opinions/uipa/\">http://oip.hawaii.gov/laws-rules-opinions/uipa/</a>.</p>",
+            "enable_comments": false,
+            "registration_required": false,
+            "sites": [
+                1
+            ],
+            "template_name": "help/page.html",
+            "title": "About UIPA.org",
+            "url": "/help/about/"
+        },
+        "model": "flatpages.flatpage",
+        "pk": 1
+    }
+]
 ```
 
 ### Details about the content field in the page data file
@@ -104,8 +106,9 @@ displayed on the flat page when it gets rendered by the UIPA.org
 portal. You can edit the data with a text editor instead of changing
 it via the Admin website.
 
-A few things to note about the content field are:
+A few things to note about the page data and content field are:
 
+  * Angle brackets (`[...]`) surround the page data.
   * The field value is surrounded by double quotes, `"`.
   * Embedded quotes are escaped by a backslash, `\`.
   * Line endings are `\r\n`.
