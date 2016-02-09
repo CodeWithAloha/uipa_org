@@ -6,3 +6,8 @@ dist/
 *.egg-info
 .idea/
 .python-version
+venv
+src/configurations/
+src/django-tastypie-swagger/
+src/froide/
+src/pip-delete-this-directory.txt
