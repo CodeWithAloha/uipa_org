@@ -1,0 +1,18 @@
+[
+    {
+        "fields": {
+            "content": "<p>UIPA.org is the place where you can request information from your State of Hawaii government.</p>\r\n\r\n<p>UIPA stands for Uniform Information Practices Act and is the law covered by HRS Chapter 92F. It requires open access to government records. More information about the law can be seen at the State of Hawaii Office of Information Practices (OIP) website at <a href=\"http://oip.hawaii.gov/laws-rules-opinions/uipa/\">http://oip.hawaii.gov/laws-rules-opinions/uipa/</a>.</p>\r\n<p>You'll probably want to start with the <a href=\"http://oip.hawaii.gov/basic-qa-on-access-to-government-records/\">Basic Q&A on Access to Government Records</a> page where you can find out:</p>\r\n<ul><li>What types of records are public,</li><li>Who can request a record,</li><li>What government records are restricted or closed by law</li></ul></p>",
+            "enable_comments": false,
+            "registration_required": false,
+            "sites": [
+                1
+            ],
+            "template_name": "help/page.html",
+            "title": "About UIPA.org",
+            "url": "/help/about/"
+        },
+        "model": "flatpages.flatpage",
+        "pk": 1
+    }
+]
+

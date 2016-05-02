@@ -1,7 +1,6 @@
-pip==7.1.0
+pip>=7.1.0
 Django==1.8.3
 Markdown==2.6.2
-South==0.8.4
 celery==3.1.18
 django-celery==3.1.16
 celery_haystack
