@@ -1,0 +1,104 @@
+.btn {
+  white-space: normal;
+  cursor: pointer;
+}
+.btn .on-hover {
+  display: none;
+}
+
+.btn:hover .on-hover {
+  display: inline;
+}
+
+.btn:hover .on-display {
+  display: none;
+}
+
+@include media-breakpoint-up(md) {
+  .btn .hover-detail {
+    display: none;
+  }
+
+  .btn:hover .hover-detail {
+    display: inline-block;
+  }
+}
+
+.hover-btn-success {
+  @include button-outline-variant(map-get($theme-colors, "success"));
+  background-color: var(--#{$prefix}body-bg);
+}
+
+.hover-btn-success:hover {
+  @include button-variant(map-get($theme-colors, "success"), map-get($theme-colors, "success"));
+}
+
+.hover-btn-danger {
+  @include button-outline-variant(map-get($theme-colors, "secondary"));
+}
+
+.btn.hover-btn-danger:hover {
+  @include button-variant(map-get($theme-colors, "danger"), map-get($theme-colors, "danger"));
+}
+
+.btn-warning-blink {
+  @include button-variant(map-get($theme-colors, "warning"), map-get($theme-colors, "warning"));
+  animation: warning-blink 1s ease-in-out infinite;
+}
+.btn-warning-blink:hover {
+  animation: none;
+}
+
+.btn-outline-redact {
+  @include button-outline-variant(map-get($theme-colors, "dark"));
+  border-color: var(--#{$prefix}body-color);
+  color: var(--#{$prefix}body-color);
+}
+
+@keyframes warning-blink {
+  0% {
+    background-color: $warning;
+  }
+  50% {
+    background-color: lighten($warning, 25%);
+  }
+}
+
+.btn-group-forms {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle; // match .btn alignment given font-size hack above
+
+  .btn {
+    position: relative;
+    flex: 1 1 auto;
+
+    // Bring the hover, focused, and "active" buttons to the front to overlay
+    // the borders properly
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 1;
+    }
+  }
+}
+
+.btn-group-forms {
+  // Prevent double borders when buttons are next to each other
+  > .btn:not(:first-child),
+  > form:not(:first-child) > .btn {
+    margin-left: -$btn-border-width;
+  }
+
+  // Reset rounded corners
+  > .btn:not(:last-child):not(.dropdown-toggle),
+  > form:not(:last-child) > .btn {
+    @include border-end-radius(0);
+  }
+
+  > .btn:not(:first-child),
+  > form:not(:first-child) > .btn {
+    @include border-start-radius(0);
+  }
+}

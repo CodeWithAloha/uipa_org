@@ -1,0 +1,59 @@
+:root {
+  --redacted: #{$gray-200};
+}
+
+@include color-mode(dark) {
+  --redacted: #000;
+}
+
+$redacted: var(--redacted);
+
+@media screen {
+  .redacted,
+  .redacted:hover,
+  .redacted:active,
+  .redacted a {
+    background-color: $redacted !important;
+    color: $redacted !important;
+    line-break: anywhere;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .redacted::selection {
+    /* Separate because otherwise it breaks in firefox */
+    background-color: $redacted !important;
+    color: $redacted !important;
+  }
+
+  .redacted::-moz-selection {
+    /* See https://developer.mozilla.org/en-US/docs/Web/CSS/::selection */
+    background-color: $redacted !important;
+    color: $redacted !important;
+  }
+
+  .redacted-dummy,
+  .redacted-dummy:hover,
+  .redacted-dummy:active,
+  .redacted-dummy a {
+    background-color: $redacted !important;
+  }
+}
+
+.pdf-canvas-container {
+  position: relative;
+}
+
+.pdf-canvas-container canvas {
+  outline: 1px solid #ddd;
+}
+
+.pdf-redaction {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: crosshair;
+}

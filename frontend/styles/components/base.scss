@@ -1,0 +1,48 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+small,
+.small {
+  letter-spacing: 0.015rem;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  // reset font-smoothing for small font sizes (lowers contrast and readability)
+  // see: https://css-tricks.com/typography-for-developers/
+}
+
+.smaller {
+  font-size: $font-size-sm;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.container-sm-full {
+  @extend .container;
+}
+
+@include media-breakpoint-down(sm) {
+  .container-sm-full {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.container-md-full {
+  @extend .container;
+}
+
+@include media-breakpoint-down(md) {
+  .container-md-full {
+    max-width: 100%;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

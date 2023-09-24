@@ -1,0 +1,17 @@
+{% load i18n %}{% autoescape off %}{% blocktrans %}Hello {{ name }},
+
+someone is trying to create an account on {{ site_name }} with your email address.
+
+If this is you, this is a reminder that you already have an account!
+
+Click here to go there:
+
+{{ action_url }}
+
+If this is not you, you can ignore this email.{% endblocktrans %}
+
+
+{% blocktrans with site_name=SITE_NAME %}Cheers,
+{{ site_name }}{% endblocktrans %}
+{% endautoescape %}
+{% include "emails/footer.txt" %}

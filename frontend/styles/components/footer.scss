@@ -1,0 +1,84 @@
+$footer-bg: $gray-900;
+$footer-color: $gray-400;
+$footer-color-subtle: $gray-700;
+$footer-color-hover: $gray-100;
+
+.footer {
+  padding-top: $spacer;
+
+  background-color: $footer-bg;
+  color: $footer-color;
+
+  .container {
+    padding-top: $spacer;
+  }
+
+  h6 {
+    color: $gray-100;
+    margin-bottom: $spacer * 0.5;
+    margin-top: $spacer;
+  }
+}
+
+.footer__credits {
+  a {
+    color: $footer-color;
+  }
+  a:hover {
+    color: $footer-color-hover;
+  }
+}
+
+.footer__networks {
+  @extend .list-unstyled;
+  font-size: $font-size-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  li {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  a {
+    color: $footer-color;
+  }
+  a:hover {
+    color: $footer-color-hover;
+    text-decoration: none;
+  }
+  img {
+    height: $font-size-lg;
+    width: auto;
+  }
+}
+
+.footer__menu {
+  @extend .list-unstyled;
+
+  li {
+    font-size: $font-size-sm;
+    padding: $spacer * 0.5 0 0;
+
+    a {
+      color: $footer-color;
+    }
+    a:hover {
+      color: $footer-color-hover;
+    }
+  }
+}
+
+.footer__aside {
+  color: $footer-color-subtle;
+  a, a:hover {
+    color: $footer-color-subtle;
+  }
+}
+
+@include color-mode(dark) {
+  .footer {
+    border-top: 1px solid $footer-color-subtle;
+  }
+}

@@ -1,0 +1,256 @@
+import re
+from collections import defaultdict, namedtuple
+from typing import Any, Iterator, List, Optional, Set, Tuple
+
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
+
+from froide.foirequest.models.message import FoiMessage
+from froide.helper.admin_utils import make_choose_object_action
+from froide.helper.email_sending import mail_registry
+from froide.helper.text_utils import split_text_by_separator
+
+from .models import Action, Guidance, Rule
+
+guidance_notification_mail = mail_registry.register(
+    "guide/emails/new_guidance",
+    ("name", "single_request", "request_title", "guidances"),
+)
+
+
+GuidanceResult = namedtuple(
+    "GuidanceResult",
+    (
+        "guidances",
+        "created",
+        "deleted",
+    ),
+)
+
+WS = re.compile(r"\s+")
+
+RuleMatch = Optional[Tuple[Optional[re.Match], Optional[re.Match]]]
+
+
+def prepare_text(text: str) -> str:
+    text, _1 = split_text_by_separator(text)
+    text = " ".join(text.splitlines())
+    return text
+
+
+class GuidanceApplicator:
+    def __init__(self, message: FoiMessage, active_only: bool = True) -> None:
+        self.message = message
+        self.created_count = 0
+        self.deleted_count = 0
+        self.active_only = active_only
+
+    def filter_rules(self, rules: None = None) -> None:
+        foirequest = self.message.request
+        if rules is None:
+            rules = Rule.objects.all()
+
+        if self.active_only:
+            rules = rules.filter(is_active=True)
+
+        rules = (
+            rules.filter(
+                Q(jurisdictions=None) | Q(jurisdictions=foirequest.jurisdiction)
+            )
+            .filter(Q(publicbodies=None) | Q(publicbodies=foirequest.public_body))
+            .filter(
+                Q(categories=None)
+                | Q(categories__in=foirequest.public_body.categories.all())
+            )
+            .order_by("priority")
+        )
+        for rule in rules:
+            if rule.references_re:
+                if not rule.references_re.search(foirequest.reference):
+                    continue
+            yield rule
+
+    def apply_rules(self) -> List[Any]:
+        return list(self.apply_rules_generator())
+
+    def match_rule(self, rule: Rule, tags: Set[int], text: str) -> RuleMatch:
+        if rule.has_tag_id and rule.has_tag_id not in tags:
+            return
+        if rule.has_no_tag_id and rule.has_no_tag_id in tags:
+            return
+
+        include_match = None
+        if rule.includes_re:
+            include_match = rule.includes_re.search(text)
+            if include_match is None:
+                return
+        exclude_match = None
+        if rule.excludes_re:
+            exclude_match = rule.excludes_re.search(text)
+            if exclude_match is not None:
+                return
+        return (include_match, exclude_match)
+
+    def apply_rules_generator(self) -> Iterator[Guidance]:
+        rules = self.filter_rules()
+
+        message = self.message
+        tags = set(message.tags.all().values_list("id", flat=True))
+        text = prepare_text(message.plaintext)
+
+        for rule in rules:
+            result = self.match_rule(rule, tags, text)
+            if not result:
+                continue
+            include_match, exclude_match = result
+            # Rule applies
+            ctx = {"includes": include_match, "excludes": exclude_match, "tags": tags}
+            yield from self.apply_rule(rule, **ctx)
+
+    def apply_rule(self, rule, includes=None, excludes=None, tags=None):
+        for action in rule.actions.all():
+            guidance = self.apply_action(
+                action, tags=tags, rule=rule, includes=includes
+            )
+            if guidance is not None:
+                yield guidance
+
+    def apply_action(self, action, tags=None, rule=None, includes=None):
+        message = self.message
+        if action.tag:
+            message.tags.add(action.tag)
+            if tags is not None:
+                tags.add(action.tag_id)
+        if not action.label:
+            return
+        matches = None
+        if includes:
+            matches = {"span": list(includes.span())}
+        guidance, created = Guidance.objects.get_or_create(
+            message=message, action=action, defaults={"rule": rule, "matches": matches}
+        )
+        guidance.created = created
+        if created:
+            self.created_count += 1
+        return guidance
+
+    def run(self) -> GuidanceResult:
+        guidances = self.apply_rules()
+
+        # Delete all guidances that were there before
+        # but are not returned, keep custom guidances
+        count, ctypes = (
+            self.message.guidance_set.all()
+            .exclude(Q(id__in=[n.id for n in guidances]) | Q(user__isnull=False))
+            .delete()
+        )
+        self.deleted_count = count
+
+        return GuidanceResult(guidances, self.created_count, self.deleted_count)
+
+
+def run_guidance(
+    message: FoiMessage, active_only: bool = True, notify: bool = False
+) -> GuidanceResult:
+    if not message.is_response:
+        return
+
+    applicator = GuidanceApplicator(message, active_only=active_only)
+    result = applicator.run()
+
+    if notify:
+        notify_users([(message, result)])
+    return result
+
+
+def apply_guidance_generator(queryset):
+    for message in queryset:
+        result = run_guidance(message)
+        if result is None:
+            continue
+        yield message, result
+
+
+def run_guidance_on_queryset(queryset, notify=False):
+    queryset = queryset.order_by("request__user_id")
+
+    gen = apply_guidance_generator(queryset)
+    if notify:
+        gen = notify_users_generator(gen)
+
+    for _m, _r in gen:
+        pass
+
+
+def notify_users(message_results):
+    gen = notify_users_generator(message_results)
+    for _m, _r in gen:
+        pass
+
+
+def notify_users_generator(gen):
+    last_user = None
+    notifications = []
+    for message, result in gen:
+        if last_user is not None:
+            if message.request.user_id != last_user:
+                send_notifications(notifications)
+                notifications = []
+        last_user = message.request.user_id
+        notifications.append((message, result))
+        yield message, result
+    send_notifications(notifications)
+
+
+def send_notifications(notifications):
+    if not notifications:
+        return
+    user = notifications[0][0].request.user
+    guidance_mapping = defaultdict(list)
+    guidances = []
+    requests = set()
+    for message, result in notifications:
+        requests.add(message.request_id)
+        for guidance in result.guidances:
+            if guidance.notified:
+                continue
+            if guidance.send_custom_notification():
+                continue
+            guidances.append(guidance)
+            guidance_mapping[guidance.action or guidance].append(message)
+    if not guidance_mapping:
+        return
+    requests = list(requests)
+    single_request = len(requests) == 1
+    if single_request:
+        subject = _("New guidance for your request [#{}]").format(requests[0])
+    else:
+        subject = _("New guidance for your requests")
+
+    context = {
+        "name": user.get_full_name(),
+        "single_request": single_request,
+        "request_title": notifications[0][0].request.title,
+        "guidances": list(guidance_mapping.items()),
+    }
+    guidance_notification_mail.send(user=user, context=context, subject=subject)
+    Guidance.objects.filter(id__in=[g.id for g in guidances]).update(notified=True)
+
+
+def notify_guidance(guidance):
+    if guidance.notified:
+        return
+    notify_users([(guidance.message, GuidanceResult([guidance], 0, 0))])
+
+
+def execute_assign_guidance_action(admin, request, queryset, action_obj):
+    from .tasks import add_action_to_queryset_task
+
+    add_action_to_queryset_task.delay(
+        action_obj.id, list(queryset.values_list("id", flat=True))
+    )
+
+
+assign_guidance_action = make_choose_object_action(
+    Action, execute_assign_guidance_action, _("Choose guidance action to attach...")
+)

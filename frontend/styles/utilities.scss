@@ -1,0 +1,51 @@
+@use "sass:map";
+
+@each $name in $froide-theme {
+  .text-bg-#{$name} {
+    color: var(--froide-#{$name}-color);
+    background-color: var(--froide-#{$name}-bg);
+    --bs-link-color-rgb: var(--froide-#{$name}-color-rgb);
+    --bs-link-hover-color-rgb: var(--froide-#{$name}-color-rgb);
+  }
+  .bg-#{$name} {
+    background-color: var(--froide-#{$name}-bg);
+  }
+  .text-#{$name} {
+    color: var(--froide-#{$name}-color);
+    --bs-link-color-rgb: var(--froide-#{$name}-color-rgb);
+    --bs-link-hover-color-rgb: var(--froide-#{$name}-color-rgb);
+  }
+}
+
+// This gives us text-bg classes for the color-mode compatibole
+// bootstrap colors
+
+$bootstrap-extras: (
+  "body": (
+    "variable": "body",
+  ),
+  "body-secondary": (
+    "variable": "secondary",
+  ),
+  "body-tertiary": (
+    "variable": "tertiary",
+  ),
+);
+
+@each $name, $data in $bootstrap-extras {
+  $varname: map.get($data, "variable");
+  .text-bg-#{$name} {
+    color: var(--#{$prefix}#{$varname}-color);
+    background-color: var(--#{$prefix}#{$varname}-bg);
+  }
+}
+
+.text-bg-light-subtle {
+  color: var(--#{$prefix}light-text-emphasis);
+  background-color: var(--#{$prefix}light-bg-subtle);
+}
+
+.text-bg-dark-subtle {
+  color: var(--#{$prefix}dark-text-emphasis);
+  background-color: var(--#{$prefix}dark-bg-subtle);
+}

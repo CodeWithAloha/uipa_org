@@ -1,0 +1,142 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/mixins';
+
+/* Bootstrap Theme */
+
+// gray
+$gray-100: #f6f7f9;
+$gray-200: #e8ebf0;
+$gray-300: #c9d2dc;
+$gray-400: #abbac9;
+$gray-500: #7b91a9;
+$gray-600: #5c748d;
+$gray-700: #4a5d71;
+$gray-800: #3b4a5a;
+$gray-900: #1c232b;
+
+// new blue
+$blue-10: #dfeff9;
+$blue-20: #b6ddf5;
+$blue-30: #8dbad4;
+$blue-100: #f0f4ff;
+$blue-200: #dee8ff;
+$blue-300: #b8ceff;
+$blue-400: #719dff;
+$blue-500: #286bfc;
+$blue-600: #0047e1;
+$blue-700: #0034a5;
+$blue-800: #001c5a;
+
+// new yellow
+$yellow-100: #fde9ae;
+$yellow-200: #face44;
+$yellow-300: #e8b106;
+
+$white: #fff;
+// $white: #FDFDFF;
+$black: $blue-800;
+$red: #ff5029;
+$green: #3bb273;
+$cyan: #17a2b8;
+$yellow: #ffc107;
+
+$primary: $blue-600;
+$secondary: $gray-600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-200;
+$dark: $gray-800;
+
+$color-contrast-dark: $blue-800;
+$color-contrast-light: $white;
+
+$body-color: $black;
+$body-color-dark: $gray-400;
+
+$component-active-color: $white;
+$component-active-bg: $primary;
+$headings-color-dark: $white;
+$body-tertiary-color: rgba($body-color, .75);
+
+
+// spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: (
+    $spacer * 0.25
+  ),
+  2: (
+    $spacer * 0.5
+  ),
+  3: $spacer,
+  4: (
+    $spacer * 1.5
+  ),
+  5: (
+    $spacer * 3
+  ),
+  6: (
+    $spacer * 4
+  )
+);
+
+// Grid containers
+// Define the maximum width of `.container` for different screen sizes.
+$container-max-widths: (
+  sm: 540px,
+  md: 780px, // changed from original Bootstrap 720px for extra space!
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+// Typography
+$btn-font-weight: 600;
+$badge-font-weight: 600;
+
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$enable-negative-margins: true;
+
+// Shadows
+$box-shadow: 7px 7px 0 transparentize($blue-30, 0.85);
+$box-shadow-sm: 2px 2px 0 transparentize($blue-30, 0.85);
+$box-shadow-gray: 7px 7px 0 transparentize($gray-300, 0.6);
+$box-shadow-gray-sm: 2px 2px 0 transparentize($gray-300, 0.6);
+$box-shadow-yellow: 7px 7px 0 transparentize($yellow-300, 0.85);
+$box-shadow-yellow: 2px 2px 0 transparentize($yellow-300, 0.85);
+
+@import 'bootstrap/scss/variables';
+
+$froide-theme: ("highlight", "callout");
+
+$highlight: var(--froide-highlight-bg);
+$highlight-color: var(--froide-highlight-color);
+
+$froide-theme-light: (
+  "highlight": (
+    "bg": $yellow-100,
+    "color": $blue-700,
+  ),
+  "callout": (
+    "bg": $blue-10,
+    "color": $blue-700
+  ),
+);
+
+$froide-theme-dark: (
+  "highlight": (
+    "bg": $yellow-600,
+    "color": $white
+  ),
+  "callout": (
+    "bg": $blue-800,
+    "color": $white
+  ),
+);
+
+$breadcrumb-divider: quote('›');

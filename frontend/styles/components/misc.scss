@@ -1,0 +1,126 @@
+@import '../variables.scss';
+
+.target-primary:target {
+  @extend .border-success;
+}
+
+.highlight {
+  background: $highlight;
+  color: $highlight-color;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.hidden-text {
+  display: none;
+}
+
+.d-none-important {
+  display: none !important;
+}
+
+.text-unlink {
+  cursor: default;
+  color: var(--#{$prefix}body-color);
+  &:hover {
+    text-decoration: none;
+    color: var(--#{$prefix}body-color);
+  }
+}
+
+input.copy-text {
+  cursor: pointer;
+  background-color: var(--#{$prefix}body-bg);
+}
+
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+/* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
+.aspect-ratio iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.aspect-ratio-16x9 {
+  padding-bottom: 56.25%;
+}
+
+.aspect-ratio-4x3 {
+  padding-bottom: 75%;
+}
+
+.is-new {
+  animation-name: is-new-flash;
+  animation-duration: 1500ms;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes is-new-flash {
+  0% {
+    background-color: $highlight;
+    opacity: 1;
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
+.search-highlight {
+  font-size: 0.8em;
+  em {
+    @extend .highlight;
+  }
+}
+
+/* images */
+.hero-illustration,
+.img-lg,
+.img-sm {
+  width: 12rem;
+  max-width: 100%;
+  height: auto;
+  max-height: 12rem;
+  object-fit: contain;
+
+  @include media-breakpoint-up(lg) {
+    width: 16rem;
+    max-height: 16rem;
+  }
+}
+
+.img-sm {
+  width: 5rem;
+  max-height: 5rem;
+}
+
+.img-sm-vertical {
+  height: 5rem;
+  max-width: 100%;
+}
+
+@include media-breakpoint-down(sm) {
+  .hero-illustration-vertical {
+    width: auto;
+    max-width: 100%;
+    height: 12rem;
+  }
+}
+
+.partner-logos img,
+.partner-logo {
+  display: block;
+  width: 100%;
+  height: 5rem;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+}

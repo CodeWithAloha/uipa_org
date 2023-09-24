@@ -1,0 +1,13 @@
+{% load i18n %}{% autoescape off %}{% blocktrans %}Hello {{ name }},
+
+This is an email from {{ site_name }} to confirm your new email address.
+Please visit the link below:
+
+{{ action_url }}
+
+{% endblocktrans %}
+
+{% blocktrans %}Cheers,
+{{ site_name }}{% endblocktrans %}
+{% endautoescape %}
+{% include "emails/footer.txt" %}
