@@ -1,5 +1,0 @@
-include README.md LICENSE.txt
-recursive-include uipa_org/theme/templates *
-recursive-include uipa_org/theme/static *
-recursive-exclude uipa_org/theme/static/img/jurisdictions */*
-recursive-include uipa_org/theme/locale *.po
