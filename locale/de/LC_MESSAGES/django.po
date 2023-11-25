@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: froide\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-13 17:15+0200\n"
-"PO-Revision-Date: 2023-09-13 17:38+0200\n"
-"Last-Translator: Karl Engelhardt <karl.engelhardt@okfn.de>\n"
+"POT-Creation-Date: 2023-11-06 14:37+0100\n"
+"PO-Revision-Date: 2023-10-09 16:55+0000\n"
+"Last-Translator: krmax44 <hi@krmax44.de>\n"
 "Language-Team: German <https://weblate.frag-den-staat.de/projects/froide/"
 "froide/de/>\n"
 "Language: de\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: froide/accesstoken/apps.py
 msgid "Secret Access Token"
@@ -685,9 +685,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"            Ihre Anfrage „<a href=\"%(url)s\">%(title)s</a>“ wurde "
+"              Ihre Anfrage „<a href=\"%(url)s\">%(title)s</a>“ wurde "
 "versendet.\n"
-"          "
+"            "
 
 #: froide/account/templates/account/confirmed.html
 #: froide/foirequest/templates/foirequest/sent.html
@@ -2768,7 +2768,7 @@ msgstr "Briefzusammenfassung"
 
 #: froide/foirequest/forms/message.py
 msgid "Optionally give a summary of the letter contents"
-msgstr "Optional können Sie einen Zusammenfassung des Briefinhalts angeben."
+msgstr "Optional können Sie eine Zusammenfassung des Briefinhalts angeben."
 
 #: froide/foirequest/forms/message.py
 msgid "Your reply date is in the future, that is not possible."
@@ -4028,6 +4028,7 @@ msgid "Currently no project assigned."
 msgstr "Aktuell kein Projekt ausgewählt."
 
 #: froide/foirequest/templates/foirequest/_request_search.html
+#: froide/helper/templates/helper/search/multi_search.html
 #: froide/helper/templates/helper/search/search_base.html
 #: froide/publicbody/templates/publicbody/widget/_add_js_vars.html
 #: froide/publicbody/widgets.py froide/templates/header.html
@@ -5861,7 +5862,7 @@ msgstr "RSS-Feed"
 #: froide/foirequest/templates/foirequest/header/info-box.html
 #: froide/foirequest/views/request.py
 msgid "Download"
-msgstr "Download"
+msgstr "Herunterladen"
 
 #: froide/foirequest/templates/foirequest/header/info-box.html
 msgid "Download as ZIP"
@@ -8272,6 +8273,10 @@ msgstr "Keine Ergebnisse"
 msgid "Press to select"
 msgstr "Enter zum Auswählen"
 
+#: froide/helper/templates/helper/search/multi_search.html
+msgid "Search term"
+msgstr "Suchbegriff"
+
 #: froide/helper/templates/helper/search/search_base.html
 #, python-format
 msgid ""
@@ -10569,6 +10574,14 @@ msgstr "Sie sind schon Team-Mitglied."
 msgid "400 - Bad Request"
 msgstr "400 - Fehlerhafte Anfrage"
 
+#: froide/templates/400.html
+msgid ""
+"This one seems to be on you. Please contact us, if this error comes as a "
+"surprise."
+msgstr ""
+"Wir vermuten, dass Sie fehlerhafte Eingaben gemacht haben. Bitte "
+"kontaktieren Sie uns, falls dies nicht der Fall sein sollte."
+
 #: froide/templates/403.html
 msgid "403 - Forbidden"
 msgstr "403 - Verboten"
@@ -10585,6 +10598,10 @@ msgstr ""
 msgid "404 - Not Found"
 msgstr "404 - Nicht Gefunden"
 
+#: froide/templates/404.html
+msgid "Nothing to see here."
+msgstr "Hier gibt es nichts zu sehen."
+
 #: froide/templates/500.html
 msgid "500 - Server Error"
 msgstr "500 - Server-Fehler"
@@ -10592,11 +10609,12 @@ msgstr "500 - Server-Fehler"
 #: froide/templates/500.html
 #, python-format
 msgid ""
-"If you need assistance, you may reference this error as <strong>%(ref)s</"
-"strong>."
+"We logged the error and are working on fixing it. If you need to contact us, "
+"please use the reference <code>%(ref)s</code>."
 msgstr ""
-"Wenn Sie Hilfe benötigen, können Sie diesen Fehler so referenzieren: "
-"<strong>%(ref)s</strong>."
+"Wir haben den Fehler festgehalten und arbeiten an einer Lösung. Falls Sie "
+"uns kontaktieren möchten, geben Sie bitte die Referenz <code>%(ref)s</code> "
+"an."
 
 #: froide/templates/admin/base_site.html
 #, python-format
@@ -10626,6 +10644,12 @@ msgid ""
 msgstr ""
 "Wir kämpfen für Transparenz! Kämpfen Sie mit und unterstützen Sie uns:\n"
 "https://fragdenstaat.de/hilfe/spenden/\n"
+
+#: froide/templates/error_base.html
+msgid "You can try searching or go back to the <a href=\"/\">Home page</a>."
+msgstr ""
+"Mit der Suche können Sie vielleicht finden, wonach Sie suchen – oder <a "
+"href=\"/\">zurück zur Startseite</a>."
 
 #: froide/templates/footer.html
 msgid ""
@@ -11053,8 +11077,8 @@ msgid ""
 "Freedom of Information Requests, Freedom of Information Law, Public Body "
 "Information"
 msgstr ""
-"Informationsfreiheitsanfragen, Informationsfreiheitsgesetz, "
-"Informationsfreiheit, IFG, Behörde, Amt, Ämter, Transparenz"
+"Informationsfreiheitsanfragen, Informationsfreiheitsgesetze, "
+"Behördeninformationen"
 
 #: froide/upload/api_views.py
 msgid "Unable to terminate upload while in state \"{}\"."
@@ -11464,16 +11488,20 @@ msgctxt "url part"
 msgid "jurisdiction/<slug:slug>/"
 msgstr "zustaendigkeit/<slug:slug>/"
 
-#, fuzzy
-#~| msgid ""
-#~| "This message has an attached proof of identity that I kindly ask you to "
-#~| "delete after you have verifyied it (Art. 17 GDPR)."
+#, python-format
+#~ msgid ""
+#~ "If you need assistance, you may reference this error as <strong>%(ref)s</"
+#~ "strong>."
+#~ msgstr ""
+#~ "Wenn Sie Hilfe benötigen, können Sie diesen Fehler so referenzieren: "
+#~ "<strong>%(ref)s</strong>."
+
 #~ msgid ""
 #~ "This message has an attached proof of identity that I kindly ask you to "
 #~ "delete after you have verifyed it (Art. 17 GDPR)."
 #~ msgstr ""
-#~ "Diese Nachricht hat einen Identitätsnachweis beigefügt, den Sie bitte "
-#~ "nach Verifizierung löschen (Art. 17 DSGVO)."
+#~ "Dieser Nachricht ist ein Identitätsnachweis beigefügt, den Sie bitte nach "
+#~ "Verifizierung löschen (Art. 17 DSGVO)."
 
 #, python-format
 #~ msgid "You exceeded your message limit of %(count)s messages in %(time)s."
@@ -11486,6 +11514,66 @@ msgstr "zustaendigkeit/<slug:slug>/"
 #~ msgstr ""
 #~ "Sie haben die Begrenzung von %(count)s Anfragen in %(time)s "
 #~ "überschritten. Dies ist eine automatische Vorsichtsmaßnahme."
+
+#~ msgid ""
+#~ "This message has an attached proof of identity that I kindly ask you to "
+#~ "delete after you have verifyied it (Art. 17 GDPR)."
+#~ msgstr ""
+#~ "Diese Nachricht hat einen Identitätsnachweis beigefügt, den Sie bitte "
+#~ "nach Verifizierung löschen (Art. 17 DSGVO)."
+
+#~ msgid ""
+#~ "When you upload an identity document, please redact all information "
+#~ "except your name, the city and the validity date. You can use the "
+#~ "redaction tool below to do this."
+#~ msgstr ""
+#~ "Wenn Sie ein Identitätsnachweis hochladen, entfernen Sie bitte alle "
+#~ "Informationen außer Ihren Namen, die Stadt und das Gültigkeitsdatum. Sie "
+#~ "können das Schwärzungswerkzeug weiter unten dafür nutzen."
+
+#~ msgctxt "URL part"
+#~ msgid "awaiting-classification"
+#~ msgstr "braucht-klassifikation"
+
+#~ msgctxt "URL part"
+#~ msgid "successful"
+#~ msgstr "erfolgreich"
+
+#~ msgctxt "URL part"
+#~ msgid "partially-successful"
+#~ msgstr "teilweise-erfolgreich"
+
+#~ msgctxt "URL part"
+#~ msgid "refused"
+#~ msgstr "abgelehnt"
+
+#~ msgctxt "URL part"
+#~ msgid "withdrawn"
+#~ msgstr "zurueckgezogen"
+
+#~ msgctxt "URL part"
+#~ msgid "withdrawn-costs"
+#~ msgstr "zurueckgezogen-wegen-kosten"
+
+#~ msgctxt "URL part"
+#~ msgid "awaiting-response"
+#~ msgstr "warte-auf-antwort"
+
+#~ msgctxt "URL part"
+#~ msgid "overdue"
+#~ msgstr "verspaetet"
+
+#~ msgctxt "URL part"
+#~ msgid "asleep"
+#~ msgstr "eingeschlafen"
+
+#~ msgctxt "URL part"
+#~ msgid "not-held"
+#~ msgstr "nicht-vorhanden"
+
+#~ msgctxt "URL part"
+#~ msgid "has-fee"
+#~ msgstr "gebuehr-erhoben"
 
 #~ msgid "Selected messages are being checked for delivery."
 #~ msgstr ""
@@ -13320,9 +13408,6 @@ msgstr "zustaendigkeit/<slug:slug>/"
 #~ msgid "not-foi"
 #~ msgstr "nicht-ifg"
 
-#~ msgid "Search Terms"
-#~ msgstr "Suchbegriffe"
-
 #~ msgid "Topics:"
 #~ msgstr "Themen:"
 
@@ -13861,3 +13946,21 @@ msgstr "zustaendigkeit/<slug:slug>/"
 
 #~ msgid "As a moderator you are still able to publish it."
 #~ msgstr "As a moderator you are still able to publish it."
+
+#~ msgid "Search Terms"
+#~ msgstr "Suchbegriffe"
+
+#, fuzzy
+#~ msgid "Information needs to be redacted."
+#~ msgstr "Was Sie schwärzen sollten"
+
+#~ msgctxt "url part"
+#~ msgid "account/mfa/"
+#~ msgstr "account/mfa/"
+
+#~ msgid "Upload and manage attachments"
+#~ msgstr "Anhänge hochladen und verwalten"
+
+#, fuzzy
+#~ msgid "Number of Periods"
+#~ msgstr "Anzahl der Nutzer"

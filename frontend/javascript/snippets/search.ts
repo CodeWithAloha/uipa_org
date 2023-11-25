@@ -1,48 +1,43 @@
-function applyToForm(searchForm: HTMLFormElement): void {
-  function submitForm(): void {
-    searchForm.submit()
-  }
-  const inputs = searchForm.querySelectorAll('select')
-  let i
-  for (i = 0; i < inputs.length; i += 1) {
-    const selectInput = inputs[i]
-    selectInput.addEventListener('change', submitForm)
-  }
+// multi-search form
 
-  function dropdownSubmit(input: HTMLInputElement) {
-    return function (this: HTMLElement, e: Event) {
-      e.preventDefault()
-      input.value = this.dataset.value ?? ''
-      searchForm.submit()
-    }
-  }
+const firstPathSegment = (path: string) => path.split('/')[1]
 
-  const dropdowns = searchForm.querySelectorAll('.dropdown')
-  for (i = 0; i < dropdowns.length; i += 1) {
-    const dropdown = dropdowns[i]
-    const input = dropdown.querySelector('input')
-    dropdown.querySelectorAll('.dropdown-menu a').forEach((dropdownLink) => {
-      dropdownLink.addEventListener(
-        'click',
-        dropdownSubmit(input as HTMLInputElement)
-      )
+document
+  .querySelectorAll<HTMLFormElement>('.froide-multi-search')
+  .forEach((form) => {
+    const select = form.querySelector('select')
+    if (select === null) return
+
+    select.addEventListener('change', () => {
+      form.action = select.value
     })
-  }
-}
 
-const domSearchForm = document.querySelector<HTMLFormElement>('.search-form')
-if (domSearchForm !== null) {
-  applyToForm(domSearchForm)
-}
+    /*
+      the select has options like /documents/search/.
+      if the first path segment (here /documents/) of that url matches the
+      first path segment of the current window URL, select that option.
+    */
+    const searchBases = [...select.querySelectorAll('option')].map((o) => [
+      firstPathSegment(o.value),
+      o.value
+    ])
+    const currentBase = firstPathSegment(window.location.pathname)
+    const bestMatch = searchBases.find((s) => s[0] === currentBase)?.[1]
+    console.log(bestMatch)
 
-document.addEventListener('shown.bs.modal', (event) => {
-  if (event.target == null) {
-    return
-  }
-  if (event.target instanceof HTMLElement) {
-    const focussable = event.target.querySelector('[data-focus]')
-    if (focussable instanceof HTMLInputElement) {
-      focussable.focus()
+    if (bestMatch !== undefined) {
+      form.action = bestMatch
+      select.value = bestMatch
     }
-  }
-})
+  })
+
+// auto-submit form helper
+// form.froide-auto-submit will submit the form when the value of any of its
+// select inputs changes
+document
+  .querySelectorAll<HTMLFormElement>('form.froide-auto-submit')
+  .forEach((form) => {
+    form.querySelectorAll('select').forEach((select) => {
+      select.addEventListener('change', () => form.submit())
+    })
+  })
