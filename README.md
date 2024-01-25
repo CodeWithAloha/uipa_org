@@ -14,6 +14,11 @@
 
 Getting information from the government is our right under the Freedom of Information Act, however the process is more opaque than you might expect. The Uniform Information Practices Act 92F (UIPA) is Hawaii's adoption of the FOIA. This portal is a way to help individuals through the process of submitting a FOIA request, as well as open sourcing the requests and responses for others to view - all for free!
 
+# News Articles
+
+- https://www.civilbeat.org/2018/09/new-service-helps-public-access-public-records/
+- https://www.civilbeat.org/2021/06/we-need-to-improve-government-transparency-in-hawaii/
+
 # Development
 
 There are three main things that people have to stand up in order to start developing UIPA. These things are:
