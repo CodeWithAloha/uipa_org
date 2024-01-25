@@ -89,15 +89,10 @@ yarn dev
 
 After performing these steps, the application should be available at http://127.0.0.1:8000/ and look like:
 
-
-
 ![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/f2e58505-418e-4747-83f9-96ecb02abd3f)
-
-## Docs
-
 
 # Attribution
 
-Many thanks to the [Open Knowledge Foundation Germany](https://www.okfn.de/) for their work on [Froide](https://github.com/okfde/froide).
+Many thanks to the [Open Knowledge Foundation Germany](https://www.okfn.de/) for their work on [Froide](https://github.com/okfde/froide). Their docs on the project are [available here](http://froide.readthedocs.org/en/latest/) including a [Getting Started Guide](http://froide.readthedocs.org/en/latest/gettingstarted/).
 
-Their docs on the project are available here: [Read the documentation](http://froide.readthedocs.org/en/latest/) including a [Getting Started Guide](http://froide.readthedocs.org/en/latest/gettingstarted/).
+Thanks to the [Public First Law Center](https://www.publicfirstlaw.org/) for providing guidance and hosting for the UIPA.org project.
