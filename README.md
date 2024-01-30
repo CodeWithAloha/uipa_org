@@ -1,98 +1,103 @@
-# Froide
+<h1 align="center">UIPA.org</h1>
 
-[![Froide CI](https://github.com/okfde/froide/workflows/Froide%20CI/badge.svg)](https://github.com/okfde/froide/actions?query=workflow%3A%22Froide+CI%22)
+<div align="center">
+	:envelope: :rainbow: :office:
+</div>
 
-Froide is a Freedom Of Information Portal using Django 3.2 on Python 3.8+.
+<div align="center">
+  <strong>A Freedom Of Information Portal for the State of Hawaii</strong>
+</div>
 
-It is used by the German and the Austrian FOI site, but it is fully
-internationalized and written in English.
+> Note: This is a forked repo with a custom README. For the original document/repo, check out - https://github.com/okfde/froide
 
-## Development on Froide
+# Philosophy
 
-After clone, create a Python 3.8+ virtual environment and install dependencies:
+Getting information from the government is our right under the Freedom of Information Act, however the process is more opaque than you might expect. The Uniform Information Practices Act 92F (UIPA) is Hawaii's adoption of the FOIA. This portal is a way to help individuals through the process of submitting a FOIA request, as well as open sourcing the requests and responses for others to view - all for free!
+
+# News Articles
+
+- https://www.civilbeat.org/2018/09/new-service-helps-public-access-public-records/
+- https://www.civilbeat.org/2021/06/we-need-to-improve-government-transparency-in-hawaii/
+
+# Development
+
+There are three main things that people have to stand up in order to start developing UIPA. These things are:
+
+1. The Databases (Elasticsearch & Postgres)
+2. The Backend (Django development server)
+3. The Frontend (vite)
+
+At the end of setting up your development environment, you should have three terminal windows running each of these separately.
+
+## The Databases
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/engine/install/) (for the databases)
+
+### Instructions
+
+The databases can be stood up together with one command using the provided [`docker-compose.yml`](https://github.com/CodeWithAloha/uipa/blob/08ce6d39bd9434f739117c801a7b8d442322455e/docker-compose.yml)
+
+After running `docker-compose up` successfully, the output in your terminal should look something like:
+
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/d5cc6b6a-afbb-4b6b-bc98-35461d7523a5)
+
+## The Backend
+
+### Prerequisites
+
+- [Python 3.8+](https://github.com/CodeWithAloha/uipa/blob/08ce6d39bd9434f739117c801a7b8d442322455e/setup.cfg#L35-L36) (for the backend server)
+
+### Instructions
+
+To run the Django development server, we need to run the following commands:
 
 ```
-python3 -m venv froide-env
-source froide-env/bin/activate
+# Installing dev-dependencies
+pip install -r requirements-test.txt 
 
-# Install dev dependencies
-pip install -r requirements-test.txt
-
-# Install git pre-commit hook
-pre-commit install
-```
-
-### Start services
-
-You can run your own Postgres+PostGIS database and Elasticsearch service or run them with Docker.
-
-You need [docker](https://www.docker.com/community-edition) and [docker-compose](https://docs.docker.com/compose/). Make sure Docker is running and use the following command:
-
-```
-docker-compose up
-```
-
-This will start Postgres and Elasticsearch and listen on port 5432 and 9200 respectively. You can adjust the port mapping in the `docker-compose.yml`.
-
-### Setup database and search index, start server
-
-If you need to adjust settings, you can copy the `froide/local_settings.py.example` to `froide/local_settings.py` and edit it. More steps:
-
-```
 # To initialise the database:
 python manage.py migrate --skip-checks
+
 # Create a superuser
 python manage.py createsuperuser
+
 # Create and populate search index
 python manage.py search_index --create
 python manage.py search_index --populate
+
 # Run the Django development server
 python manage.py runserver
 ```
 
-### Run tests
+After running these, you should see something like this in your terminal:
 
-Make sure the services are running.
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/98b0c91e-c540-4309-95f9-313e1d4234ad)
 
-```
-# Run all tests
-make test
-# Run only unit/integration tests
-make testci
-# Run only end-to-end tests
-make testui
-```
+## The Frontend
 
-### Development tooling
+### Prerequisites
 
-For Python code, we use flake8 following black code style. JavaScript, Vue and SCSS files are formatted and linted with ESLint and Prettier.
+- [NodeJS & npm](https://nodejs.org/en/download) (for the frontend)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
-Make sure to have pre-commit hooks registered (`pre-commit install`). For VSCode, the [Python](https://code.visualstudio.com/docs/python/linting), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) extensions are helpful, with these workspace settings recommended:
-
-```json
-{
-  "eslint.format.enable": true,
-  "eslint.packageManager": "yarn",
-  "vetur.format.defaultFormatter.css": "prettier",
-  "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.format.defaultFormatter.js": "prettier-eslint"
-}
-```
-
-### Upgrade dependencies
+### Instructions
 
 ```
-# with pip-tools
-pip-compile -U requirements.in
-pip-compile -U requirements-test.in
+# Install the dependencies
+yarn install
+
+# Run the front-end server (vite)
+yarn dev
 ```
 
-## Docs
+After performing these steps, the application should be available at http://127.0.0.1:8000/ and look like:
 
-[Read the documentation](http://froide.readthedocs.org/en/latest/) including a [Getting Started Guide](http://froide.readthedocs.org/en/latest/gettingstarted/).
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/f2e58505-418e-4747-83f9-96ecb02abd3f)
 
-Froide is supported by the [Open Knowledge Foundation Germany](http://www.okfn.de/) and [Open Knowledge Foundation International](http://okfn.org/).
+# Attribution
 
-## License
+Many thanks to the [Open Knowledge Foundation Germany](https://www.okfn.de/) for their work on [Froide](https://github.com/okfde/froide). Their docs on the project are [available here](http://froide.readthedocs.org/en/latest/) including a [Getting Started Guide](http://froide.readthedocs.org/en/latest/gettingstarted/).
 
-Froide is licensed under the MIT License.
+Thanks to the [Public First Law Center](https://www.publicfirstlaw.org/) for providing guidance and hosting for the UIPA.org project.
