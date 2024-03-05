@@ -2,34 +2,36 @@ version: "3"
 
 services:
   app:
+    image: ssthapa/uipa_backend:0.1
     platform: linux/amd64
-    build: .
-    command: >
-      sh -c "python3.9 /app/manage.py collectstatic --noinput &&
-             python3.9 /app/manage.py migrate &&
-             python3.9 /app/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
+    environment:
+      DATABASE_HOST: "db"
     ports:
       - "8000:8000"
+    networks:
+      uipa: {}
     depends_on:
       - db
       - elasticsearch
   db:
     image: postgis/postgis:14-3.1
     volumes:
-      - ./data/postgres_data:/var/lib/postgresql/data/
+      - ./data/postgres_data:/var/lib/postgresql/data/:Z
     environment:
       POSTGRES_USER: froide
       POSTGRES_DB: froide
       POSTGRES_PASSWORD: froide
     ports:
       - "127.0.0.1:5432:5432"
+    networks:
+      uipa: {}
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
     volumes:
-      - ./data/elasticsearch-data:/usr/share/elasticsearch/data
-      - ./data/elasticsearch-log:/var/log
+      - es-data:/usr/share/elasticsearch/data:Z
+      - es-logs:/var/log:Z
     environment:
       - "discovery.type=single-node"
       - "cluster.routing.allocation.disk.threshold_enabled=false"
@@ -38,3 +40,11 @@ services:
       - "cluster.routing.allocation.disk.watermark.flood_stage=1gb"
     ports:
       - "127.0.0.1:9200:9200"
+    networks:
+      uipa: {}
+volumes:
+  es-data: {}
+  es-logs: {}
+  pg-data: {}
+networks:
+  uipa: {}
