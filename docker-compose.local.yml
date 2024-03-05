@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     environment:
-      DATABASE_HOST: "db"
+      DATABASE_URL: "postgis://froide:froide@db:5432/froide"
     ports:
       - "8000:8000"
     networks:
