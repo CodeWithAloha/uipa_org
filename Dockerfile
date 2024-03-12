@@ -17,7 +17,7 @@ COPY pyproject.toml /srv/django/pyproject.toml
 
 RUN apk update && \
     apk add rust cargo qpdf qpdf-dev poppler poppler-dev g++ gdal geos alpine-sdk \
-            imagemagick imagemagick-dev pango
+            imagemagick imagemagick-dev pango nodejs npm yarn
 
 ENV PYTHONPATH "${PYTHONPATH}:/srv/django"
 WORKDIR /srv/django
