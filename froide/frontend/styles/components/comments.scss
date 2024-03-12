@@ -1,0 +1,9 @@
+.comments-comment {
+  padding-bottom: $spacer * 0.5;
+  margin-bottom: $spacer * 0.5;
+  border-bottom: 1px solid $gray-200;
+  transition: background-color 0.6s linear;
+  &--highlighted {
+    background-color: $yellow-100;
+  }
+}

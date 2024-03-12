@@ -1,0 +1,20 @@
+.help-block {
+  @extend .small;
+  @extend .text-body-secondary;
+}
+
+.field-required {
+  &:after {
+    content: "*";
+    margin-left: 0.25rem;
+    color: darken($red, 20%);
+  }
+}
+
+.no-required-asterisk {
+  .field-required {
+    &:after {
+      content: "";
+    }
+  }
+}

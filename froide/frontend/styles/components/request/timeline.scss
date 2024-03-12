@@ -1,0 +1,65 @@
+.alpha-timeline {
+  position: sticky;
+  top: 0;
+  left: 0;
+  // max-height: 100vh;
+  // height: 100vh;
+  overflow: hidden;
+  // overflow-y: scroll;
+  font-size: $font-size-sm;
+  &__wrap {
+    transition: transform 0.2s ease;
+  }
+  &__item {
+    border-left: 2px solid var(--#{$prefix}border-color);
+    padding-top: $spacer * 0.25;
+    padding-left: $spacer;
+    padding-bottom: $spacer * 1.5;
+    transition: all 0.2s ease;
+    color: var(--#{$prefix}tertiary-color);
+    a {
+      opacity: 0.9;
+      color: var(--#{$prefix}tertiary-color);
+    }
+    &--active {
+      color: var(--#{$prefix}secondary-color);
+      a {
+        opacity: 1;
+        color: var(--#{$prefix}secondary-color);
+      }
+      border-left-color: var(--#{$prefix}tertiary-color);
+    }
+  }
+  &__link:hover {
+    opacity: 1;
+    color: var(--#{$prefix}secondary-color);;
+  }
+  &__month {
+    font-weight: 600;
+  }
+  &__item--overdue &__overdue-time {
+    display: inline-block;
+    color: var(--#{$prefix}danger);
+    border: 1px solid var(--#{$prefix}danger-border-subtle);
+    padding: $spacer * 0.25 $spacer * 0.5;
+    margin-top: $spacer * 0.25;
+  }
+  &__scroll-end-link {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    padding-left: $spacer;
+    margin-left: 2px;
+    padding-top: $spacer * 0.75;
+    padding-bottom: $spacer;
+    color: var(--#{$prefix}secondary-color);
+    background-color: var(--#{$prefix}tertiary-bg);
+    font-weight: 600;
+    box-shadow: 0 -10px 10px $gray-200;
+    transition: all 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+}

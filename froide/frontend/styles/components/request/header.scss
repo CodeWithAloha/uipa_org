@@ -1,0 +1,252 @@
+$header-bg-rgb: var(--#{$prefix}tertiary-bg-rgb);
+$header-bg: var(--#{$prefix}tertiary-bg);
+
+.request-title {
+  margin-bottom: 0;
+  margin-top: $spacer * 1.5;
+  // word-break: break-all;
+  @include media-breakpoint-up(lg) {
+    margin-top: $spacer * 2;
+  }
+}
+
+.request-descr {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: $spacer;
+  margin-bottom: $spacer;
+  border-bottom: 1px solid $gray-300;
+  &--collapsed {
+    max-height: 240px;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  @include media-breakpoint-up(md) {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  @include media-breakpoint-up(lg) {
+    max-width: 40rem;
+  }
+}
+
+.request-descr-read-more {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80px;
+  background-image: linear-gradient(to bottom, rgba($header-bg-rgb, 0), $header-bg);
+}
+
+@mixin hover-focus() {
+  &:hover,
+  &:focus {
+    @content;
+  }
+}
+
+.info-box {
+  $x-spacing-mobile: $spacer;
+  $x-spacing-desktop: $spacer * 1.5;
+  $y-spacing-mobile: $spacer * 0.75;
+  $y-spacing-desktop: $spacer;
+  @include media-breakpoint-up(md) {
+    margin-top: $spacer * 1.5;
+  }
+  &__header {
+    position: relative;
+    padding: $spacer * 1.5 $x-spacing-mobile;
+    @include media-breakpoint-up(lg) {
+      padding: $spacer * 1.5;
+    }
+  }
+  &__title {
+    margin: 0;
+  }
+  // &__subtitle {}
+  &__icon {
+    background-color: var(--#{$prefix}body-bg);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+  }
+  &__body {
+    background-color: var(--#{$prefix}tertiary-bg);
+  }
+  &__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  &__list-item {
+    margin: $y-spacing-mobile $x-spacing-mobile;
+    @include media-breakpoint-up(lg) {
+      margin: $y-spacing-desktop $x-spacing-desktop;
+    }
+    a .fa-question-circle-o {
+      color: var(--#{$prefix}primary-text-emphasis);
+    }
+    p {
+      margin: 0;
+    }
+    &--inset {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: $x-spacing-mobile;
+      padding-right: $x-spacing-mobile;
+      @include media-breakpoint-up(lg) {
+        padding-left: $x-spacing-desktop;
+        padding-right: $x-spacing-desktop;
+      }
+    }
+    &--has-divider {
+      padding-bottom: $y-spacing-mobile;
+      border-bottom: 2px solid $gray-200;
+      @include media-breakpoint-up(lg) {
+        padding-bottom: $y-spacing-desktop;
+      }
+    }
+    &--is-danger {
+      color: var(--#{$prefix}danger-text-emphasis);
+      background-color: var(--#{$prefix}danger-bg-subtle);
+      padding-top: $y-spacing-mobile;
+      padding-bottom: $y-spacing-mobile;
+      @include media-breakpoint-up(lg) {
+        padding-top: $y-spacing-desktop;
+        padding-bottom: $y-spacing-desktop;
+      }
+      a .fa-question-circle-o {
+        color: var(--#{$prefix}danger-text-emphasis);
+      }
+    }
+  }
+  &__list-label {
+    font-weight: 600;
+  }
+  // &__list-value {}
+
+  /*
+    Info-box theme regular
+  */
+  &--regular {
+    border: 2px solid var(--#{$prefix}secondary-bg-subtle);
+    box-shadow: 6px 6px 0px rgba(var(--#{$prefix}secondary-bg-rgb), 0.76);
+  }
+  &--regular &__header {
+    background-color: var(--#{$prefix}secondary-bg-subtle);
+  }
+  &--regular &__title {
+    color: var(--#{$prefix}secondary-text-emphasis);
+  }
+  &--regular &__subtitle {
+    color: var(--#{$prefix}secondary-text-emphasis);
+  }
+
+  /*
+    Info-box theme danger
+  */
+  &--danger {
+    border: 2px solid var(--#{$prefix}danger-bg-subtle);
+    box-shadow: 6px 6px 0px rgba(var(--#{$prefix}danger-bg-subtle-rgb), 0.76);
+  }
+  &--danger &__header {
+    background-color: var(--#{$prefix}danger-bg-subtle);
+  }
+  &--danger &__title {
+    color: var(--#{$prefix}danger-text-emphasis);
+  }
+  &--danger &__subtitle {
+    color: var(--#{$prefix}danger-text-emphasis);
+  }
+
+  /*
+    Info-box thesme success
+  */
+  &--success {
+    border: 2px solid var(--#{$prefix}success-bg-subtle);
+    box-shadow: 6px 6px 0px rgba(var(--#{$prefix}success-bg-subtle-rgb), 0.76);
+  }
+  &--success &__header {
+    background-color: var(--#{$prefix}success-bg-subtle);
+  }
+  &--success &__title {
+    color: var(--#{$prefix}success-text-emphasis);
+  }
+  &--success &__subtitle {
+    color: var(--#{$prefix}success-text-emphasis);
+  }
+}
+
+.alpha-tabs {
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  background-image:
+    /* Shadows */ linear-gradient(to right, $header-bg, $header-bg),
+    linear-gradient(to right, $header-bg, $header-bg),
+    /* Shadow covers */ linear-gradient(to right, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0)),
+    linear-gradient(to left, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0));
+
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  // &__tab {}
+  &__tab-link {
+    display: flex;
+    align-items: center;
+    padding: $spacer * 0.625 $spacer;
+    color: var(--#{$prefix}body-emphasis);
+    font-weight: 600;
+    font-size: $font-size-base;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    @include hover-focus() {
+      text-decoration: none;
+    }
+    &:hover {
+      border-bottom-color: var(--#{$prefix}body-emphasis);
+    }
+    &.active {
+      border-bottom-color: var(--#{$prefix}primary);
+    }
+    @include media-breakpoint-up(sm) {
+      padding: $spacer * 0.625 $spacer;
+      font-size: $font-size-base * 1.125;
+    }
+    @include media-breakpoint-up(lg) {
+      padding: $spacer * 0.625 $spacer * 1.5;
+    }
+  }
+  &__counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: $spacer * 0.25;
+    font-size: 10px;
+    line-height: 1;
+    color: var(--#{$prefix}secondary-color);
+    background-color: var(--#{$prefix}secondary-bg);
+    border-radius: 50%;
+    min-width: 20px;
+    height: 20px;
+    &--highlight {
+      color: var(--#{$prefix}warning-color);
+      background-color: var(--#{$prefix}warning-color);
+    }
+  }
+}

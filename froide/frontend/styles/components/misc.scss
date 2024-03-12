@@ -1,0 +1,164 @@
+@import '../variables.scss';
+
+.target-primary:target {
+  @extend .border-success;
+}
+
+.highlight {
+  background: $highlight;
+  color: $highlight-color;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.hidden-text {
+  display: none;
+}
+
+.d-none-important {
+  display: none !important;
+}
+
+.text-unlink {
+  cursor: default;
+  color: var(--#{$prefix}body-color);
+  &:hover {
+    text-decoration: none;
+    color: var(--#{$prefix}body-color);
+  }
+}
+
+input.copy-text {
+  cursor: pointer;
+  background-color: var(--#{$prefix}body-bg);
+}
+
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+/* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
+.aspect-ratio iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.aspect-ratio-16x9 {
+  padding-bottom: 56.25%;
+}
+
+.aspect-ratio-4x3 {
+  padding-bottom: 75%;
+}
+
+.is-new {
+  animation-name: is-new-flash;
+  animation-duration: 1500ms;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes is-new-flash {
+  0% {
+    background-color: $highlight;
+    opacity: 1;
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
+.search-highlight {
+  font-size: 0.8em;
+  em {
+    @extend .highlight;
+  }
+}
+
+/* images */
+.hero-illustration,
+.img-sm,
+.img-lg,
+.img-xl {
+  width: var(--image-size);
+  max-width: 100%;
+  height: auto;
+  max-height: var(--image-size);
+  object-fit: contain;
+
+  &.img-vertical {
+    width: auto;
+    height: var(--image-size);
+  }
+}
+
+.img-sm {
+  --image-size: 5rem;
+  max-height: 5rem;
+}
+
+.img-lg,
+.hero-illustration {
+  --image-size: 12rem;
+
+  @include media-breakpoint-up(lg) {
+    --image-size: 16rem;
+  }
+}
+
+.img-xl {
+  --image-size: 12rem;
+
+  @include media-breakpoint-up(md) {
+    --image-size: 24rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    --image-size: 36rem;
+  }
+}
+
+.partner-logos img,
+.partner-logo {
+  display: block;
+  width: 100%;
+  height: 5rem;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+}
+
+.error-redacted-bar {
+  height: 1.25em;
+}
+
+.error-page-description {
+  position: relative;
+
+  span {
+    background-color: var(--#{$prefix}body-bg);
+    padding-bottom: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--redacted);
+    height: 1.25em;
+    z-index: -1;
+  }
+}
+
+.skippy {
+  z-index: 1070;
+}

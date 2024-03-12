@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with name=foirequest.user.get_full_name title=foirequest.title status_action_url=status_action_url action_url=action_url %}Hello {{ name }},
+
+Your request "{{ title }}" has received a reply, but it is unclear if the request is now finished.
+
+Please use the following link to set if the request is still ongoing or finished:
+{{ status_action_url }}
+
+
+Cheers,
+{{ site_name }}{% endblocktrans %}
+{% endautoescape %}
+{% include "emails/footer.txt" %}

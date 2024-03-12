@@ -1,0 +1,11 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with name=foiproject.user.get_full_name title=foiproject.title url=action_url %}Hello {{ name }},
+
+your project "{{ title }}" has been created and we are sending the requests to the public bodies now. We will notify you when you get responses.
+
+{{ action_url }}
+
+Cheers,
+{{ site_name }}
+{% endblocktrans %}
+{% endautoescape %}
+{% include "emails/footer.txt" %}

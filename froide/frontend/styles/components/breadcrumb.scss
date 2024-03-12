@@ -1,0 +1,52 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: $spacer * 0.5 0;
+  background-color: inherit;
+  overflow: auto;
+  margin: 0;
+  gap: $spacer * 0.5;
+  scroll-snap-type: x;
+
+  &-item {
+    float: none;
+    white-space: nowrap;
+    scroll-snap-align: end;
+
+    & + .breadcrumb-item::before {
+      float: none;
+      color: inherit;
+    }
+
+    &,
+    > * {
+      color: inherit;
+      font-size: $font-size-sm;
+      white-space: nowrap;
+      opacity: 0.9;
+
+      @include media-breakpoint-up(lg) {
+        font-size: $font-size-sm;
+      }
+    }
+
+    &:last-child {
+      &,
+      > * {
+        color: inherit;
+        opacity: 1;
+      }
+    }
+  }
+
+  &-item + &-item {
+    padding-left: 0;
+  }
+}
+
+.breadcrumb-overlay {
+  margin-bottom: -2.3rem;
+  z-index: 40;
+  --#{$prefix}bg-opacity: 0.9;
+}

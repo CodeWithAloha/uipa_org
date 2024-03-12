@@ -1,0 +1,28 @@
+.alpha-attachment {
+  display: flex;
+  flex: 0 0 100%;
+  width: 100%;
+  padding: $spacer * 0.5;
+  margin-right: $spacer * 0.5;
+  margin-bottom: $spacer * 0.5;
+  background-color: var(--#{$prefix}tertiary-bg);
+  border-radius: $border-radius;
+  @include media-breakpoint-up(md) {
+    $width: calc(50% - #{$spacer * 0.5});
+    flex: 0 0 $width;
+    max-width: $width;
+  }
+  &__file-icon {
+    font-size: 2.25rem;
+    width: 3.375rem;
+    height: 3.688rem;
+    &--gray {
+      color: $gray-400;
+      background-color: var(--#{$prefix}secondary-bg-subtle);
+    }
+    &--blue {
+      color: $blue-400;
+      background-color: var(--#{$prefix}primary-bg-subtle);
+    }
+  }
+}

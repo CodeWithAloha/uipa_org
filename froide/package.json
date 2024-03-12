@@ -1,0 +1,87 @@
+{
+  "name": "froide",
+  "version": "1.0.0",
+  "description": "Froide",
+  "main": "frontend/javascript/main.js",
+  "files": [
+    "frontend/",
+    ".eslintrc.js"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint frontend --ext .js,.ts,.vue",
+    "serve": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "favicon": "real-favicon generate froide/static/img/logo/favicon.json favicon-result.json froide/static/img/logo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okfde/froide.git"
+  },
+  "author": "Stefan Wehrmeyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/okfde/froide/issues"
+  },
+  "homepage": "https://github.com/okfde/froide#readme",
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.1",
+    "@types/glidejs__glide": "^3.4.2",
+    "@types/lodash.throttle": "^4.1.6",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-typescript": "^11.0.3",
+    "autoprefixer": "^10.4.13",
+    "cli-real-favicon": "0.0.8",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "postcss": "^8.4.20",
+    "prettier": "^2.4.0",
+    "prettier-config-standard": "^5.0.0",
+    "sass": "^1.58.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.1.2",
+    "vite-plugin-dev-manifest": "^1.0.9",
+    "vue-eslint-parser": "^9.3.1"
+  },
+  "dependencies": {
+    "@okfde/filingcabinet": "^0.0.4",
+    "@popperjs/core": "^2.11.5",
+    "@uppy/core": "^3.0.4",
+    "@uppy/dashboard": "^3.2.0",
+    "@uppy/tus": "^3.0.5",
+    "bootstrap": "^5.3.2",
+    "choices.js": "^10.1.0",
+    "driver.js": "^0.9.8",
+    "exifreader": "^4.12.1",
+    "font-awesome": "^4.7.0",
+    "leaflet": "^1.5.1",
+    "leaflet.icon.glyph": "^0.3.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.range": "^3.2.0",
+    "lodash.sortby": "^4.7.0",
+    "pdfjs-dist": "==2.9.359",
+    "string.prototype.repeat": "^1.0.0",
+    "vue": "^3.2.38",
+    "vuedraggable": "^2.23.2",
+    "vuex": "^4.1.0"
+  },
+  "exifreader": {
+    "include": {
+      "exif": [
+        "Orientation"
+      ]
+    }
+  }
+}
