@@ -25,13 +25,13 @@ def find_version(*file_paths):
 
 
 setup(
-    name="uipa_org",
+    name="uipa",
     version=find_version("uipa_org", "__init__.py"),
-    url='https://github.com/CodeforHawaii/uipa_org',
+    url='https://github.com/CodeWithAloha/uipa',
     license='MIT',
     description="Template theme for uipa.org install",
     long_description=read('README.md'),
-    author='Code for Hawaii',
+    author='Code With Aloha',
     author_email='tech@codeforhawaii.org',
     packages=find_packages(),
     install_requires=['froide'],

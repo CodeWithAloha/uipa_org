@@ -23,7 +23,87 @@ Getting information from the government is our right under the Freedom of Inform
 
 # Getting Started
 
-Coming soon...
+There are three main things that people have to stand up in order to start developing UIPA. These things are:
+
+1. The Databases (Elasticsearch & PostgreSQL)
+2. The Backend (Django server)
+3. The Frontend (Vite)
+
+At the end of setting up your development environment, you should have three terminal windows running each of these separately. Do not run these one after the other, as they all need to be running at the same time.
+
+## The Databases
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/engine/install/) (for the databases)
+
+### Instructions
+
+The databases can be stood up together with one command using the provided [`docker-compose.yml`](https://github.com/CodeWithAloha/uipa/blob/08ce6d39bd9434f739117c801a7b8d442322455e/docker-compose.yml)
+
+After running `docker-compose up` successfully, the output in your terminal should look something like:
+
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/d5cc6b6a-afbb-4b6b-bc98-35461d7523a5)
+
+## The Backend
+
+### Prerequisites
+
+- [Python 3.8+](https://github.com/CodeWithAloha/uipa/blob/08ce6d39bd9434f739117c801a7b8d442322455e/setup.cfg#L35-L36) (for the backend server)
+
+### Instructions
+
+To run the Django server, you will need to run the following commands:
+
+> Note: If you have already ran the following commands, you can skip them and just run a `python manage.py runserver` to start the server.
+
+```
+# Install the needed Python packages
+pip install -r requirements.txt 
+
+# To initialise the database:
+python manage.py migrate --skip-checks
+
+# Create a superuser
+python manage.py createsuperuser
+
+# Create and populate search index
+python manage.py search_index --create
+python manage.py search_index --populate
+
+# Run the Django development server
+python manage.py runserver
+```
+
+After running these, you should see something like this in your terminal:
+
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/98b0c91e-c540-4309-95f9-313e1d4234ad)
+
+## The Frontend
+
+### Prerequisites
+
+- [NodeJS & npm](https://nodejs.org/en/download) (for the frontend)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install)
+
+### Instructions
+
+To run the Vite server, you will need to run the following commands:
+
+```
+# Install the dependencies
+yarn install
+
+# Build the front-end
+yarn build
+
+# Run the front-end server (vite)
+yarn run serve
+```
+
+After performing these steps, the application should be available at http://127.0.0.1:8000/ and look like:
+
+![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/f2e58505-418e-4747-83f9-96ecb02abd3f)
 
 # Attribution
 
