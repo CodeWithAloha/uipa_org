@@ -32,7 +32,7 @@ setup(
     description="Template theme for uipa.org install",
     long_description=read('README.md'),
     author='Code With Aloha',
-    author_email='tech@codeforhawaii.org',
+    author_email='codewithaloha@gmail.com',
     packages=find_packages(),
     install_requires=['froide'],
     include_package_data=True,

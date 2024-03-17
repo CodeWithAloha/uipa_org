@@ -18,7 +18,7 @@ django-tinymce==3.6.1
 python-docx==0.8.11
 elasticsearch==8.11.1
 
--e git://github.com/codeforhawaii/froide.git@main#egg=froide
+-e git://github.com/codewithaloha/froide.git@main#egg=froide
 
 lxml==4.9.2
 channels==4.0.0
