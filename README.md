@@ -49,7 +49,9 @@ After running `docker-compose up` successfully, the output in your terminal shou
 
 ### Prerequisites
 
-- [Python 3.8+](https://github.com/CodeWithAloha/uipa/blob/08ce6d39bd9434f739117c801a7b8d442322455e/setup.cfg#L35-L36) (for the backend server)
+- [Python 3.10](https://github.com/okfde/fragdenstaat_de/blob/21faa6893a582a02f2a96f4ccce96fddab13bec6/requirements.txt#L2) (for the backend server)
+
+> Note: You can use [pyenv](https://github.com/pyenv/pyenv) to manage your Python versions.
 
 ### Instructions
 
