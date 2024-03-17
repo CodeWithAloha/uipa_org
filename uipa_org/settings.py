@@ -4,66 +4,95 @@ from __future__ import absolute_import
 from celery.schedules import crontab
 from configurations import values
 from froide.settings import Base
-from froide.settings import ThemeBase
 from froide.settings import os_env
 import os
 import re
-
+from pathlib import Path
 
 rec = lambda x: re.compile(x, re.I | re.U)
 
+THEME_ROOT = Path(__file__).resolve().parent.parent
 
-class UipaOrgThemeBase(ThemeBase):
+print('THEME_ROOT:', THEME_ROOT)
+
+class UipaOrgThemeBase(Base):
     FROIDE_THEME = 'uipa_org.theme'
 
     SITE_NAME = "UIPA.org"
     SITE_EMAIL = "info@example.com"
     SITE_URL = 'http://localhost:8000'
 
-    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-    STATIC_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "public"))
+    # PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+    # STATIC_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, "..", "public"))
 
     FIXTURE_DIRS = ('fixtures',)
 
-    MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+    # MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-    SECRET_KEY = os_env('SECRET_KEY')
+    # SECRET_KEY = os_env('SECRET_KEY')
 
-    MEDIA_ROOT = os_env('MEDIA_ROOT')
+    # MEDIA_ROOT = os_env('MEDIA_ROOT')
 
-    DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB
+    # DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25MB
 
-    TAGGING_AUTOCOMPLETE_MAX_TAGS = 100
+    # TAGGING_AUTOCOMPLETE_MAX_TAGS = 100
+    
+    FRONTEND_BUILD_DIR = THEME_ROOT / "build"
+    STATIC_ROOT = values.Value(THEME_ROOT.parent / "public")
+    # STATICFILES_DIRS = [FRONTEND_BUILD_DIR]
+    # @property
+    # def STATICFILES_DIRS(self):
+    #     return [THEME_ROOT / "uipa_org/theme/static"] + super().STATICFILES_DIRS
 
     @property
     def INSTALLED_APPS(self):
         installed = super(UipaOrgThemeBase, self).INSTALLED_APPS
-        installed += [
-            'celery_haystack',
-            'djcelery_email',
-            'django.contrib.redirects',
-            'uipa_org.uipa_constants',
-            'uipa_org.theme.templatetags.uipa_extras',
-            'tinymce',
-            'raven.contrib.django.raven_compat'
-        ]
+        # installed += [
+        #     'celery_haystack',
+        #     'djcelery_email',
+        #     'django.contrib.redirects',
+        #     'uipa_org.uipa_constants',
+        #     'uipa_org.theme.templatetags.uipa_extras',
+        #     'tinymce',
+        #     'raven.contrib.django.raven_compat'
+        # ]
+        installed = (
+            # ["uipa_org.theme"] +
+            installed.default + 
+            [
+                # "uipa_org.theme.doc_utilities",
+                "django.contrib.postgres",
+                "django.db.backends.postgresql",
+            #     'celery_haystack',
+                # 'djcelery_email',
+                # 'django.contrib.redirects',
+                'uipa_org.uipa_constants',
+                'uipa_org.theme.templatetags.uipa_extras',
+                # 'tinymce',
+            #     'raven.contrib.django.raven_compat'
+            ]
+        )
         return installed
+        
+    # @property
+    # def STATICFILES_DIRS(self):
+    #     return [THEME_ROOT / "static"] + super().STATICFILES_DIRS
 
-    MIDDLEWARE_CLASSES = [
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-        'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-        'froide.account.middleware.AcceptNewTermsMiddleware',
-    ]
+    # MIDDLEWARE_CLASSES = [
+    #     'django.contrib.sessions.middleware.SessionMiddleware',
+    #     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #     'django.contrib.messages.middleware.MessageMiddleware',
+    #     'django.middleware.common.CommonMiddleware',
+    #     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    #     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    #     'froide.account.middleware.AcceptNewTermsMiddleware',
+    # ]
 
-    TINYMCE_DEFAULT_CONFIG = {
-        'plugins': "table,spellchecker,paste,searchreplace",
-        'theme': "advanced",
-        'cleanup_on_startup': False
-    }
+    # TINYMCE_DEFAULT_CONFIG = {
+    #     'plugins': "table,spellchecker,paste,searchreplace",
+    #     'theme': "advanced",
+    #     'cleanup_on_startup': False
+    # }
 
     SECRET_URLS = values.DictValue({
         "admin": "uipa-admin",
@@ -71,56 +100,56 @@ class UipaOrgThemeBase(ThemeBase):
         "postmark_bounce": "uipa_postmark_bounce"
     })
 
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-            'URL': 'http://127.0.0.1:9200/',
-            'INDEX_NAME': 'haystack',
-        }
-    }
+    # HAYSTACK_CONNECTIONS = {
+    #     'default': {
+    #         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+    #         'URL': 'http://127.0.0.1:9200/',
+    #         'INDEX_NAME': 'haystack',
+    #     }
+    # }
 
     TIME_ZONE = values.Value('Pacific/Honolulu')
 
-    CELERY_IMPORTS = ('uipa_org.tasks',)
-    CELERY_TIMEZONE = values.Value('Pacific/Honolulu')
+    # CELERY_IMPORTS = ('uipa_org.tasks',)
+    # CELERY_TIMEZONE = values.Value('Pacific/Honolulu')
 
-    CELERYBEAT_SCHEDULE = {
-        'fetch-mail': {
-            'task': 'froide.foirequest.tasks.fetch_mail',
-            'schedule': crontab(),
-        },
-        'detect-asleep': {
-            'task': 'froide.foirequest.tasks.detect_asleep',
-            'schedule': crontab(hour=0, minute=0),
-        },
-        'detect-overdue': {
-            'task': 'froide.foirequest.tasks.detect_overdue',
-            'schedule': crontab(hour=0, minute=0),
-        },
-        'update-foirequestfollowers': {
-            'task': 'froide.foirequestfollower.tasks.batch_update',
-            'schedule': crontab(hour=0, minute=0),
-        },
-        'classification-reminder': {
-            'task': 'froide.foirequest.tasks.classification_reminder',
-            'schedule': crontab(hour=7, minute=0, day_of_week=6),
-        },
-        'uipa-private_public_reminder': {
-            'task': 'uipa_org.tasks.private_public_reminder',
-            'schedule': crontab(hour=0, minute=0),
-        },
-        'uipa-make_public_private': {
-            'task': 'uipa_org.tasks.make_private_public',
-            'schedule': crontab(hour=0, minute=0),
-        },
-        'uipa-deferred_message_notification': {
-            'task': 'uipa_org.tasks.deferred_message_notification',
-            'schedule': crontab(hour=6, minute=0),
-        },
-    }
+    # CELERYBEAT_SCHEDULE = {
+    #     'fetch-mail': {
+    #         'task': 'froide.foirequest.tasks.fetch_mail',
+    #         'schedule': crontab(),
+    #     },
+    #     'detect-asleep': {
+    #         'task': 'froide.foirequest.tasks.detect_asleep',
+    #         'schedule': crontab(hour=0, minute=0),
+    #     },
+    #     'detect-overdue': {
+    #         'task': 'froide.foirequest.tasks.detect_overdue',
+    #         'schedule': crontab(hour=0, minute=0),
+    #     },
+    #     'update-foirequestfollowers': {
+    #         'task': 'froide.foirequestfollower.tasks.batch_update',
+    #         'schedule': crontab(hour=0, minute=0),
+    #     },
+    #     'classification-reminder': {
+    #         'task': 'froide.foirequest.tasks.classification_reminder',
+    #         'schedule': crontab(hour=7, minute=0, day_of_week=6),
+    #     },
+    #     'uipa-private_public_reminder': {
+    #         'task': 'uipa_org.tasks.private_public_reminder',
+    #         'schedule': crontab(hour=0, minute=0),
+    #     },
+    #     'uipa-make_public_private': {
+    #         'task': 'uipa_org.tasks.make_private_public',
+    #         'schedule': crontab(hour=0, minute=0),
+    #     },
+    #     'uipa-deferred_message_notification': {
+    #         'task': 'uipa_org.tasks.deferred_message_notification',
+    #         'schedule': crontab(hour=6, minute=0),
+    #     },
+    # }
 
-    CELERY_RESULT_BACKEND = 'rpc'
-    CELERY_RESULT_PERSISTENT = True
+    # CELERY_RESULT_BACKEND = 'rpc'
+    # CELERY_RESULT_PERSISTENT = True
 
     @property
     def FROIDE_CONFIG(self):

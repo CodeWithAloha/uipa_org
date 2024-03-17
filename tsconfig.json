@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "target": "ESNext",
+      "sourceMap": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitAny": true,
+      "downlevelIteration": true
+    },
+    "include": [
+      "./frontend/javascript/**/*",
+      ".eslintrc.js",
+      "vite.config.js"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
