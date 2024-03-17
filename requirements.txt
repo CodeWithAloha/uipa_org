@@ -1,39 +1,26 @@
 django==4.2.4
 Markdown==3.4.3
 celery==5.2.7
-# celery-haystack==0.10
-# django-haystack==2.5.0
 django-celery-email==3.0.0
 django-taggit==4.0.0
 pytz==2023.3
 requests==2.31.0
 django-floppyforms==1.9.0
-# -e git://github.com/stephenmcd/django-overextends.git@master#egg=django-overextends
 python-magic==0.4.27
-# django-tastypie==0.13.3
 python-mimeparse==1.6.0
 django-configurations==2.4.1
 django-storages==1.13.2
 dj-database-url==2.0.0
-# django-cache-url==1.2.0
 django-compressor==2.1
 django-contrib-comments==2.2.0
 unicodecsv==0.14.1
-# honcho==0.6.6
 django-tinymce==3.6.1
-# anyjson==0.3.3
-# pysolr==3.5.0
 python-docx==0.8.11
 elasticsearch==8.11.1
 
 -e git://github.com/codeforhawaii/froide.git@main#egg=froide
 
-# -e git://github.com/stefanw/django-compressor.git@patch-1#egg=compressor
-# psycopg2==2.7.1
 lxml==4.9.2
-# raven==5.32.0
-# boto3==1.4.1 - Can't use this until we create our own storage and not use froide custom storage
-# boto==2.43.0
 channels==4.0.0
 django-treebeard==4.4
 django-leaflet==0.29.0
