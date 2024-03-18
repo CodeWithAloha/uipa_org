@@ -63,8 +63,8 @@ To run the Django server, you will need to run the following commands:
 # Install the needed Python packages
 pip install -r requirements.txt 
 
-# To initialise the database:
-python manage.py migrate --skip-checks
+# To initialise the database
+python manage.py migrate
 
 # Create a superuser
 python manage.py createsuperuser

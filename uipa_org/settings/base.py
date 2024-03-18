@@ -30,7 +30,7 @@ class UipaOrgThemeBase(Base):
 
     @property
     def STATICFILES_DIRS(self):
-        return [THEME_ROOT / "uipa_org/theme/static"] + super().STATICFILES_DIRS
+        return [THEME_ROOT / "theme/static"] + super().STATICFILES_DIRS
 
     @property
     def INSTALLED_APPS(self):
