@@ -1,0 +1,200 @@
+[
+{
+    "model": "publicbody.classification",
+    "pk": 1,
+    "fields": {
+        "path": "0001",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Accounting & General Services",
+        "slug": "department-of-accounting-general-services"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 2,
+    "fields": {
+        "path": "0002",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Agriculture",
+        "slug": "department-of-agriculture"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 3,
+    "fields": {
+        "path": "0003",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Budget & Finance",
+        "slug": "department-of-budget-finance"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 4,
+    "fields": {
+        "path": "0004",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Budget & Fiscal Services",
+        "slug": "department-of-budget-fiscal-services"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 5,
+    "fields": {
+        "path": "0005",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Business, Economic Development & Tourism",
+        "slug": "department-of-business-economic-development-tourism"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 6,
+    "fields": {
+        "path": "0006",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Commerce & Consumer Affairs",
+        "slug": "department-of-commerce-consumer-affairs"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 7,
+    "fields": {
+        "path": "0007",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Corporation Counsel",
+        "slug": "department-of-corporation-counsel"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 8,
+    "fields": {
+        "path": "0008",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Education",
+        "slug": "department-of-education"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 9,
+    "fields": {
+        "path": "0009",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Health",
+        "slug": "department-of-health"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 10,
+    "fields": {
+        "path": "000A",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Human Services",
+        "slug": "department-of-human-services"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 11,
+    "fields": {
+        "path": "000B",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Labor & Industrial Relations",
+        "slug": "department-of-labor-industrial-relations"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 12,
+    "fields": {
+        "path": "000C",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Public Safety",
+        "slug": "department-of-public-safety"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 13,
+    "fields": {
+        "path": "000D",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of Taxation",
+        "slug": "department-of-taxation"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 14,
+    "fields": {
+        "path": "000E",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Department of the Corporation Counsel",
+        "slug": "department-of-the-corporation-counsel"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 15,
+    "fields": {
+        "path": "000F",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Office of the Corporation Counsel",
+        "slug": "office-of-the-corporation-counsel"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 16,
+    "fields": {
+        "path": "000G",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Office of the Governor",
+        "slug": "office-of-the-governor"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 17,
+    "fields": {
+        "path": "000H",
+        "depth": 1,
+        "numchild": 0,
+        "name": "Office of the Mayor",
+        "slug": "office-of-the-mayor"
+    }
+},
+{
+    "model": "publicbody.classification",
+    "pk": 18,
+    "fields": {
+        "path": "000I",
+        "depth": 1,
+        "numchild": 0,
+        "name": "University of Hawaii",
+        "slug": "university-of-hawaii"
+    }
+}
+]

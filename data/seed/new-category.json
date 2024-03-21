@@ -1,0 +1,110 @@
+[
+{
+    "model": "publicbody.category",
+    "pk": 1,
+    "fields": {
+        "name": "elder affairs",
+        "slug": "elder-affairs",
+        "path": "0007",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 2,
+    "fields": {
+        "name": "aging",
+        "slug": "aging",
+        "path": "0001",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 3,
+    "fields": {
+        "name": "agriculture",
+        "slug": "agriculture",
+        "path": "0002",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 4,
+    "fields": {
+        "name": "development",
+        "slug": "development",
+        "path": "0006",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 5,
+    "fields": {
+        "name": "land",
+        "slug": "land",
+        "path": "0008",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 6,
+    "fields": {
+        "name": "water",
+        "slug": "water",
+        "path": "0009",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 7,
+    "fields": {
+        "name": "capital improvements",
+        "slug": "capital-improvements",
+        "path": "0004",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 8,
+    "fields": {
+        "name": "CIP",
+        "slug": "cip",
+        "path": "0005",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+},
+{
+    "model": "publicbody.category",
+    "pk": 9,
+    "fields": {
+        "name": "budget",
+        "slug": "budget",
+        "path": "0003",
+        "depth": 1,
+        "numchild": 0,
+        "is_topic": false
+    }
+}
+]
