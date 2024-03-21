@@ -2,7 +2,6 @@
 # clear_db.sh - Clear out all of the data from the database including migrations info
 #               and search index. Use this to "reset" the database so the
 #               initial migrations can be run.
-#             - 03/07/2024, russtoku@gmail.com
 #
 # Ref: https://docs.djangoproject.com/en/4.2/ref/django-admin/#flush
 #

@@ -1,7 +1,6 @@
 #!/bin/bash
 # init_db.sh - Initialize the database to the point before uploading public
 #              body data.
-#            - 03/21/2024, russtoku@gmail.com
 #
 
 echo "Running initial migration..."
