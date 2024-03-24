@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load static from staticfiles %}
+{% load static %}
 {% load markup %}
 {% load searchtags %}
 {% load floppyforms %}
@@ -252,9 +252,6 @@
                 </h4>
                 <ul>
                   <li>
-                    Do not delete the <a href="{% url "help-faq" %}#10.5">ALL CAPS text</a>!
-                  </li>
-                  <li>
                     {% blocktrans %}Write your request in <strong>simple, precise language</strong>.{% endblocktrans %}
                   </li>
                   <li>
@@ -264,20 +261,9 @@
                     {% blocktrans %}Keep it <strong>focused and concise</strong>.{% endblocktrans %}
                   </li>
                   <li>
-                      This site is <strong>public</strong>.  Everything you type and any response will be <a href="{% url "help-faq" %}#7">published</a>.
-                  </li>
-                  <li>
                     {% blocktrans %}Do <strong>not include</strong> personal information (yours or anyone else's) in your request.{% endblocktrans %}
                   </li>
                   <li>
-                      Do <strong>not ask</strong> for <a href="{% url "help-faq" %}#11">personal information</a> (yours or anyone else's).
-                  </li>
-                  <li>
-                      Avoid asking for <a href="{% url "help-faq" %}#12">more than you need</a>.
-                  </li>
-                  <li>
-                      If appropriate, include a request for <a href="{% url "help-faq" %}#26">public interest waiver</a>.
-                  </li>
                 </ul>
               </div>
             </div>

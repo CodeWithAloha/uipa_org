@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load static from staticfiles %}
+{% load static %}
 <script type="text/javascript">
   var Froide = Froide || {};
   Froide.url = Froide.url || {};
@@ -60,7 +60,7 @@ Froide.template.publicBodyListingInfo = '<li class="search-result">' +
       </h3>
     </div>
     <div class="panel-body">
-      {% url "help-about" as help_about_url %}
+      {% url "help-faq" as help_about_url %}
       {% blocktrans with url=help_about_url %}Are we missing a public agency? <a href="{{ url }}">Please let us know!</a>{% endblocktrans %}
     </div>
   </div>

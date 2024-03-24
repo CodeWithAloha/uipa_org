@@ -20,6 +20,7 @@ THEME_ROOT = Path(__file__).resolve().parent.parent
 
 class UipaOrgThemeBase(Base):
     FROIDE_THEME = 'uipa_org.theme'
+    ROOT_URLCONF = "uipa_org.theme.urls"
 
     SITE_NAME = "UIPA.org"
     SITE_EMAIL = "info@uipa.org"
@@ -27,10 +28,29 @@ class UipaOrgThemeBase(Base):
     
     FRONTEND_BUILD_DIR = THEME_ROOT.parent / "build"
     STATIC_ROOT = values.Value(THEME_ROOT.parent / "public")
+    
+    FIXTURE_DIRS = ('fixtures',)
 
     @property
     def STATICFILES_DIRS(self):
         return [THEME_ROOT / "theme/static"] + super().STATICFILES_DIRS
+    
+    @property
+    def TEMPLATES(self):
+        TEMP = super().TEMPLATES
+        if "DIRS" not in TEMP[0]:
+            TEMP[0]["DIRS"] = []
+        TEMP[0]["DIRS"] = [
+            THEME_ROOT / "templates",
+        ] + list(TEMP[0]["DIRS"])
+        cps = TEMP[0]["OPTIONS"]["context_processors"]
+        cps.extend(
+            [
+                # "sekizai.context_processors.sekizai",
+                # "cms.context_processors.cms_settings",
+            ]
+        )
+        return TEMP
 
     @property
     def INSTALLED_APPS(self):
@@ -40,11 +60,19 @@ class UipaOrgThemeBase(Base):
             [
                 "django.contrib.postgres",
                 "django.db.backends.postgresql",
+                "django.contrib.redirects",
                 'uipa_org.uipa_constants',
                 'uipa_org.theme.templatetags.uipa_extras',
             ]
         )
         return installed
+    
+    MIDDLEWARE = [
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    ]
 
     # https://froide.readthedocs.io/en/latest/configuration/
     # https://github.com/okfde/froide/blob/d9baeae8fc399d524d931dc96d56ca31d5abc094/froide/settings.py#L516

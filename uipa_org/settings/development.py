@@ -7,3 +7,9 @@ class Dev(UipaOrgThemeBase):
     DEBUG = True
 
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
+    
+    @property
+    def TEMPLATES(self):
+        TEMP = super().TEMPLATES
+        TEMP[0]["OPTIONS"]["debug"] = True
+        return TEMP
