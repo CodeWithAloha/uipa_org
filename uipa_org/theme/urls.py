@@ -38,10 +38,7 @@ sitemap_urlpatterns = [
     ),
 ]
 
-urlpatterns = [
-    # re_path(r'^%s/%s/$' % (help_url_part, faq_url_part), flatpage,
-    #    {'url': '/%s/%s/' % (help_url_part, faq_url_part)}, name='help-faq'),
-]
+urlpatterns = []
 
 for subpage in subpages:
     page = '/%s/%s/' % (help_url_part, subpage)
