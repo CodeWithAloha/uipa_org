@@ -3,8 +3,6 @@
 {% load i18n %}
 {% load static %}
 
-{% block language_select %}{% endblock language_select %}
-
 {% block footer_credits %}
 <div class="row">
   <div class="col-lg-12">
@@ -47,17 +45,26 @@
 </div>
 {% endblock footer_credits %}
 
-{% block footer_container %}
+{% block footer_menu %}
 <li>
-  <a href="{% url 'help-faq' %}">{% trans "About" %}</a>
+  <a href="{% url 'help-about' %}">{% trans "About" %}</a>
 </li>
 <li>
   <a href="{% url 'help-faq' %}">{% trans "FAQ" %}</a>
 </li>
 <li>
-  <a href="{% url 'help-faq' %}">{% trans "Terms of Use" %}</a>
+  <a href="{% url 'help-terms' %}">{% trans "Terms of Use" %}</a>
 </li>
 <li>
-  <a href="{% url 'help-faq' %}">{% trans "Privacy Statement" %}</a>
+  <a href="{% url 'help-privacy' %}">{% trans "Privacy Statement" %}</a>
 </li>
+{% endblock %}
+
+{% block footer_logo %}
+<a href="https://uipa.org">
+  <img class="img-fluid"
+       loading="lazy"
+       src="{% static 'img/uipa.png' %}"
+       alt="UIPA.org" />
+</a>
 {% endblock %}

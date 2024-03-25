@@ -49,8 +49,6 @@ for subpage in subpages:
         re_path(r'^%s/%s/$' % (help_url_part, subpage), flatpage, {'url': page}, name='%s-%s' % (help_url_part, subpage))
     )
     
-print('urlpatterns:', urlpatterns)
-
 urlpatterns += api_urlpatterns
 urlpatterns += sitemap_urlpatterns
 

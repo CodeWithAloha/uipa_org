@@ -34,7 +34,10 @@ setup(
     author='Code With Aloha',
     author_email='codewithaloha@gmail.com',
     packages=find_packages(),
-    install_requires=['froide'],
+    install_requires=[
+        'froide',
+        "django-floppyforms",
+    ],
     include_package_data=True,
     classifiers=[
         'Development Status :: 3 - Alpha',

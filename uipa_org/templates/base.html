@@ -5,13 +5,12 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static "css/uipa-style.css" %}"/>
-    <!-- <script src="{% static "js/cheet.min.js" %}"></script>
-    <script type="text/javascript">
-        cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
-            $('#easter-egg-modal').modal('show');
-        });
-    </script> -->
 {% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
+
 
 {% block nav %}
         <ul class="nav navbar-nav">
@@ -32,5 +31,3 @@
           </li>
         </ul>
 {% endblock %}
-
-{% block language_select %}{% endblock language_select %}

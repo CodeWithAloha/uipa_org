@@ -11,7 +11,6 @@ python-mimeparse==1.6.0
 django-configurations==2.4.1
 django-storages==1.13.2
 dj-database-url==2.0.0
-django-compressor==2.1
 django-contrib-comments==2.2.0
 unicodecsv==0.14.1
 django-tinymce==3.6.1

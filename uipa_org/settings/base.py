@@ -61,6 +61,7 @@ class UipaOrgThemeBase(Base):
                 "django.contrib.postgres",
                 "django.db.backends.postgresql",
                 "django.contrib.redirects",
+                'floppyforms',
                 'uipa_org.uipa_constants',
                 'uipa_org.theme.templatetags.uipa_extras',
             ]
@@ -68,6 +69,8 @@ class UipaOrgThemeBase(Base):
         return installed
     
     MIDDLEWARE = [
+        "django.middleware.locale.LocaleMiddleware",  # needs to be before CommonMiddleware
+        "django.middleware.common.CommonMiddleware",
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
