@@ -1,5 +1,6 @@
-# tags_to_cats.py - Generate JSON file with the individual tag values in
-#                   separate records to be loaded as a fixture.
+# gen_categories_fixture.py - Generate a JSON file with the individual category
+#                             values in separate records to be loaded as a
+#                             fixture.
 #
 
 import json
