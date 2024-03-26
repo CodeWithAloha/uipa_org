@@ -21,11 +21,14 @@ RUN apk update && \
 
 ENV PYTHONPATH "${PYTHONPATH}:/srv/django"
 WORKDIR /srv/django
-
+COPY ./froide /srv/django
+RUN cd froide && yarn link && yarn link froide && yarn install
 RUN /root/.local/bin/poetry install
 
-COPY ./froide /srv/django
 
+COPY local_settings.py /srv/django/froide/local_settings.py
+COPY settings.py /srv/django/froide/settings.py
 COPY run-backend.sh /srv/django
+
 ENTRYPOINT  /srv/django/run-backend.sh
 
