@@ -1,4 +1,5 @@
 from .settings import Base
+from configurations import values
 
 
 class Dev(Base):
@@ -37,12 +38,11 @@ class Dev(Base):
     # }
 
 
-    # ELASTICSEARCH_INDEX_PREFIX = 'froide'
-    # ELASTICSEARCH_DSL = {
-    #     'default': {
-    #        'hosts': 'localhost:9200'
-    #    },
-    # }
+    ELASTICSEARCH_INDEX_PREFIX = 'froide'
+    ELASTICSEARCH_HOST = values.Value("elasticsearch")
+    ELASTICSEARCH_DSL = {
+        "default": {"hosts": "http://%s:9200" % ELASTICSEARCH_HOST},
+    }
 
     # # Add real cache
     # CACHES = {

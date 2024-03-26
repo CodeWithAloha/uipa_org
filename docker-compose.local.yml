@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    image: ssthapa/uipa_backend:0.8
+    image: ssthapa/uipa_backend:0.9
     platform: linux/amd64
     volumes:
       - .:/app
@@ -42,7 +42,7 @@ services:
       - "cluster.routing.allocation.disk.watermark.high=2gb"
       - "cluster.routing.allocation.disk.watermark.flood_stage=1gb"
     ports:
-      - "9200:9200"
+      - "127.0.0.1:9200:9200"
     networks:
       uipa: {}
 volumes:
