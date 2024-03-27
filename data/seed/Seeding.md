@@ -117,6 +117,11 @@ requests and other data.
 > There's a bug in the CSV importer that messes up the slug for the name. This
 > causes public bodies with parents to not be loaded and stops with an error
 > message about "PublicBody matching query does not exist".
+>
+> To overcome this, on the Admin website, delete all of the public bodies
+> loaded and load the public bodies from the CSV file. Repeat this process a
+> couple more times until you see all 201 public bodies loaded. Spot check that
+> the slug matches the name by visiting the details of a public body.
 
 
 ### Convenience scripts
