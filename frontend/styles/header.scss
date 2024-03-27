@@ -1,0 +1,229 @@
+@use 'sass:map';
+
+$c: map.get($container-max-widths, 'xxl');
+
+#header {
+  position: relative;
+  z-index: 1031; // over .fixed-* and .sticky-*, but below modals etc.
+}
+
+#header nav {
+  padding: $spacer 0;
+  --#{$prefix}navbar-toggler-icon-bg: #{escape-svg(
+      $navbar-light-toggler-icon-bg
+    )};
+
+  ul.nav-ul,
+  ul.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1031;
+  }
+
+  ul.nav-ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+  }
+
+  a,
+  button.btn-link {
+    display: block;
+    color: var(--bs-emphasis-color);
+
+    &:hover {
+      text-decoration: none;
+      color: var(--bs-link-color);
+    }
+  }
+
+  a.active,
+  button.active {
+    color: var(--bs-link-color);
+    font-weight: 600;
+  }
+
+  .nav-logo svg {
+    height: 2.5rem;
+    width: auto;
+  }
+
+  button.user-profile {
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    position: relative;
+    border-bottom: 1px var(--bs-border-color-translucent) solid;
+
+    ul.nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: $spacer * 0.5 0;
+
+      position: absolute;
+      width: calc(100% + var(--bs-gutter-x));
+      top: calc(100% + $spacer + 1px); // to show the navbar border
+      left: calc(var(--bs-gutter-x) * -0.5);
+      right: calc(var(--bs-gutter-x) * -0.5);
+
+      background-color: var(--bs-body-bg);
+      border-bottom: 3px var(--bs-blue-500) solid;
+
+      transition: clip-path 0.25s cubic-bezier(0, 0, 0.2, 1);
+      clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+
+      &.show {
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+      }
+
+      li {
+        padding: 0 var(--bs-gutter-x);
+      }
+
+      ul li {
+        padding: 0 calc(0.75 * var(--bs-gutter-x));
+      }
+    }
+
+    &::before {
+      position: fixed;
+      z-index: -1; // still at least level of #header
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: var(--bs-body-color);
+      opacity: 0;
+      content: '';
+      pointer-events: none;
+      transition: opacity 0.3s linear;
+    }
+
+    &:has(.nav-menu.show)::before {
+      opacity: 0.3;
+    }
+
+    .dropdown-menu,
+    &.dropdown-menu {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .dropdown-menu {
+      position: static;
+    }
+
+    .dropdown-item {
+      padding: $spacer * 0.25 0;
+
+      &:active {
+        background-color: transparent;
+      }
+    }
+
+    ul.nav-ul {
+      justify-content: space-between;
+    }
+  }
+
+  @include media-breakpoint-between(md, lg) {
+    #menu-user {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    li.dropdown-header {
+      grid-column: span 2;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    ul.nav-ul {
+      flex-direction: row;
+      gap: 0 $spacer * 2;
+    }
+
+    ul.nav-menu-expanded {
+      display: contents;
+    }
+
+    li.nav-search {
+      align-self: end; // to align with the logo
+
+      select,
+      input {
+        max-width: 7rem;
+      }
+    }
+
+    .nav-break {
+      position: relative;
+      margin-top: $spacer * 1.5;
+      margin-bottom: $spacer;
+      width: 100vw;
+      height: 1px;
+      z-index: -1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: calc((100vw - 100% + 1rem) / -2);
+        right: 0;
+        width: 100vw;
+        background-color: var(--bs-border-color-translucent);
+        height: 1px;
+      }
+    }
+
+    #menu-main > li:not(.nav-sm) {
+      > a,
+      > button {
+        font-weight: 600;
+      }
+    }
+
+    #menu-user-nav {
+      order: 7;
+    }
+  }
+
+  #menu-user.dropdown-menu {
+    right: 0;
+  }
+
+  @include media-breakpoint-up(xl) {
+    li.nav-search {
+      select {
+        max-width: 12rem;
+      }
+
+      input {
+        max-width: none;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  #header:has(+ nav .breadcrumb) {
+    border-bottom: 1px var(--bs-border-color-translucent) solid;
+  }
+}

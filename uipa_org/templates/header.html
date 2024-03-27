@@ -1,0 +1,33 @@
+{% extends "header.html" %}
+
+{% load i18n %}
+{% load static %}
+
+<!-- Disable language selection, since we only support English -->
+{% block language_select %}{% endblock %}
+
+{% block nav_brand %}
+
+<a class="navbar-brand" href="{% url 'index' %}">
+    <img height="200" src="{% static 'img/uipa-header.svg' %}" alt="UIPA.org" />
+</a>
+
+{% endblock %}
+
+{% block nav %}
+<ul class="navbar-nav col-auto ms-auto">
+    <li class="nav-item {% block nav_requests %}{% endblock %}">
+        <a class="nav-link" href="{% url 'foirequest-list' %}">{% blocktrans %}Requests{% endblocktrans %}</a>
+    </li>
+    <li class="nav-item {% block nav_publicbodies %}{% endblock %}">
+        <a class="nav-link" href="{% url 'publicbody-list' %}">
+            {% blocktrans %}Public Agencies{% endblocktrans %}
+        </a>
+    </li>
+    <li class="nav-item {% block nav_makerequest %}{% endblock %}">
+        <a class="btn btn-primary" href="{% url 'foirequest-make_request' %}">
+            {% blocktrans %}Make a Request!{% endblocktrans %}
+        </a>
+    </li>
+</ul>
+{% endblock %}

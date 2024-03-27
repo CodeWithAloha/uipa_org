@@ -1,5 +1,0 @@
-{% load i18n %}{% autoescape off %}--
-{% blocktrans %}UIPA.org: Expanding Hawaii's public access one request at a time
-
-Support Code for Hawaii: http://donate.codeforhawaii.org
-{% endblocktrans %}{% endautoescape %}

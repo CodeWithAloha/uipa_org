@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% load i18n %}
+
+{% block title %}{{ SITE_NAME }}: Expanding Hawaii's public access one request at a time{% endblock %}
+
+{% block index_sub_left %}
+    <h3>{% blocktrans %}What is the Uniform Information Practices Act?{% endblocktrans %}</h3>
+    <p>{% blocktrans %}Everyone has the right under the Uniform Information Practices Act to ask for and receive access to information from public agencies concerning government operations.{% endblocktrans %}</p>
+{% endblock %}
+
+{% block index_sub_right %}
+    <h3>{% blocktrans %}What does this site do?{% endblocktrans %}</h3>
+    <p>{% blocktrans %}This site publishes public records requests and replies so that others do not have to ask for the same information and replies can be scrutinized by the public.{% endblocktrans %}</p>
+{% endblock %}

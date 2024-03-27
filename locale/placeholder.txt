@@ -1,1 +1,0 @@
-Locale files go here

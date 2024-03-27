@@ -1,0 +1,70 @@
+{% extends "footer.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block footer_credits %}
+<div class="row">
+  <div class="col-lg-12">
+    {% block footer_description %}
+    <p>
+      {% blocktrans %}This website was developed by the good human volunteers at Code With Aloha.{% endblocktrans %}
+    </p>
+    <p>
+        {% blocktrans %}<a href="https://codewithaloha.org/">Code With Aloha</a> is a civic minded volunteer group that developed this website. If you want to support Code With Aloha, please visit the Organization's <a href="https://github.com/CodeWithAloha">GitHub</a>.{% endblocktrans %}
+    </p>
+    {% endblock %}
+  </div>
+</div>
+<hr/>
+
+<div class="modal fade" id="easter-egg-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Mahalo to all our volunteers!</h4> 
+            </div>
+            <div class="modal-body">
+                <h4>Special thanks to the Core Team:</h4>
+                <p>Brian Black, <a href="https://twitter.com/ryankanno">Ryan Kanno</a>, and Russ Tokuyama</p>
+
+                <img src="{% static 'img/team-with-bblack.jpg' %}" width="100%" />
+                From left: Russ, Brian, Ryan, and George at <a href="https://blog.codeforhawaii.org/2016/06/10/national-day-civic-hacking-recap/">National Day of Civic Hacking</a>
+
+                <hr/>
+
+                <h4>Special thanks to the following:</h4>
+                <p>Ian Lind, Sara Sakamoto, George Lee, Stephan Fitzpatrick, and McKay Davis</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock footer_credits %}
+
+{% block footer_menu %}
+<li>
+  <a href="{% url 'help-about' %}">{% trans "About" %}</a>
+</li>
+<li>
+  <a href="{% url 'help-faq' %}">{% trans "FAQ" %}</a>
+</li>
+<li>
+  <a href="{% url 'help-terms' %}">{% trans "Terms of Use" %}</a>
+</li>
+<li>
+  <a href="{% url 'help-privacy' %}">{% trans "Privacy Statement" %}</a>
+</li>
+{% endblock %}
+
+{% block footer_logo %}
+<a href="https://uipa.org">
+  <img class="img-fluid"
+       loading="lazy"
+       src="{% static 'img/uipa-footer.png' %}"
+       alt="UIPA.org" />
+</a>
+{% endblock %}

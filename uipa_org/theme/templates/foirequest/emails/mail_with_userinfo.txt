@@ -1,4 +1,0 @@
-{% load i18n %}{% autoescape off %}{{ body }}
-
-{% include "foirequest/emails/request_footer.txt" %}
-{% endautoescape %}

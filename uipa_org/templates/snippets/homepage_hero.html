@@ -1,0 +1,78 @@
+{% extends "snippets/homepage_hero.html" %}
+{% load i18n %}
+
+{% block site_name %}Welina Mai{% endblock %}
+
+{% block site_description %}
+<p>
+    The Uniform Information Practices Act (Modified), HRS chapter 92F,
+    commonly known as UIPA, is Hawaii’s public records law.
+</p>
+<p>
+    This site publishes public records requests made in Hawaii and helps you to make your own!
+</p>
+{% endblock %}
+
+{% block index-search %}
+<form method="get" action="{% url 'foirequest-search' %}">
+    <label for="index-search">
+        {% blocktrans %}Search {{ foicount }} requests and {{ pbcount }} public agencies:{% endblocktrans %}
+    </label>
+
+    <div class="input-group">
+        <input id="index-search" class="form-control col-lg-3" type="text" name="q" autocomplete="off"
+            placeholder="{% block index-search-placeholder %}{% endblock %}" />
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+                {% blocktrans %}Search For Information{% endblocktrans %}
+            </button>
+        </span>
+    </div>
+    {% block example_search_terms_block %}
+    <span class="help-block">
+        {% block example_search_terms %}
+        {% blocktrans %}Try the following:{% endblocktrans %}
+        <a href="{% url 'foirequest-search' %}?q={% trans " Budget" %}">{% trans "Budget" %}</a>
+        {% trans "or" %}
+        <a href="{% url 'foirequest-search' %}?q={% trans " Criminal" %}">{% trans "Criminal" %}</a>
+        {% endblock %}
+    </span>
+    {% endblock %}
+</form>
+{% endblock index-search %}
+
+{% block first_index_row_featured %}
+<div id="main-foirequests" class="well">
+    {% if featured %}
+    <div class="frontpage-teaser">
+        <h3>
+            <small>{% trans "Featured Request" %}</small><br />
+            {{ featured.title }}
+        </h3>
+        <p>
+            {{ featured.text|truncatewords:55|linebreaksbr }}
+        </p>
+        {% if featured.url %}
+        <p>
+            <a href="{{ featured.url }}">
+                <span class="glyphicon glyphicon-bullhorn"></span>
+                {% blocktrans %}Read the blog post{% endblocktrans %}
+            </a>
+        </p>
+        {% endif %}
+        {% if featured.request %}
+        <p>
+            <a href="{% url 'foirequest-show' slug=featured.request.slug %}">
+                <span class="glyphicon glyphicon-envelope"></span>
+                {% blocktrans %}Visit this request{% endblocktrans %}
+            </a>
+        </p>
+        {% endif %}
+    </div>
+    {% else %}
+    <iframe src="https://player.vimeo.com/video/207061508" width="100%" height="320" frameborder="0"
+        webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    {% endif %}
+</div>
+{% endblock first_index_row_featured %}
