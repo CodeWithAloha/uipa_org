@@ -6,13 +6,17 @@ This covers seeding the database for development work.
 
 You should have followed the steps for getting started and have:
 
-- PostgreSQL database and Elasticsearch search engine running in Docker containers.
+- PostgreSQL database and Elasticsearch search engine running in Docker
+  containers in one terminal window.
 - Vite front end server running in another terminal window.
 - Django development server running in another terminal window.
 
-At this point, you should be able to login to the Admin website at
-http://localhost:8000/ or http:127.0.0.1:8000/ with the email address and
-password of the super user you created.
+At this point, you should be able to login to the Admin website at:
+
+- http://localhost:8000/admin/
+- or http:127.0.0.1:8000/admin/
+
+with the email address and password of the super user you created.
 
 In a fourth terminal window, have your Python virtual environment activated and
 be in your working directory with the UIPA.org source files cloned from your
@@ -53,19 +57,28 @@ subset of data to see how things go.
     ```
     $ python manage.py loaddata data/seed/test-categories.json
     ```
+- Run this command to load the subset of public body data:
 
-- Then, on the `Public Body` page (Home > Public Body > Public Bodies), scroll
+    ```
+    $ python manage.py import_csv data/seed/test-public-bodies.csv
+    ```
+
+#### Loading public bodies via the Admin website
+
+You can also use the Admin website to load public bodies from a CSV file.
+
+- On the `Public Body` page (Home > Public Body > Public Bodies), scroll
   down to the bottom of the page to where there is a `Choose File` button next
   to the `Import Public Bodies` button.
 
 - Click on the `Choose File` button and navigate to the directory with
-  `test-public-bodies.csv` file. Select that file and click on the `Open`
-  button.
+  your CSV file. Select that file and click on the `Open` button.
 
 - Back on the `Public Body` page, click on the `Import Public Bodies` button.
 
 - If this works, you should see a message on the `Public Body` page that says
   that the public bodies were imported.
+
 
 ### Loading all public bodies
 
@@ -90,13 +103,31 @@ you can load the full set of public bodies.
     ```
     $ python manage.py loaddata data/seed/2024-03-24-categories.json
     ```
-- On the Public Bodies page of the Admin website, upload the
-  2024-03-24-public-bodies-fixed.csv by choosing it and clicking the *Import
-  Public Bodies* button.
+- Load the public bodies:
+    ```
+    $ python manage.py import_csv data/seed/2024-03-24-public-bodies-fixed.csv
+    ```
 
 At this point, you should have all of the basic data from UIPA.org without any
 requests and other data.
 
+*NOTE:*
+
+> When loading the public bodies from a CSV file, not all of them are loaded.
+> There's a bug in the CSV importer that messes up the slug for the name. This
+> causes public bodies with parents to not be loaded and stops with an error
+> message about "PublicBody matching query does not exist".
+
+
+### Convenience scripts
+
+For convenience, you run these shell scripts to load the fixture files and
+public bodies:
+
+```
+$ sh data/seed/load_fixtures.sh
+$ sh data/seed/load_public_bodies.sh
+```
 
 ## Preparing a CSV file to upload public bodies
 
