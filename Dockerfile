@@ -1,6 +1,3 @@
-#ARG INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.8.12}
-#FROM python:${INSTALL_PYTHON_VERSION}-slim-bullseye AS base
-# FROM debian:bullseye-slim AS base
 FROM ssthapa/django5:0.1
 
 MAINTAINER Suchandra Thapa <suchandra.spam+docker@gmail.com>
