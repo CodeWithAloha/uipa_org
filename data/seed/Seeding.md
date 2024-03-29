@@ -2,6 +2,7 @@
 
 This covers seeding the database for development work.
 
+
 ## Preparation
 
 You should have followed the steps for getting started and have:
@@ -23,6 +24,7 @@ be in your working directory with the UIPA.org source files cloned from your
 fork of the main branch of the [UIPA.org
 repository](https://github.com/CodeWithAloha/uipa).
 
+
 ## Seeding
 
 ### Load Classifications, Jurisdictions, and Freedom of Information Laws
@@ -39,17 +41,20 @@ $ python manage.py loaddata data/seed/2024-03-15-jurisdiction.json
 $ python manage.py loaddata data/seed/2024-03-15-foilaw.json
 ```
 
-*NOTE:*
-
-> The Classifications data has been extracted from the Classifications field in
+> NOTE: The Classifications data has been extracted from the Classifications field in
 > the extract of public bodies from the production UIPA.org website on
 > 03/15/2024. See 2024-03-15-Hawaii_UIPA_Public_Bodies_All.csv.
 
 
-### First Test Load of Public Bodies
+### Load Public Bodies - Testing with a small batch
 
-For the first time that you seed the database, you'll be using a very small
-subset of data to see how things go.
+> NOTE: Skip this section if you just want to load all of the public bodies.
+
+If you are just getting started, it may be useful to try a very small subset of
+data to see how things go.
+
+
+#### Load the Category data
 
 - Run this command to load the category data that's needed to load the subset
   of public body data:
@@ -57,15 +62,21 @@ subset of data to see how things go.
     ```
     $ python manage.py loaddata data/seed/test-categories.json
     ```
+
+
+#### Load the Public Body data - Method #1
+
 - Run this command to load the subset of public body data:
 
     ```
     $ python manage.py import_csv data/seed/test-public-bodies.csv
     ```
 
-#### Loading public bodies via the Admin website
 
-You can also use the Admin website to load public bodies from a CSV file.
+#### Load the Public Body data - Method #2
+
+As an alternate, you can load the public bodies from a CSV file using the Admin
+website.
 
 - On the `Public Body` page (Home > Public Body > Public Bodies), scroll
   down to the bottom of the page to where there is a `Choose File` button next
@@ -80,10 +91,16 @@ You can also use the Admin website to load public bodies from a CSV file.
   that the public bodies were imported.
 
 
-### Loading all public bodies
+### Load Public Bodies - All of the data
 
 If the first test loading of the database with the very small set of data works,
-you can load the full set of public bodies.
+you can load the full set of public bodies from these files:
+
+- 2024-03-24-categories.json
+- 2024-03-24-public-bodies-fixed.csv
+
+
+#### Reset your database
 
 - Stop your Django server by pressing Ctl-C in the terminal window running the
   server.
@@ -95,25 +112,30 @@ you can load the full set of public bodies.
     $ sh data/seed/init_db.sh
     ```
 
-- To load a full set of data, you can use these files:
-    - 2024-03-24-categories.json
-    - 2024-03-24-public-bodies-fixed.csv
+
+#### Load the Category data
 
 - Load the categories:
     ```
     $ python manage.py loaddata data/seed/2024-03-24-categories.json
     ```
+
+
+#### Load the Public Body data - Method #1
+
+> NOTE: You can use the above Method #2 instead.
+
+
 - Load the public bodies:
     ```
     $ python manage.py import_csv data/seed/2024-03-24-public-bodies-fixed.csv
     ```
 
+
 At this point, you should have all of the basic data from UIPA.org without any
 requests and other data.
 
-*NOTE:*
-
-> When loading the public bodies from a CSV file, not all of them are loaded.
+> NOTE: When loading the public bodies from a CSV file, not all of them are loaded.
 > There's a bug in the CSV importer that messes up the slug for the name. This
 > causes public bodies with parents to not be loaded and stops with an error
 > message about "PublicBody matching query does not exist".
@@ -129,12 +151,24 @@ requests and other data.
 For convenience, you run these shell scripts to load the fixture files and
 public bodies:
 
-```
-$ sh data/seed/load_fixtures.sh
-$ sh data/seed/load_public_bodies.sh
-```
+- Load the classifications, jurisdictions, and Freedom of Information laws.
+
+    ```
+    $ sh data/seed/load_fixtures.sh
+    ```
+
+- Load the categories and public bodies.
+
+    ```
+    $ sh data/seed/load_public_bodies.sh
+    ```
+
 
 ## Preparing a CSV file to upload public bodies
+
+> NOTE: This section can be skipped. It is for people who want to create the category
+> fixture file and a CSV file to upload public bodies.
+
 
 If you're going to be using a different CSV extract of public bodies, you'll
 need to:
@@ -147,6 +181,7 @@ need to:
     ```
 
   These files are created.
+    ```
         - parent_names.txt
         - tag_values.txt
         - jurisdiction_slugs.txt
@@ -154,7 +189,7 @@ need to:
         - public-bodies-fixed.csv
     ```
 
-- We'll be using a unique set of tag values to load into the Category table.
+- The tag values to load in the Category table must be unique.
 
     ```
     $ sort -uf tag_values.txt > utags.txt

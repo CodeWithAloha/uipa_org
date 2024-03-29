@@ -51,7 +51,17 @@ After running `docker-compose up` successfully, the output in your terminal shou
 
 - [Python 3.10](https://github.com/okfde/fragdenstaat_de/blob/21faa6893a582a02f2a96f4ccce96fddab13bec6/requirements.txt#L2) (for the backend server)
 
-> Note: You can use [pyenv](https://github.com/pyenv/pyenv) to manage your Python versions.
+    > Note: You can use [pyenv](https://github.com/pyenv/pyenv) to manage your Python versions.
+
+- PostgreSQL `psql` command line client (for Django admin `dbshell` support)
+
+    > Note: Comes with a full PostgreSQL installation.
+
+- [GDAL (Geospatial Data Abstraction Library)](GDAL_LIBRARY_PATH) (GIS support for PostgreSQL)
+
+    > Note: You may need to set the GDAL_LIBRARY_PATH environment variable in your shell environment.
+
+
 
 ### Instructions
 
@@ -91,6 +101,8 @@ After running these, you should see something like this in your terminal:
 ### Instructions
 
 To run the Vite server, you will need to run the following commands:
+
+> Note: If you have already run the following commands, you can skip them and just run a `yarn run serve` to start the server.
 
 ```
 # Install the dependencies
