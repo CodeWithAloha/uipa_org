@@ -182,11 +182,11 @@ need to:
 
   These files are created.
     ```
-        - parent_names.txt
-        - tag_values.txt
-        - jurisdiction_slugs.txt
-        - classifications.txt
-        - public-bodies-fixed.csv
+    - parent_names.txt
+    - tag_values.txt
+    - jurisdiction_slugs.txt
+    - classifications.txt
+    - public-bodies-fixed.csv
     ```
 
 - The tag values to load in the Category table must be unique.

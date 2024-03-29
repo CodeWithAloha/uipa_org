@@ -59,7 +59,8 @@ After running `docker-compose up` successfully, the output in your terminal shou
 
 - [GDAL (Geospatial Data Abstraction Library)](GDAL_LIBRARY_PATH) (GIS support for PostgreSQL)
 
-    > Note: You may need to set the GDAL_LIBRARY_PATH environment variable in your shell environment.
+    > Note: You may need to set the GDAL_LIBRARY_PATH and/or GEOS_LIBRARY_PATH
+    > environment variables in your shell environment.
 
 
 
