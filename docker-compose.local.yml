@@ -2,13 +2,13 @@ version: "3"
 
 services:
   app:
-    image: ssthapa/uipa_backend:0.8
+    image: ssthapa/uipa_backend:0.9
     platform: linux/amd64
     volumes:
       - .:/app
     environment:
-      DATABASE_URL: "postgis://froide:froide@db:5432/froide"
-      ELASTICSEARCH_HOST: "elasticsearch"
+      - "DATABASE_URL=postgis://froide:froide@db:5432/froide"
+      - "DJANGO_ELASTICSEARCH_HOST=elasticsearch"
     ports:
       - "8000:8000"
     networks:
