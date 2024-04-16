@@ -18,13 +18,14 @@ RUN apk update && \
 
 ENV PYTHONPATH "${PYTHONPATH}:/srv/django"
 WORKDIR /srv/django
-COPY ./froide /srv/django
-RUN cd froide && yarn link && yarn link froide && yarn install
-RUN /root/.local/bin/poetry install
+COPY . /srv/django
+RUN yarn link && yarn link uipa_org && yarn install
+RUN /root/.local/bin/poetry config installer.max-workers 3
+RUN /root/.local/bin/poetry install --no-root --no-interaction
 
 
-COPY local_settings.py /srv/django/froide/local_settings.py
-COPY settings.py /srv/django/froide/settings.py
+COPY local_settings.py /srv/django/uipa_org/settings/local_settings.py
+COPY settings.py /srv/django/uipa_org/settings/settings.py
 COPY run-backend.sh /srv/django
 
 ENTRYPOINT  /srv/django/run-backend.sh

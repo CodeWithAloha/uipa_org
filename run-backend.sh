@@ -17,5 +17,5 @@ echo "STARTING DB"
 /root/.local/bin/poetry run ./manage.py search_index --create
 /root/.local/bin/poetry run ./manage.py search_index --populate
 
-#/root/.local/bin/poetry run ./manage.py diffsettings --all
+/root/.local/bin/poetry run ./manage.py diffsettings --all
 /root/.local/bin/poetry run ./manage.py runserver  0.0.0.0:8000

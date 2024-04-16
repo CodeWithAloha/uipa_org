@@ -122,7 +122,8 @@ class Base(Configuration):
     # ############## PATHS ###############
 
     PROJECT_ROOT = Path(__file__).resolve().parent
-    BASE_DIR = PROJECT_ROOT.parent
+    # BASE_DIR = PROJECT_ROOT.parent
+    BASE_DIR = "/srv/django/"
 
     LOCALE_PATHS = [BASE_DIR / "locale"]
 
@@ -218,6 +219,7 @@ class Base(Configuration):
             "BACKEND": "django.template.backends.django.DjangoTemplates",
             "DIRS": [
                 PROJECT_ROOT / "templates",
+                "/srv/django/uipa_org/templates/index.html"
             ],
             "OPTIONS": {
                 "debug": values.BooleanValue(DEBUG),

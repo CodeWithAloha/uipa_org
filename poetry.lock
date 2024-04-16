@@ -1731,6 +1731,51 @@ unicode = ["unicodedata2 (>=15.1.0)"]
 woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
 
 [[package]]
+name = "froide"
+version = "5.0.0"
+description = "German Freedom of Information Portal"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.dependencies]
+celery = "*"
+dj-database-url = "*"
+Django = "*"
+django-configurations = "*"
+django-crossdomainmedia = "*"
+django-elasticsearch-dsl = "*"
+django-filingcabinet = "*"
+django-filter = "*"
+django-parler = "*"
+django-storages = "*"
+django-taggit = "*"
+djangorestframework = "*"
+djangorestframework-csv = "*"
+djangorestframework-jsonp = "*"
+drf-spectacular = {version = "*", extras = ["sidecar"]}
+easy-thumbnails = "*"
+geoip2 = "*"
+icalendar = "*"
+Markdown = "*"
+phonenumbers = "*"
+pygtail = "*"
+python-magic = "*"
+python-mimeparse = "*"
+python-slugify = "*"
+requests = "*"
+
+[package.extras]
+lint = ["black (==23.3.0)", "flake8 (==6.0.0)", "flake8-bugbear (==23.5.9)", "isort (==5.11.5)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/codewithaloha/froide.git"
+reference = "main"
+resolved_reference = "5584e46107fce5ffee409a2172d07974d9e9103e"
+
+[[package]]
 name = "frozenlist"
 version = "1.4.1"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -4114,4 +4159,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "2040b4870547fd613012783b2816855a7898e4ad87c1a62e862720f87b5e5ef0"
+content-hash = "a67b66fb7f03e796a1e77ccb97f5f0c21fd8f21efab3e50234847804d4440846"
