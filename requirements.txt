@@ -8,7 +8,7 @@ requests==2.31.0
 django-floppyforms==1.9.0
 python-magic==0.4.27
 python-mimeparse==1.6.0
-django-configurations==2.4.1
+django-configurations==2.5.1
 django-storages==1.13.2
 dj-database-url==2.0.0
 django-contrib-comments==2.2.0
@@ -19,15 +19,15 @@ elasticsearch==8.11.1
 
 -e git+https://github.com/codewithaloha/froide.git@main#egg=froide
 
-lxml==4.9.2
+lxml==5.2.1
 channels==4.0.0
 django-treebeard==4.4
 django-leaflet==0.29.0
 django-json-widget==1.1.1
 django-celery-beat==2.5.0
 django-mfa3==0.11.0
-psycopg[binary]==3.1.9
-psycopg-binary==3.1.9
+psycopg[binary]==3.1.18
+psycopg-binary==3.1.18
 -e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
 oauthlib==3.2.2
 django-oauth-toolkit==1.7.1
