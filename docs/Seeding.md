@@ -1,6 +1,6 @@
 # Seeding the Database
 
-This covers seeding the database of public bodies for development work. "Public bodies" or "Public agencies" is the monicker for government agencies that are subject to the Uniform Information Practices Act (UIPA) in Hawaii. These include organizations such as the Department of Land & Natural Resources, Department of Planning & Permitting, and the Office of Information Practices.
+This covers seeding the database of public bodies for development work. "Public bodies" or "Public agencies" means government agencies that are subject to the Uniform Information Practices Act (UIPA) in Hawaii. These include organizations such as the Department of Land & Natural Resources, Department of Planning & Permitting, and the Office of Information Practices.
 
 ## Preparation
 
@@ -23,9 +23,9 @@ be in your working directory with the UIPA.org source files cloned from your
 fork of the main branch of the [UIPA.org
 repository](https://github.com/CodeWithAloha/uipa).
 
-The context of the following commands should be run in the `data/seed` directory, rather than the `docs` directory.
-
 ## Seeding
+
+> Note: The commands in this section should be run in the top level of the working directory where the `manage.py` file is located.
 
 ### Load Classifications, Jurisdictions, and Freedom of Information Laws
 

@@ -7,7 +7,7 @@ This document describes the email setup process for the UIPA.org project. At the
 Before you start, you need to have the following:
 - A working development environment for the project (Follow the [Getting Started](https://github.com/CodeWithAloha/uipa?tab=readme-ov-file#getting-started) guide to set this up)
 - [The required email related environment variables](https://github.com/CodeWithAloha/uipa/blob/3bcbd67a8102b62840128017b4d62112b74e4d4c/uipa_org/settings/development.py#L25) (e.g., `ENABLE_EMAIL`, `SERVER_EMAIL`, `EMAIL_HOST`, ...etc.)
-- - You can reach out to @tyliec for shared values of these environment variables, or you can utilize another email server (using something like https://postmarkapp.com/) and set those values yourself.
+- - You can reach out to @tyliec or in the `#project-uipa` channel for shared values of these environment variables, or you can utilize another email server (using something like https://postmarkapp.com/) and set those values yourself.
 - - Setting these values would look something like `export EMAIL_HOST='smtp.postmarkapp.com'` in your terminal.
 
 # Context
