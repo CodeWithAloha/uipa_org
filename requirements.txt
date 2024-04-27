@@ -1,15 +1,16 @@
 pip==8.1.1
 django==1.10.2
+django-appconf==1.0.2
 Markdown==2.6.6
 celery==3.1.23
 celery-haystack==0.10
-django-haystack==2.5.0
+django-haystack==2.5.1
 django-celery-email==1.1.4
 django-taggit==0.18.1
 pytz==2016.6.1
 requests==2.11.1
 django-floppyforms==1.6.2
--e git://github.com/stephenmcd/django-overextends.git@master#egg=django-overextends
+-e git+https://github.com/stephenmcd/django-overextends.git@master#egg=django-overextends
 python-magic==0.4.6
 django-tastypie==0.13.3
 python-mimeparse>=0.1.4
@@ -27,7 +28,7 @@ pysolr==3.5.0
 python-docx==0.8.5
 elasticsearch==2.3.0
 
--e git://github.com/codeforhawaii/froide.git@master#egg=froide
+-e git+https://github.com/CodeWithAloha/froide.git@master#egg=froide
 
 # -e git://github.com/stefanw/django-compressor.git@patch-1#egg=compressor
 psycopg2==2.7.1
