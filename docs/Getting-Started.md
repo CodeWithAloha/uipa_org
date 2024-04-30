@@ -1,6 +1,6 @@
 # Quick Start
 
-After setting up the prerequisites, run the following commands from the directory that you cloned the UIPA repository into.
+After setting up the prerequisites, run the following commands from the `uipa` directory in the working directory that you cloned the UIPA repository into.
 
 - In a terminal window, run `docker-compose up`.
 - In another terminal window, run `bash data/seed/init_db.sh`.
@@ -50,7 +50,7 @@ Make sure that you have these installed:
 - [NodeJS & npm](https://nodejs.org/en/download) (for the frontend)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install) (for the frontend)
 
-## Set up
+## One-time Set up
 
 Do this once to get things ready to run the parts to develop UIPA.
 
@@ -119,6 +119,8 @@ After starting the development web server, you should see something like this in
 
 ![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/98b0c91e-c540-4309-95f9-313e1d4234ad)
 
+At this point, you'll have at least two open terminal windows with servers running in them.
+
 To stop the servers, type a `Ctl-C` (hold control key down and type the `C` key) in each terminal window running a server.
 
 ## Visit the dev website
@@ -145,6 +147,8 @@ To run the frontend server:
 - In another terminal window, run `yarn run serve`.
 
 When running the frontend server, you'll have three terminal windows open. One each for the database/search engine, backend, and frontend.
+
+To stop the servers, type a `Ctl-C` (hold control key down and type the `C` key) in each terminal window running a server.
 
 The source for the frontend assets are found in the `frontend` directory.
 
