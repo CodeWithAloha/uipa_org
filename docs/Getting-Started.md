@@ -66,6 +66,18 @@ After running `docker-compose up` successfully, the output in your terminal shou
 
 Type a `Ctl-C` (hold control key down and type the `C` key) to stop the `docker-compose` command.
 
+### Frontend
+
+Run these commands:
+
+- `yarn install`
+- `yarn build`
+
+These commands do the following:
+- Install ViteJS frontend JavaScript tooling.
+- Install JavaScript dependencies.
+- Build the frontend assets (JavaScript and CSS) for the development server.
+
 ### Backend
 
 This assumes that your Python 3.10 installation is run with the `python` command. If your installation requires you to use `python3` instead, use that.
@@ -78,7 +90,7 @@ Run these commands:
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
 - `bash data/seed/init_db.sh`
-    You will be prompted for the email address, username, and password for an administrative user. You can use this or pick your own:
+    <br>You will be prompted for the email address, username, and password for an administrative user. You can use this or pick your own:
 
     ```
     Email address: admin@uipa.org
@@ -97,19 +109,7 @@ These commands do the following:
 - Create an administrative user.
 - Check that your Django development environment is set up correctly.
 
-### Frontend
-
-Run these commands:
-
-- `yarn install`
-- `yarn build`
-
-These commands do the following:
-- Install ViteJS frontend JavaScrip tooling.
-- Install JavaScript dependencies.
-- Build the frontend assets (JavaScript and CSS) for the development server.
-
-## Run the Backend
+## Running the Backend
 
 If you don't have it running in a termial window, start the database and search engine using `docker-compose up`.
 
@@ -127,24 +127,27 @@ To stop the servers, type a `Ctl-C` (hold control key down and type the `C` key)
 
 Visit http://127.0.0.1:8000/ in your browser and you should see something like:
 
-![Image](https://github.com/CodeWithAloha/uipa/assets/15609358/f2e58505-418e-4747-83f9-96ecb02abd3f)
+<picture>
+ <img alt="UIPA home page" src="images/new-uipa-home-page.png" width="80%" style="border: 1px solid slategrey;">
+</picture>
 
-## Run the Frontend
 
-Initially, to get the familiar with UIPA, you don't have to run the `ViteJS` frontend server.
+## Running the Frontend server
 
-The set up for the frontend creates the assets that are needed for the development website to work without it. Also, the `Dev` configuration set in the `manage.py` file arranges things to use the created assets.
+
+The set up for the frontend created the assets that are needed for the development website to work without running the `ViteJS` frontend server. Also, the `Dev` configuration set in the `manage.py` file arranges things to use the created assets.
 
 When you want to make changes to the JavaScript or CSS styling, then you'll need to switch to using the `ViteJS` frontend server.
 
-To run the frontend server:
+To run the frontend server, you'll need to change the configuration for the backend. Do the following:
 - Stop the backend server.
 - Edit the `Dev` configuration in `uipa_org/settings/development.py` and comment out this line by inserting a '#' before it:
     ```
     FRONTEND_DEBUG = False
     ```
 - Restart the backend server.
-- In another terminal window, run `yarn run serve`.
+
+In another terminal window, run `yarn run serve`.
 
 When running the frontend server, you'll have three terminal windows open. One each for the database/search engine, backend, and frontend.
 
