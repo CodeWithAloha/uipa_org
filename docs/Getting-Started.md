@@ -128,7 +128,7 @@ To stop the servers, type a `Ctl-C` (hold control key down and type the `C` key)
 Visit http://127.0.0.1:8000/ in your browser and you should see something like:
 
 <picture>
- <img alt="UIPA home page" src="images/new-uipa-home-page.png" width="80%" style="border: 1px solid slategrey;">
+ <img alt="UIPA home page" src="images/new-uipa-home-page.png" width="80%">
 </picture>
 
 
