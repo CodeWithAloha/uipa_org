@@ -1,6 +1,7 @@
 {% extends "header.html" %}
 
 {% load i18n %}
+{% load content_helper %}
 {% load static %}
 
 <!-- Disable language selection, since we only support English -->
@@ -31,3 +32,49 @@
     </li>
 </ul>
 {% endblock %}
+
+{% block nav_account_login %}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown account-dropdown {% block nav_account %}{% endblock %}">
+            <a class="nav-link dropdown-toggle account-dropdown-link"
+            data-bs-toggle="dropdown"
+            href="#"
+            aria-haspopup="true"
+            aria-expanded="false"
+            id="navbaraccount-link">
+                <span class="d-none d-md-none d-lg-inline">
+    Profile
+            </span>
+            <span class="d-lg-none fa fa-user-circle-o"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right"
+             aria-labelledby="navbaraccount-link">
+            {% include "account/menu.html" with menu_items=menu_items %}
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">
+                <form action="{% url 'account-logout' %}" method="post" class="text-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">{% blocktrans %}Logout{% endblocktrans %}</button>
+                </form>
+            </div>
+        </div>
+    </li>
+{% else %}
+    <li class="nav-item {% block nav_login %}{% endblock %}">
+        <a class="nav-link"
+           href="{% url 'account-login' %}?next={{ request.get_full_path|urlencode }}">
+            {% blocktrans %}Sign in{% endblocktrans %}
+        </a>
+    </li>
+{% endif %}
+{% endblock nav_account_login %}
+
+{% block nav_secondary %}
+<ul class="navbar-nav navbar-nav-secondary col-auto">
+    <li class="nav-item">
+    </li>
+    <li class="nav-item special-nav-secondary-item">
+        <a class="nav-link" href="{% content_url 'help' %}">{% trans "Help" %}</a>
+    </li>
+</ul>
+{% endblock nav_secondary %}
