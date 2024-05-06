@@ -6,7 +6,7 @@
 # Ref: https://docs.djangoproject.com/en/4.2/ref/django-admin/#flush
 #
 
-echo "Drop and recreate the database..."
+echo "Delete and recreate the database..."
 #  PostgreSQL-specific commands.
 python manage.py dbshell << EOF
 \c postgres;
@@ -14,7 +14,10 @@ drop database froide;
 create database froide owner froide;
 EOF
 
-echo "Clear the search index..."
-#  This command will prompt interactively for confirmation.
-python manage.py search_index --delete
+echo
+echo "Delete the search index..."
+#  Use -f to avoid interactively prompting for confirmation.
+python manage.py search_index --delete -f
 
+echo
+echo "Now you can run the database migrations and load the seed data."

@@ -1,39 +1,48 @@
-# Seeding the Database
+# How to Seed the Database
 
-This covers seeding the database of public bodies for development work. "Public bodies" or "Public agencies" means government agencies that are subject to the Uniform Information Practices Act (UIPA) in Hawaii. These include organizations such as the Department of Land & Natural Resources, Department of Planning & Permitting, and the Office of Information Practices.
+The phrase, "seed the database", refers to the loading some initial data into a database.
 
-## Preparation
+"Public bodies" or "Public agencies" means government agencies that are subject to the Uniform Information Practices Act (UIPA) in Hawaii. These include organizations such as the Department of Land & Natural Resources, Department of Planning & Permitting, and the Office of Information Practices.
 
-You should have followed the steps for getting started and have:
+## Prerequisites
 
-- PostgreSQL database and Elasticsearch search engine running in Docker
-  containers in one terminal window.
-- Vite front end server running in another terminal window.
-- Django development server running in another terminal window.
+After following the [Getting Started](Getting-Started.md) guide to get your development environment working, the development database will be loaded with data. You can reset the database so that it doesn't contain the seed data.
 
-At this point, you should be able to login to the Admin website at:
+> Note: The commands shown in this document should be run in the top level of the working directory where the `manage.py` file is located.
 
-- http://localhost:8000/admin/
-- or http:127.0.0.1:8000/admin/
+## How the database is seeded
 
-with the email address and password of the super user you created.
+The database is created when you run the `docker-compose up` command in a terminal window. A PostgreSQL database is created when the `db` service is started by that command.
 
-In a fourth terminal window, have your Python virtual environment activated and
-be in your working directory with the UIPA.org source files cloned from your
-fork of the main branch of the [UIPA.org
-repository](https://github.com/CodeWithAloha/uipa).
+The tables for the UIPA website are created when you run `python manage.py migrate`.
 
-## Seeding
+Lastly, the database tables are filled with seed data when you run `bash data/seed/init_db.sh`.
 
-> Note: The commands in this section should be run in the top level of the working directory where the `manage.py` file is located.
+You can start using the dev website after it is started up when you run `python manage.py runserver`.
 
-### Load Classifications, Jurisdictions, and Freedom of Information Laws
+### Differences from Froide
 
-Three fixtures will be used to load seed data that is not going to change very
-much for development work.
+UIPA is built using the [Froide](https://github.com/okfde/froide) Freedom of Information portal software. You could follow its *README* to get your development environment working. In the part that says to create an administrative user with `python manage.py createsuperuser`, we don't need to do that because the data for an administrative user is loaded from a fixture file when the database is seeded. Also, the comands and the order to run them in are handled by the `data/seed/init_db.sh` shell script. This eliminates many manual commands to run to get a working development website.
 
-This will set up the data that needs to exist in the database before you upload
-the public body information from a CSV file.
+## Loading the seed data by individual tables
+
+Data can be manually entered via the Admin website or loaded into the database using fixture files (JSON format). Additionally, data for public bodies can be loaded using a CSV file from the command line or via the Admin website.
+
+Fixture files are created from data that has been entered into the database. See the section below that discusses dumping data from the database.
+
+### Classifications, Jurisdictions, and Freedom of Information Laws
+
+These tables don't have many records so they are easily entered by hand via the Admin website. Their data should entered in this order:
+
+- Classifications
+- Jurisdictions
+- Freedom of Information Laws
+
+
+
+This data must be loaded into the database before the public body data can be loaded.
+
+Use these commands to load the data from fixture files:
 
 ```
 $ python manage.py loaddata data/seed/YYYY-MM-DD-classification.json
@@ -42,69 +51,58 @@ $ python manage.py loaddata data/seed/YYYY-MM-DD-foilaw.json
 ```
 
 > NOTE: The Classifications data has been extracted from the Classifications field in
-> the extract of public bodies from the production UIPA.org websiteon
-> 03/15/2024. See 2024-03-15-Hawaii_UIPA_Public_Bodies_All.csv. Update the 
-> file names in the command to reflect the current json files located in data/seed/.
+> the extract of public bodies from the production UIPA.org website on
+> 03/15/2024. See 2024-03-15-Hawaii_UIPA_Public_Bodies_All.csv. Update the
+> file names in the command to reflect the JSON files located in data/seed/.
 
+### Categories
 
-### Load Public Bodies - Testing with a small batch
+In the old UIPA.org website, the software uses *tags* to make it easier for users to find a public body. In the newer version of `Froide` used by the new version of UIPA, the user interface uses the data in the *Category* field instead of the *Tag* field. So, we'll put the old *Tag* data into the new *Category* field.
 
-> NOTE: Skip this section if you just want to load all of the public bodies.
+We must load the *Category* data before loading the public body data.
 
-If you are just getting started, it may be useful to try a very small subset of
-data to see how things go.
-
-
-#### Load the Category data
-
-- Run this command to load the category data that's needed to load the subset
-  of public body data:
+To load the categories, use this command:
 
     ```
-    $ python manage.py loaddata data/seed/test-categories.json
+    $ python manage.py loaddata data/seed/2024-03-24-categories.json
+    ```
+
+### Public Bodies (Agencies)
+
+The CSV extract of public bodies from the production UIPA.org can be loaded after it is fixed up. See the section below about preparing a CSV file to load public bodies.
+
+Public body data can be loaded from a CSV file using these methods:
+
+#### Method #1: Command line
+
+Run this command to load the public body data:
+
+    ```
+    $ python manage.py import_csv data/seed/2024-03-24-public-bodies-fixed.csv
     ```
 
 
-#### Load the Public Body data - Method #1
+#### Method #2: Admin website
 
-- Run this command to load the subset of public body data:
+- On the `Public Body` page (Home > Public Body > Public Bodies), scroll down to the bottom of the page to where there is a `Choose File` button next to the `Import Public Bodies` button.
 
-    ```
-    $ python manage.py import_csv data/seed/test-public-bodies.csv
-    ```
-
-
-#### Load the Public Body data - Method #2
-
-As an alternate, you can load the public bodies from a CSV file using the Admin
-website.
-
-- On the `Public Body` page (Home > Public Body > Public Bodies), scroll
-  down to the bottom of the page to where there is a `Choose File` button next
-  to the `Import Public Bodies` button.
-
-- Click on the `Choose File` button and navigate to the directory with
-  your CSV file. Select that file and click on the `Open` button.
+- Click on the `Choose File` button and navigate to the directory with your CSV file. Select that file and click on the `Open` button.
 
 - Back on the `Public Body` page, click on the `Import Public Bodies` button.
 
-- If this works, you should see a message on the `Public Body` page that says
-  that the public bodies were imported.
+- If this works, you should see a message on the `Public Body` page that says that the public bodies were imported.
 
+> NOTE: When loading the public bodies from a CSV file, not all of them may be loaded. There's a bug in the CSV importer that prevents all the data from being loaded.
+>
+> To overcome this, on the Admin website, delete all of the public bodies loaded and load the public bodies from the CSV file. Repeat the loading process for public bodies a couple more times until you see all 201 public bodies loaded. Spot check that the slug matches the name by visiting the details of a public body.
 
-### Load Public Bodies - All of the data
+At this point, you should have all of the basic data from UIPA.org without any requests and other data.
 
-If the first test loading of the database with the very small set of data works,
-you can load the full set of public bodies from these files:
+## Reset your database
 
-- 2024-03-24-categories.json
-- 2024-03-24-public-bodies-fixed.csv
+If you make a mistake or receive an error loading data, you can start all over with a *clean* database.
 
-
-#### Reset your database
-> NOTE: After resetting your database you will need to rerun the commands from the  
-> Load Classifications, Jurisdictions, and Freedom of Information Laws section 
-> before continuing on.
+Follow these steps:
 
 - Stop your Django server by pressing Ctl-C in the terminal window running the
   server.
@@ -112,76 +110,22 @@ you can load the full set of public bodies from these files:
 - Run these commands to re-initialize the database:
 
     ```
-    $ sh data/seed/clear_db.sh
-    $ sh data/seed/init_db.sh
+    $ bash data/seed/clear_db.sh
+    $ python manage.py migrate $ python manage.py search_index --populate
+    $ python manage.py loaddata uipa_org/fixtures/sites.site.json
+    $ python manage.py loaddata uipa_org/fixtures/account.user.json
     ```
 
+At this point, you can start to load seed data.
 
-#### Load the Category data
+## Preparing a CSV file to load public bodies
 
-- Load the categories:
-    ```
-    $ python manage.py loaddata data/seed/2024-03-24-categories.json
-    ```
+The CSV extract of public bodies from the old UIPA must be fixed up to match the new UIPA database.
 
-
-#### Load the Public Body data - Method #1
-
-> NOTE: You can use the above Method #2 instead.
-
-
-- Load the public bodies:
-    ```
-    $ python manage.py import_csv data/seed/2024-03-24-public-bodies-fixed.csv
-    ```
-
-
-At this point, you should have all of the basic data from UIPA.org without any
-requests and other data.
-
-> NOTE: When loading the public bodies from a CSV file, not all of them are loaded.
-> There's a bug in the CSV importer that messes up the slug for the name. This
-> causes public bodies with parents to not be loaded and stops with an error
-> message about "PublicBody matching query does not exist".
->
-> To overcome this, on the Admin website, delete all of the public bodies
-> loaded and load the public bodies from the CSV file. Repeat this process a
-> couple more times until you see all 201 public bodies loaded. Spot check that
-> the slug matches the name by visiting the details of a public body.
-
-
-### Convenience scripts
-
-For convenience, you run these shell scripts to load the fixture files and
-public bodies:
-
-- Load the classifications, jurisdictions, and Freedom of Information laws.
+- Extract the *tag* values from the *Tag* column in the CSV file.
 
     ```
-    $ sh data/seed/load_fixtures.sh
-    ```
-
-- Load the categories and public bodies.
-
-    ```
-    $ sh data/seed/load_public_bodies.sh
-    ```
-
-
-## Preparing a CSV file to upload public bodies
-
-> NOTE: This section can be skipped. It is for people who want to create the category
-> fixture file and a CSV file to upload public bodies.
-
-
-If you're going to be using a different CSV extract of public bodies, you'll
-need to:
-
-- Extract the tag values from the old `tags` field in the exported public
-  bodies CSV file.
-
-    ```
-    $ python extract_sets.py ../2024-03-15-Hawaii_UIPA_Public_Bodies_All.csv
+    $ python data/seed/extract_sets.py data/2024-03-15-Hawaii_UIPA_Public_Bodies_All.csv
     ```
 
   These files are created.
@@ -193,14 +137,13 @@ need to:
     - public-bodies-fixed.csv
     ```
 
-- The tag values to load in the Category table must be unique.
+- The *tag* values to be loaded into the Category table must be unique.
 
     ```
     $ sort -uf tag_values.txt > utags.txt
     ```
 
-- Generate a fixture file in JSON format with the tag values from the `tags`
-  field of the exported CSV file. Rename the fixture file to `categories.json`.
+- Generate a fixture file in JSON format with the tag values from the *tags* field of the CSV file. Rename the fixture file to `categories.json`.
 
     ```
     $ python gen_categories_fixture.py utags.txt
@@ -215,8 +158,7 @@ need to:
             "name": "Access Hawaii Committee",
     ```
 
-- Find the tag values that need to be changed in the generated CSV file to make
-  sure that the Categories values match the categories.json fixture file.
+- Find the *tag* values that need to be changed in the CSV file to make sure that the Categories values match the categories.json fixture file.
 
     ```
     $ sort -f tag_values.txt > stags.txt
@@ -233,18 +175,15 @@ need to:
     police commission
     transportation commission
     ```
-  Based on what we found, we must change "building board of appeals" to
-  "Building Board of Appeals". The other values must also be changed.
 
+Based on what we found, we must change "building board of appeals" to "Building Board of Appeals". There are other values that must be changed.
 
-- Edit the new CSV file, public-bodies-fixed.csv, to correct the records that
-  have duplicate lower-case values. To find those records, use the `cgrep.py` program.
+- Copy the CSV file to `public-bodies-fixed.csv`, and edit it to correct the records that have duplicate lower-case values. Use the `cgrep.py` program to find those records.
 
-  Make sure that there are no spaces after the commas that separate multiple
-  values in the categories field.
+  Make sure that there are no spaces after the commas that separate multiple values in the categories field.
 
     ```
-    $ python cgrep.py "public board of appeals" categories public-bodies-fixed.csv
+    $ python cgrep.py "board of appeals" categories public-bodies-fixed.csv
     id: 94 => "building board of appeals","design advisory committee","geographic information systems","land use","planning commission","zoning board of appeals",DPP,GIS,building,design,development,permitting,planning,zoning
     Found 1 records
 
@@ -253,3 +192,24 @@ need to:
     Found 1 records
     ```
 
+## Dumping data from the database
+
+Data can be dumped from the database into fixture files. Then the fixture files can be used to load data into an empty database.
+
+The fixture files are in JSON format.
+
+Use these command to create fixture files:
+
+```
+$ python manage.py dumpdata account.user --indent 4 -o account.user.json
+$ python manage.py dumpdata sites.site --indent 4 -o sites.site.json
+
+$ python manage.py dumpdata publicbody.classification --indent 4 -o publicbody.classification.json
+$ python manage.py dumpdata publicbody.jurisdiction --indent 4 -o publicbody.jurisdiction.json
+$ python manage.py dumpdata publicbody.foilaw --indent 4 -o publicbody.foilaw.json
+$ python manage.py dumpdata publicbody.foilawtranslation --indent 4 -o publicbody.foilawtranslation.json
+
+$ python manage.py dumpdata publicbody.category --indent 4 -o publicbody.category.json
+$ python manage.py dumpdata publicbody.publicbody --indent 4 -o publicbody.publicbody.json
+$ python manage.py dumpdata publicbody.categorizedpublicbody --indent 4 -o publicbody.categorizedpublicbody.json
+```

@@ -1,0 +1,92 @@
+[
+{
+    "model": "publicbody.foilawtranslation",
+    "pk": 1,
+    "fields": {
+        "language_code": "en",
+        "name": "State of Hawaii UIPA",
+        "slug": "state-hawaii-uipa-city-and-county-of-honolulu",
+        "description": "",
+        "long_description": "",
+        "legal_text": "",
+        "request_note": "",
+        "letter_start": "Aloha,\r\n\r\nPursuant to the public records law, I would like to request the following records in electronic format sent to my email address.",
+        "letter_end": "Mahalo,",
+        "refusal_reasons": "",
+        "overdue_reply": "",
+        "master": 2
+    }
+},
+{
+    "model": "publicbody.foilawtranslation",
+    "pk": 2,
+    "fields": {
+        "language_code": "en",
+        "name": "State of Hawaii UIPA",
+        "slug": "state-hawaii-uipa-state-of-hawaii",
+        "description": "",
+        "long_description": "",
+        "legal_text": "",
+        "request_note": "",
+        "letter_start": "Aloha,\r\n\r\nPursuant to the public records law, I would like to request the following records in electronic format sent to my email address.",
+        "letter_end": "Mahalo,",
+        "refusal_reasons": "",
+        "overdue_reply": "",
+        "master": 1
+    }
+},
+{
+    "model": "publicbody.foilawtranslation",
+    "pk": 3,
+    "fields": {
+        "language_code": "en",
+        "name": "State of Hawaii UIPA",
+        "slug": "state-hawaii-uipa-county-of-hawaii",
+        "description": "",
+        "long_description": "",
+        "legal_text": "",
+        "request_note": "Aloha,\r\n\r\nPursuant to the public records law, I would like to request the following records in electronic format sent to my email address.",
+        "letter_start": "Mahalo,",
+        "letter_end": "",
+        "refusal_reasons": "",
+        "overdue_reply": "",
+        "master": 3
+    }
+},
+{
+    "model": "publicbody.foilawtranslation",
+    "pk": 4,
+    "fields": {
+        "language_code": "en",
+        "name": "State of Hawaii UIPA",
+        "slug": "state-hawaii-uipa-county-of-maui",
+        "description": "",
+        "long_description": "",
+        "legal_text": "",
+        "request_note": "",
+        "letter_start": "",
+        "letter_end": "",
+        "refusal_reasons": "",
+        "overdue_reply": "",
+        "master": 4
+    }
+},
+{
+    "model": "publicbody.foilawtranslation",
+    "pk": 5,
+    "fields": {
+        "language_code": "en",
+        "name": "State of Hawaii UIPA",
+        "slug": "state-hawaii-uipa-county-of-kauai",
+        "description": "",
+        "long_description": "",
+        "legal_text": "",
+        "request_note": "",
+        "letter_start": "",
+        "letter_end": "",
+        "refusal_reasons": "",
+        "overdue_reply": "",
+        "master": 5
+    }
+}
+]

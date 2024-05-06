@@ -1,0 +1,107 @@
+[
+{
+    "model": "publicbody.foilaw",
+    "pk": 1,
+    "fields": {
+        "created": null,
+        "updated": null,
+        "meta": false,
+        "law_type": "",
+        "jurisdiction": 1,
+        "priority": 1,
+        "url": "http://oip.hawaii.gov/laws-rules-opinions/uipa/uniform-information-practices-act-uipa/",
+        "scale_of_fees": "",
+        "max_response_time": 16,
+        "max_response_time_unit": "day",
+        "mediator": null,
+        "email_only": false,
+        "requires_signature": false,
+        "site": 1,
+        "combined": []
+    }
+},
+{
+    "model": "publicbody.foilaw",
+    "pk": 2,
+    "fields": {
+        "created": null,
+        "updated": null,
+        "meta": false,
+        "law_type": "",
+        "jurisdiction": 2,
+        "priority": 2,
+        "url": "http://oip.hawaii.gov/laws-rules-opinions/uipa/uniform-information-practices-act-uipa/",
+        "scale_of_fees": "",
+        "max_response_time": 16,
+        "max_response_time_unit": "day",
+        "mediator": null,
+        "email_only": false,
+        "requires_signature": false,
+        "site": 1,
+        "combined": []
+    }
+},
+{
+    "model": "publicbody.foilaw",
+    "pk": 3,
+    "fields": {
+        "created": null,
+        "updated": null,
+        "meta": false,
+        "law_type": "",
+        "jurisdiction": 3,
+        "priority": 3,
+        "url": "http://oip.hawaii.gov/laws-rules-opinions/uipa/uniform-information-practices-act-uipa/",
+        "scale_of_fees": "",
+        "max_response_time": 16,
+        "max_response_time_unit": "day",
+        "mediator": null,
+        "email_only": false,
+        "requires_signature": false,
+        "site": 1,
+        "combined": []
+    }
+},
+{
+    "model": "publicbody.foilaw",
+    "pk": 4,
+    "fields": {
+        "created": null,
+        "updated": null,
+        "meta": false,
+        "law_type": "",
+        "jurisdiction": 4,
+        "priority": 4,
+        "url": "http://oip.hawaii.gov/laws-rules-opinions/uipa/uniform-information-practices-act-uipa/",
+        "scale_of_fees": "",
+        "max_response_time": 16,
+        "max_response_time_unit": "day",
+        "mediator": null,
+        "email_only": false,
+        "requires_signature": false,
+        "site": 1,
+        "combined": []
+    }
+},
+{
+    "model": "publicbody.foilaw",
+    "pk": 5,
+    "fields": {
+        "created": null,
+        "updated": null,
+        "meta": false,
+        "law_type": "",
+        "jurisdiction": 5,
+        "priority": 5,
+        "url": "http://oip.hawaii.gov/laws-rules-opinions/uipa/uniform-information-practices-act-uipa/",
+        "scale_of_fees": "",
+        "max_response_time": 16,
+        "max_response_time_unit": "day",
+        "mediator": null,
+        "email_only": false,
+        "requires_signature": false,
+        "site": 1,
+        "combined": []
+    }
+}
+]

@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   db:
     image: postgis/postgis:14-3.1
@@ -18,6 +16,8 @@ services:
       - es-logs:/var/log
     environment:
       - "discovery.type=single-node"
+      - "xpack.security.enabled=true"
+      - "ELASTIC_PASSWORD=froide"
       - "cluster.routing.allocation.disk.threshold_enabled=false"
       - "cluster.routing.allocation.disk.watermark.low=3gb"
       - "cluster.routing.allocation.disk.watermark.high=2gb"

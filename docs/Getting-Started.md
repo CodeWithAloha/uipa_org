@@ -3,7 +3,11 @@
 After setting up the prerequisites, run the following commands from the directory that you cloned the UIPA repository into.
 
 - In a terminal window, run `docker-compose up`.
-- In another terminal window, run `bash data/seed/init_db.sh`.
+- In another terminal window, run:
+    - `python -m venv venv`
+    - `source venv/bin/activate`
+    - `pip install -r requirements.txt`
+    - `bash data/seed/init_db.sh`.
 - In that same terminal window, run `python manage.py runserver`.
 - Open `http://127.0.0.1:8000/` in your web browser.
 
@@ -78,13 +82,6 @@ Run these commands:
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
 - `bash data/seed/init_db.sh`
-    You will be prompted for the email address, username, and password for an administrative user. You can use this or pick your own:
-
-    ```
-    Email address: admin@uipa.org
-    Username: admin
-    Password: secret007
-    ```
 - `python manage.py check`
 
 These commands do the following:
@@ -96,6 +93,15 @@ These commands do the following:
 - Create the search engine's indexes.
 - Create an administrative user.
 - Check that your Django development environment is set up correctly.
+
+The administrative user is:
+    ```
+    Email address: admin@uipa.org
+    Password:      secret007
+    Username:      admin
+    First name:    Adam
+    Last name:     Ministrator
+    ```
 
 ### Frontend
 

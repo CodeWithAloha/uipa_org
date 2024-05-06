@@ -1,0 +1,67 @@
+[
+{
+    "model": "publicbody.jurisdiction",
+    "pk": 1,
+    "fields": {
+        "name": "State of Hawaii",
+        "slug": "state-of-hawaii",
+        "description": "",
+        "hidden": false,
+        "rank": 1,
+        "region": null,
+        "last_modified_at": "2024-03-21T19:57:01Z"
+    }
+},
+{
+    "model": "publicbody.jurisdiction",
+    "pk": 2,
+    "fields": {
+        "name": "City and County of Honolulu",
+        "slug": "city-and-county-of-honolulu",
+        "description": "",
+        "hidden": false,
+        "rank": 2,
+        "region": null,
+        "last_modified_at": "2024-03-21T19:57:01Z"
+    }
+},
+{
+    "model": "publicbody.jurisdiction",
+    "pk": 3,
+    "fields": {
+        "name": "County of Hawaii",
+        "slug": "county-of-hawaii",
+        "description": "",
+        "hidden": false,
+        "rank": 3,
+        "region": null,
+        "last_modified_at": "2024-03-21T19:57:01Z"
+    }
+},
+{
+    "model": "publicbody.jurisdiction",
+    "pk": 4,
+    "fields": {
+        "name": "County of Maui",
+        "slug": "county-of-maui",
+        "description": "",
+        "hidden": false,
+        "rank": 4,
+        "region": null,
+        "last_modified_at": "2024-03-21T19:57:01Z"
+    }
+},
+{
+    "model": "publicbody.jurisdiction",
+    "pk": 5,
+    "fields": {
+        "name": "County of Kauai",
+        "slug": "county-of-kauai",
+        "description": "",
+        "hidden": false,
+        "rank": 5,
+        "region": null,
+        "last_modified_at": "2024-03-21T19:57:01Z"
+    }
+}
+]
