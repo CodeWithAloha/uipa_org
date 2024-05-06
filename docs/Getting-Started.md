@@ -102,6 +102,7 @@ The administrative user is:
     First name:    Adam
     Last name:     Ministrator
     ```
+> CAUTION: Don't do this for any non-development server set-up.
 
 ### Frontend
 
