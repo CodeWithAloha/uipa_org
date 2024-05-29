@@ -47,7 +47,10 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-c
     docker-compose --version
 
 # Ensure the vscode user exists and add it to the Docker group
-RUN usermod -aG docker vscode || true
+# RUN usermod -aG docker vscode || true
+
+# Ensure the vscode user exists and add it to the Docker group
+RUN groupadd -f docker && usermod -aG docker vscode || true
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

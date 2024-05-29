@@ -36,6 +36,7 @@
 	  "--privileged"
 	],
 	"forwardPorts": [8000, 5432, 9200],
+	"postCreateCommand": "sudo usermod -aG docker $USER && sudo service docker start",
 	"postStartCommand": "docker-compose up -d",
 	"customizations": {
 	  "vscode": {
