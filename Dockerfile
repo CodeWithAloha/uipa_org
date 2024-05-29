@@ -1,26 +1,25 @@
 ARG VARIANT="16"
 FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
 
-# Install dependencies
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get install -y --no-install-recommends \
-#     libqpdf-dev \
-#     g++ \
-#     wget \
-#     python3-pip \
-#     python3-psycopg2 \
-#     python3-lxml \
-#     libxml2-dev \
-#     libpq-dev \
-#     libgdal-dev \
-#     imagemagick \
-#     git \
-#     libpangocairo-1.0-0 \
-#     libmagic1 \
-#     docker-compose \
-#     sudo \
-#     && apt-get clean \
-#     && rm -rf /var/lib/apt/lists/*
+# Install main dependencies
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends \
+    libqpdf-dev \
+    g++ \
+    wget \
+    python3-pip \
+    python3-psycopg2 \
+    python3-lxml \
+    libxml2-dev \
+    libpq-dev \
+    libgdal-dev \
+    imagemagick \
+    git \
+    libpangocairo-1.0-0 \
+    libmagic1 \
+    sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 
 # RUN apt-get update && \
@@ -33,17 +32,25 @@ FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
 #     chmod +x /usr/local/bin/docker-compose && \
 #     usermod -aG docker vscode
 
-# Install dependencies and Docker
+# Install dependencies
 RUN apt-get update && \
-    apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg && \
-    curl -fsSL https://get.docker.com -o get-docker.sh && \
+    apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg
+
+# Install Docker
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
     sh get-docker.sh && \
-    docker --version && \
-    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    docker --version
+
+# Install Docker Compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
-    docker-compose --version && \
-    usermod -aG docker vscode && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    docker-compose --version
+
+# Ensure the vscode user exists and add it to the Docker group
+RUN usermod -aG docker vscode || true
+
+# Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
     
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
