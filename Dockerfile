@@ -1,5 +1,5 @@
 ARG VARIANT="16"
-FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}-alpine
+FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
 
 # Install main dependencies
 RUN apk update && apk add --no-cache \
