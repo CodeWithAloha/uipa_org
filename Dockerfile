@@ -37,6 +37,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+    # Install Docker Compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+chmod +x /usr/local/bin/docker-compose && \
+docker-compose --version
+
+
 # Ensure the vscode user exists and add it to the Docker group
 RUN groupadd -f docker && usermod -aG docker vscode || true
 
