@@ -36,8 +36,9 @@
 	  "--privileged"
 	],
 	"forwardPorts": [8000, 5432, 9200],
-	"postCreateCommand": "sudo usermod -aG docker $USER && sudo service docker start",
-	"postStartCommand": "docker-compose up -d",
+	// "postCreateCommand": "sudo usermod -aG docker $USER && sudo service docker start",
+	"postCreateCommand": "sudo usermod -aG docker $USER",
+	"postStartCommand": "bash cleanup_and_start.sh",
 	"customizations": {
 	  "vscode": {
 		"extensions": [

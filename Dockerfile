@@ -21,40 +21,28 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Add Docker's official GPG key
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# RUN apt-get update && \
-#     apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg && \
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-#     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-#     apt-get update && \
-#     apt-get install -y docker-ce docker-ce-cli containerd.io && \
-#     curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-#     chmod +x /usr/local/bin/docker-compose && \
-#     usermod -aG docker vscode
+# Add Docker APT repository
+RUN echo \
+    "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg
-
-# Install Docker
-RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
-    sh get-docker.sh && \
-    docker --version
-
-# Install Docker Compose
-RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
-    docker-compose --version
-
-# Ensure the vscode user exists and add it to the Docker group
-# RUN usermod -aG docker vscode || true
+# Update APT package sources and install Docker
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends \
+    docker-ce docker-ce-cli containerd.io docker-compose-plugin \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Ensure the vscode user exists and add it to the Docker group
 RUN groupadd -f docker && usermod -aG docker vscode || true
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-    
+
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
 
