@@ -1,0 +1,20 @@
+# Ignore node_modules
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore local development environment files
+.env
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore Dockerfile and Docker Compose files
+Dockerfile
+docker-compose.yml
+
+# Ignore other unnecessary files
+*.md
+*.json
