@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./docs/logos/uipa.org/vertical/UIPA-vertical-logo-transparent-background.png" alt="UIPA.org Logo" width="200" />
+  <img src="./docs/BRANDING/logos/uipa.org/vertical/UIPA-vertical-logo-transparent-background.png" alt="UIPA.org Logo" width="200" />
 </div>
 
 <div align="center">
@@ -29,4 +29,6 @@ See the [Getting Started](docs/Getting-Started.md) section.
 
 Many thanks to the [Open Knowledge Foundation Germany](https://www.okfn.de/) for their work on [Froide](https://github.com/okfde/froide). Their docs on the project are [available here](http://froide.readthedocs.org/en/latest/) including a [Getting Started Guide](http://froide.readthedocs.org/en/latest/gettingstarted/).
 
-Thanks to the [Public First Law Center](https://www.publicfirstlaw.org/) for providing guidance and hosting for the UIPA.org project.
+Thanks to the [Public First Law Center](https://www.publicfirstlaw.org/) for being the community partner for this project by providing guidance and hosting the infrastructure for the UIPA.org project.
+
+<img src="https://github.com/CodeWithAloha/uipa/assets/15609358/82b9c2b7-0c45-4941-a190-a947ebe080fd" alt="Public First Law Center Logo" width="100" />
