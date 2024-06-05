@@ -45,6 +45,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
+# Copy the requirements file to the working directory
+COPY requirements.txt /workspace/
 
+# Install Python dependencies
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+    
 # Start Docker daemon
 CMD ["sudo", "service", "docker", "start"]
