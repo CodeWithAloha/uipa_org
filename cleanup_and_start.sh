@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set COMPOSE_HTTP_TIMEOUT to ensure Docker Compose waits long enough
+export COMPOSE_HTTP_TIMEOUT=200
+
 # Clean up Docker system
 docker system prune -a -f
 docker volume prune -f
