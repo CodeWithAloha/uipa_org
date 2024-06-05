@@ -49,7 +49,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # EXPOSE 8000 5432 9200
 
 # Copy the requirements file to the working directory
-COPY requirements.txt /workspace/
+# COPY requirements.txt /workspace/
+COPY requirements.txt .
 
 # Create and activate a virtual environment, then install dependencies
 RUN python3 -m venv /workspace/venv \
