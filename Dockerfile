@@ -1,7 +1,3 @@
-ARG VARIANT="16"
-# FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
-# FROM mcr.microsoft.com/devcontainers/javascript-node:1
-
 FROM mcr.microsoft.com/devcontainers/javascript-node:1-18
 
 # Install main dependencies and Docker in one step to reduce layers
@@ -25,7 +21,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         sudo \
         libpoppler-cpp-dev \
         cmake \
-
     # Add Docker's official GPG key
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
@@ -50,17 +45,52 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
 
-# Copy the requirements file to the working directory
-# COPY requirements.txt /workspace/
-COPY requirements.txt .
+# Set up the working directory
+WORKDIR /workspace
 
 # Create and activate a virtual environment, then install dependencies
 RUN python3 -m venv /workspace/venv \
     && /workspace/venv/bin/pip install --upgrade pip \
-    && /workspace/venv/bin/pip install -r requirements.txt
+    && /workspace/venv/bin/pip install \
+        django==4.2.4 \
+        Markdown==3.4.3 \
+        celery==5.2.7 \
+        django-celery-email==3.0.0 \
+        django-taggit==4.0.0 \
+        pytz==2023.3 \
+        requests==2.31.0 \
+        django-floppyforms==1.9.0 \
+        python-magic==0.4.27 \
+        python-mimeparse==1.6.0 \
+        django-configurations==2.5.1 \
+        django-storages==1.13.2 \
+        dj-database-url==2.0.0 \
+        django-contrib-comments==2.2.0 \
+        unicodecsv==0.14.1 \
+        django-tinymce==3.6.1 \
+        python-docx==0.8.11 \
+        elasticsearch==8.11.1 \
+        lxml==5.2.1 \
+        channels==4.0.0 \
+        django-treebeard==4.4 \
+        django-leaflet==0.29.0 \
+        django-json-widget==1.1.1 \
+        django-celery-beat==2.5.0 \
+        django-mfa3==0.11.0 \
+        psycopg[binary]==3.1.18 \
+        psycopg-binary==3.1.18 \
+        oauthlib==3.2.2 \
+        django-oauth-toolkit==1.7.1 \
+        django-fsm==2.8.1 \
+        websockets==11.0.3 \
+        bleach==6.0.0 \
+    # Install editable packages
+    && /workspace/venv/bin/pip install -e git+https://github.com/codewithaloha/froide.git@main#egg=froide \
+    && /workspace/venv/bin/pip install -e git+https://github.com/okfde/django-filingcabinet.git@main#egg=django-filingcabinet
 
 # Set environment variables to use the virtual environment by default
 ENV VIRTUAL_ENV=/workspace/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Start Docker daemon
 CMD ["sudo", "service", "docker", "start"]
