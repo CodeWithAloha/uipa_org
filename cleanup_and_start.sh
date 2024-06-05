@@ -13,5 +13,23 @@ sudo service docker start
 # Wait for Docker daemon to start
 sleep 10
 
-# Run Docker Compose with detailed logs
-docker-compose up -d
+# Ensure Python is installed
+if ! command -v python3 &> /dev/null; then
+    echo "Python3 could not be found. Installing..."
+    sudo apt-get update
+    sudo apt-get install -y python3
+else
+    echo "Python3 is already installed."
+fi
+
+# Ensure tmux is installed
+if ! command -v tmux &> /dev/null; then
+    echo "tmux could not be found. Installing..."
+    sudo apt-get update
+    sudo apt-get install -y tmux
+else
+    echo "tmux is already installed."
+fi
+
+# Run Docker Compose in a new tmux session
+tmux new-session -d -s docker_session 'docker-compose up -d'
