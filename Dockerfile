@@ -2,10 +2,7 @@ ARG VARIANT="16"
 # FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
 # FROM mcr.microsoft.com/devcontainers/javascript-node:1
 
-# pulling from node github repos - https://github.com/nodejs/docker-node/blob/14ae63a78d5e38557a56822bd2b1094d038e52a4/22/bookworm/Dockerfile
-# https://docs.docker.com/trusted-content/official-images/using/
-FROM buildpack-deps:bookworm
-
+FROM mcr.microsoft.com/devcontainers/javascript-node:1-18
 
 # Install main dependencies and Docker in one step to reduce layers
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
