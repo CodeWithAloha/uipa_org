@@ -11,6 +11,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         python3-lxml \
         python-is-python3 \
         python3-venv \
+        python3-dev \                 
+        libpython3-dev \               
         libxml2-dev \
         libpq-dev \
         libgdal-dev \
@@ -26,7 +28,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         build-essential \
         cmake \
         libpoppler-cpp-dev \
-        
     # Add Docker's official GPG key
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
@@ -47,6 +48,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Clean up
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/apt/keyrings/docker.gpg
+
+# Set environment variables for pkg-config to locate Python
+ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig  # Added this line
 
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
