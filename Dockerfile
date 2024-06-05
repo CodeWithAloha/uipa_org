@@ -13,6 +13,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         python3-pip \
         python3-psycopg2 \
         python3-lxml \
+        python-is-python3 \
         libxml2-dev \
         libpq-dev \
         libgdal-dev \
