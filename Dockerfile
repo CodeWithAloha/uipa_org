@@ -1,5 +1,5 @@
 # FROM mcr.microsoft.com/devcontainers/javascript-node:1-18
-FROM mcr.microsoft.com/devcontainers/javascript-node:1-22
+FROM mcr.microsoft.com/devcontainers/javascript-node:22
 
 # Install main dependencies and Docker in one step to reduce layers
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
