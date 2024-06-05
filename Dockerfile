@@ -19,12 +19,14 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libpangocairo-1.0-0 \
         libmagic1 \
         sudo \
-        libpoppler-cpp-dev \
-        cmake \
-        build-essential \
-        pkg-config \
+        pybind11-dev \
         meson \
+        pkg-config \
         ninja-build \
+        build-essential \
+        cmake \
+        libpoppler-cpp-dev \
+        
     # Add Docker's official GPG key
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
