@@ -50,7 +50,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/apt/keyrings/docker.gpg
 
 # Set environment variables for pkg-config to locate Python
-ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig  # Added this line
+ENV PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig
 
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
