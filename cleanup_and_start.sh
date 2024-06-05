@@ -17,10 +17,20 @@ sleep 10
 if ! command -v python3 &> /dev/null; then
     echo "Python3 could not be found. Installing..."
     sudo apt-get update
-    sudo apt-get install -y python3
+    sudo apt-get install -y python3 python-is-python3
 else
     echo "Python3 is already installed."
 fi
+
+# Verify Python installation
+if ! command -v python &> /dev/null; then
+    echo "Python is still not available after installation."
+else
+    python --version
+fi
+
+# Activate virtual environment
+source /workspace/venv/bin/activate
 
 # Run Docker Compose with detailed logs
 docker-compose up -d

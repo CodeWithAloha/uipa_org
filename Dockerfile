@@ -45,12 +45,17 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # Expose ports (if necessary)
 # EXPOSE 8000 5432 9200
+
 # Copy the requirements file to the working directory
 COPY requirements.txt /workspace/
 
-# Install Python dependencies
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
-    
+# Create and activate a virtual environment, then install dependencies
+RUN python3 -m venv /workspace/venv \
+    && /workspace/venv/bin/pip install --upgrade pip \
+    && /workspace/venv/bin/pip install -r requirements.txt
+
+# Set environment variables to use the virtual environment by default
+ENV VIRTUAL_ENV=/workspace/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Start Docker daemon
 CMD ["sudo", "service", "docker", "start"]
