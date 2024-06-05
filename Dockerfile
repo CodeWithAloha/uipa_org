@@ -23,6 +23,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libpangocairo-1.0-0 \
         libmagic1 \
         sudo \
+        libpoppler-cpp-dev \
+        cmake \
 
     # Add Docker's official GPG key
     && mkdir -p /etc/apt/keyrings \
