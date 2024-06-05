@@ -36,3 +36,13 @@ tmux -V
 
 # Run Docker Compose in a new tmux session and log the output
 tmux new-session -d -s docker_session 'docker-compose up -d > /tmp/docker_compose.log 2>&1'
+
+# Wait and check if the tmux session is still running
+sleep 10
+tmux list-sessions
+
+# Log the output
+tmux capture-pane -t docker_session -p > /tmp/docker_session_output.log
+
+# Check if services are running
+docker ps > /tmp/docker_ps.log
