@@ -14,6 +14,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         python3-psycopg2 \
         python3-lxml \
         python-is-python3 \
+        python3-venv \
         libxml2-dev \
         libpq-dev \
         libgdal-dev \
@@ -22,6 +23,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libpangocairo-1.0-0 \
         libmagic1 \
         sudo \
+
     # Add Docker's official GPG key
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
