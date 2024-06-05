@@ -1,5 +1,6 @@
 ARG VARIANT="16"
-FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
+# FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
+FROM mcr.microsoft.com/devcontainers/javascript-node:1
 
 # Install main dependencies and Docker in one step to reduce layers
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
