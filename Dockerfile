@@ -44,6 +44,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose \
     && docker-compose --version \
+     # Install Yarn
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y yarn \
     # Ensure the vscode user exists and add it to the Docker group
     && groupadd -f docker && usermod -aG docker vscode || true \
     # Clean up
