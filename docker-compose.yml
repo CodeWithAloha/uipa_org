@@ -36,6 +36,8 @@ services:
     depends_on:
       - db
       - elasticsearch
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
 
 volumes:
   es-data: {}
