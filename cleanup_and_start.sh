@@ -31,5 +31,8 @@ else
     echo "tmux is already installed."
 fi
 
-# Run Docker Compose in a new tmux session
-tmux new-session -d -s docker_session 'docker-compose up -d'
+# Log tmux version
+tmux -V
+
+# Run Docker Compose in a new tmux session and log the output
+tmux new-session -d -s docker_session 'docker-compose up -d > /tmp/docker_compose.log 2>&1'
