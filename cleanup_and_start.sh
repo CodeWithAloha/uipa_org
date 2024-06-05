@@ -30,7 +30,7 @@ else
 fi
 
 # Activate virtual environment
-source /workspace/venv/bin/activate
+# source /workspace/venv/bin/activate
 
 # Run Docker Compose with detailed logs
 docker-compose up -d
