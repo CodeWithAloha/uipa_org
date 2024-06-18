@@ -1,4 +1,8 @@
 services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
   db:
     image: postgis/postgis:14-3.1
     volumes:
