@@ -2,10 +2,7 @@
     "name": "UIPA DevBox",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
-    // "workspaceFolder": "/workspaces/uipa",
-    // "forwardPorts": [8000, 5432, 9200],
-    // "postCreateCommand": "until docker info > /dev/null 2>&1; do echo 'Waiting for Docker to start...'; sleep 1; done && docker-compose up -d && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && bash data/seed/init_db.sh && python manage.py check && sleep infinity",
-    // "remoteUser": "root",
+    "forwardPorts": [8000, 5432, 9200],
     "customizations": {
         "vscode": {
             "extensions": [
