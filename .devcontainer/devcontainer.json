@@ -1,6 +1,6 @@
 {
     "name": "UIPA DevBox",
-    "dockerComposeFile": "../docker-compose.yml",
+    "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     // "workspaceFolder": "/workspaces/uipa",
     // "forwardPorts": [8000, 5432, 9200],
