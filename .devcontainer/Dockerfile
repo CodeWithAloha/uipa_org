@@ -4,6 +4,18 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 # root acess for beginning of the script
 USER root
 
+# Install main dependencies in one step to reduce layers
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends \
+        libpoppler-cpp-dev \
+        python-is-python3 \
+        gdal-bin \
+        libgdal-dev \
+        imagemagick \
+        libmagickwand-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
 # [Option] Upgrade OS packages to their latest versions
@@ -34,6 +46,26 @@ RUN apt-get update \
 # Create directories for Elasticsearch and add necessary permissions
 RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch \
     && chown -R baseuser:baseuser /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
+
+    # Copy the requirements file to the working directory
+COPY codespaces-requirements.txt .
+
+# Display the contents of requirements.txt for debugging
+RUN echo "Displaying requirements.txt:" && cat codespaces-requirements.txt
+
+# Update package list and install pip for Python 3
+RUN apt-get update && \
+    apt-get install -y python3-pip
+
+# Display Python and pip versions for debugging
+RUN python3 --version && pip3 --version
+
+# Upgrade pip
+RUN pip3 install --upgrade pip
+
+
+# Install dependencies globally
+RUN pip install -r codespaces-requirements.txt
 
 # Switch back to the baseuser
 USER baseuser
