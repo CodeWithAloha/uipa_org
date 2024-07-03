@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 # root acess for beginning of the script
 USER root
 
-# Install main dependencies in one step to reduce layers
+# Install system wide dependencies that cannot be done in a venv 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends \
         libpoppler-cpp-dev \
@@ -13,6 +13,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libgdal-dev \
         imagemagick \
         libmagickwand-dev \
+        python3-dev \
+        pkg-config \
+        build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -53,19 +56,17 @@ COPY codespaces-requirements.txt .
 # Display the contents of requirements.txt for debugging
 RUN echo "Displaying requirements.txt:" && cat codespaces-requirements.txt
 
-# Update package list and install pip for Python 3
-RUN apt-get update && \
-    apt-get install -y python3-pip
+# Install Python virtual environment package and create a virtual environment
+RUN sudo apt-get update && sudo apt-get install -y python3-venv
 
-# Display Python and pip versions for debugging
-RUN python3 --version && pip3 --version
+# Create virtual environment
+RUN python3 -m venv venv
 
-# Upgrade pip
-RUN pip3 install --upgrade pip
+# Activate the virtual environment and install dependencies
+RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r codespaces-requirements.txt"
 
-
-# Install dependencies globally
-RUN pip install -r codespaces-requirements.txt
+# Debugging: Display Python and pip versions
+RUN /bin/bash -c "source venv/bin/activate && python --version && pip --version"
 
 # Switch back to the baseuser
 USER baseuser
