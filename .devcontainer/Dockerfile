@@ -50,7 +50,19 @@ RUN apt-get update \
 RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch \
     && chown -R baseuser:baseuser /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
 
-    # Copy the requirements file to the working directory
+
+# Copy your application code from the root directory
+COPY .. .
+
+
+# Copy the init file to the working directory
+
+COPY init_db.sh .
+
+# Ensure the init_db.sh script is executable
+# RUN chmod +x /data/seed/init_db.sh
+
+# Copy the requirements file to the working directory
 COPY codespaces-requirements.txt .
 
 # Display the contents of requirements.txt for debugging
@@ -63,10 +75,17 @@ RUN sudo apt-get update && sudo apt-get install -y python3-venv
 RUN python3 -m venv venv
 
 # Activate the virtual environment and install dependencies
+# RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r codespaces-requirements.txt && bash init_db.sh"
 RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r codespaces-requirements.txt"
 
 # Debugging: Display Python and pip versions
-RUN /bin/bash -c "source venv/bin/activate && python --version && pip --version"
+RUN /bin/bash -c "source venv/bin/activate && python --version && pip --version"  
+
+
+
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Switch back to the baseuser
 USER baseuser
@@ -75,8 +94,20 @@ USER baseuser
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access 
 # to the Docker socket. The script will also execute CMD as needed.
-ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+# ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
+
 CMD [ "sleep", "infinity" ]
+
+
+
+
+
+# might be able to do the pip install for requirements this way as well if this functions correctly
+# Run database migrations and start the server
+# CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# CMD ["/bin/bash",]#
+
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
