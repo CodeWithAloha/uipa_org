@@ -95,9 +95,9 @@ USER baseuser
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access 
 # to the Docker socket. The script will also execute CMD as needed.
 # ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
-ENTRYPOINT [ "/entrypoint.sh" ]
+# ENTRYPOINT [ "/entrypoint.sh" ]
 
-CMD [ "sleep", "infinity" ]
+# CMD [ "sleep", "infinity" ]
 
 
 
@@ -105,8 +105,9 @@ CMD [ "sleep", "infinity" ]
 
 # might be able to do the pip install for requirements this way as well if this functions correctly
 # Run database migrations and start the server
-# CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver"]
 # CMD ["/bin/bash",]#
+# CMD [ "sleep", "infinity" ]
 
 
 # [Optional] Uncomment this section to install additional OS packages.

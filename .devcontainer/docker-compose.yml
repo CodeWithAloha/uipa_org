@@ -5,7 +5,10 @@ services:
       dockerfile: Dockerfile
     ports:
       # - "8000:8000"  # Add this line to map port 8000
-        - "127.0.0.1:8000:8000"  # Only accessible from the host machine
+        # - "127.0.0.1:8000:8000"
+    # entrypoint: ["/bin/bash", "/entrypoint.sh"]
+
+
 
   db:
     image: postgis/postgis:14-3.1
