@@ -1,4 +1,4 @@
-# version: '3.8'
+version: '3.8'
 services:
   app:
     build: 
@@ -45,10 +45,10 @@ services:
     ports:
       - "127.0.0.1:9200:9200"
     healthcheck:
-      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"'"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"' || curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"yellow\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
 
 volumes:
   es-data: {}
