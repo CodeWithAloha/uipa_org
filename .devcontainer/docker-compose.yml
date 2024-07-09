@@ -1,14 +1,16 @@
+# version: '3.8'
 services:
   app:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     ports:
-      # - "8000:8000"  # Add this line to map port 8000
-        # - "127.0.0.1:8000:8000"
-    # entrypoint: ["/bin/bash", "/entrypoint.sh"]
-
-
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
   db:
     image: postgis/postgis:14-3.1
@@ -20,6 +22,12 @@ services:
       POSTGRES_PASSWORD: froide
     ports:
       - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U froide -d froide"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
     user: root
@@ -27,15 +35,20 @@ services:
       - es-data:/usr/share/elasticsearch/data
       - es-logs:/var/log
     environment:
-      - "discovery.type=single-node"
-      - "xpack.security.enabled=true"
-      - "ELASTIC_PASSWORD=froide"
-      - "cluster.routing.allocation.disk.threshold_enabled=false"
-      - "cluster.routing.allocation.disk.watermark.low=3gb"
-      - "cluster.routing.allocation.disk.watermark.high=2gb"
-      - "cluster.routing.allocation.disk.watermark.flood_stage=1gb"
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=froide
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - cluster.routing.allocation.disk.watermark.low=3gb
+      - cluster.routing.allocation.disk.watermark.high=2gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=1gb
     ports:
       - "127.0.0.1:9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   es-data: {}

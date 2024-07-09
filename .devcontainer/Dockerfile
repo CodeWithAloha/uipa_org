@@ -1,10 +1,10 @@
-# Note: You can use any Debian/Ubuntu based image you want. 
+# Use any Debian/Ubuntu based image
 FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 
-# root acess for beginning of the script
+# root access for the beginning of the script
 USER root
 
-# Install system wide dependencies that cannot be done in a venv 
+# Install system-wide dependencies that cannot be done in a venv
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends \
         libpoppler-cpp-dev \
@@ -16,76 +16,59 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         python3-dev \
         pkg-config \
         build-essential \
+        python3-venv \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# [Option] Install zsh
+# Optional arguments
 ARG INSTALL_ZSH="true"
-# [Option] Upgrade OS packages to their latest versions
 ARG UPGRADE_PACKAGES="false"
-# [Option] Enable non-root Docker access in container
 ARG ENABLE_NONROOT_DOCKER="true"
-# [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
 ARG USE_MOBY="true"
 
 # Enable new "BUILDKIT" mode for Docker CLI
 ENV DOCKER_BUILDKIT=1
 
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your
-# own dependencies. A user of "automatic" attempts to reuse an user ID if one already exists.
+# Install needed packages and setup non-root user
 ARG USERNAME=automatic
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-COPY library-scripts/*.sh /tmp/library-scripts/
+
+COPY .devcontainer/library-scripts/ /tmp/library-scripts/
+
 RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    # Use Docker script from script library to set things up
     && /bin/bash /tmp/library-scripts/docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" \
-    # Create the baseuser user and group
     && groupadd -r baseuser && useradd -r -g baseuser baseuser \
-    # Clean up
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
 # Create directories for Elasticsearch and add necessary permissions
 RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch \
     && chown -R baseuser:baseuser /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
 
+WORKDIR /home/app
 
 # Copy your application code from the root directory
-COPY .. .
+# COPY .. /home/app/
+COPY . /home/app/
 
+RUN chmod +x /home/app/data/seed/init_db.sh
 
-# Copy the init file to the working directory
+# Display the contents of codespaces-requirements.txt for debugging
+# RUN echo "Displaying codespaces-requirements.txt:" && cat /home/app/codespaces-requirements.txt
+RUN echo "Displaying requirements.txt:" && cat /home/app/requirements.txt
 
-COPY init_db.sh .
+# Create the virtual environment
+RUN python3 -m venv /home/app/venv
 
-# Ensure the init_db.sh script is executable
-# RUN chmod +x /data/seed/init_db.sh
-
-# Copy the requirements file to the working directory
-COPY codespaces-requirements.txt .
-
-# Display the contents of requirements.txt for debugging
-RUN echo "Displaying requirements.txt:" && cat codespaces-requirements.txt
-
-# Install Python virtual environment package and create a virtual environment
-RUN sudo apt-get update && sudo apt-get install -y python3-venv
-
-# Create virtual environment
-RUN python3 -m venv venv
+# Debugging: Display directory structure to check if venv is created correctly
+RUN ls -R /home/app
 
 # Activate the virtual environment and install dependencies
-# RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r codespaces-requirements.txt && bash init_db.sh"
-RUN /bin/bash -c "source venv/bin/activate && pip install --upgrade pip && pip install -r codespaces-requirements.txt"
+RUN /bin/bash -c "source /home/app/venv/bin/activate && pip install --upgrade pip && pip install -r /home/app/requirements.txt"
 
 # Debugging: Display Python and pip versions
-RUN /bin/bash -c "source venv/bin/activate && python --version && pip --version"  
-
-
-
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN /bin/bash -c "source /home/app/venv/bin/activate && python --version && pip --version"
 
 # Switch back to the baseuser
 USER baseuser
@@ -105,9 +88,12 @@ USER baseuser
 
 # might be able to do the pip install for requirements this way as well if this functions correctly
 # Run database migrations and start the server
-CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver"]
+# CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver"]
 # CMD ["/bin/bash",]#
 # CMD [ "sleep", "infinity" ]
+# Set the CMD to run your application directly
+CMD ["/bin/bash", "-c", "source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
+
 
 
 # [Optional] Uncomment this section to install additional OS packages.
