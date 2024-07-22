@@ -21,6 +21,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         proj-data \
         proj-bin \
         libgeos-dev \
+        postgresql-client \
+        curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -50,32 +52,15 @@ RUN apt-get update \
 RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch \
     && chown -R baseuser:baseuser /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
 
-
-
-
-
-
-
-
 # Create the static files directory
 RUN mkdir -p /home/app/build
-
-
-
-
-
 
 WORKDIR /home/app
 
 # Copy your application code from the root directory
-# COPY .. /home/app/
 COPY . /home/app/
 
 RUN chmod +x /home/app/data/seed/init_db.sh
-
-# Display the contents of codespaces-requirements.txt for debugging
-# RUN echo "Displaying codespaces-requirements.txt:" && cat /home/app/codespaces-requirements.txt
-RUN echo "Displaying requirements.txt:" && cat /home/app/requirements.txt
 
 # Create the virtual environment
 RUN python3 -m venv /home/app/venv
@@ -92,28 +77,11 @@ RUN /bin/bash -c "source /home/app/venv/bin/activate && python --version && pip 
 # Switch back to the baseuser
 USER baseuser
 
-# Setup the app here
-
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access 
 # to the Docker socket. The script will also execute CMD as needed.
 # ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
-# ENTRYPOINT [ "/entrypoint.sh" ]
 
-# CMD [ "sleep", "infinity" ]
-
-
-
-
-
-# might be able to do the pip install for requirements this way as well if this functions correctly
-# Run database migrations and start the server
-# CMD ["/bin/bash", "-c", "cd .. && source /app/venv/bin/activate && bash data/seed/init_db.sh && python manage.py migrate && python manage.py runserver"]
-# CMD ["/bin/bash",]#
-# CMD [ "sleep", "infinity" ]
 # Set the CMD to run your application directly
-# CMD ["/bin/bash", "-c", "source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
-# CMD ["/bin/bash", "-c", "while !</dev/tcp/db/5432; do sleep 5; done; while !</dev/tcp/elasticsearch/9200; do sleep 5; done; source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
-# CMD ["/bin/bash", "-c", "while !</dev/tcp/db/5432; do sleep 5; done; echo 'Database is ready'; while !</dev/tcp/elasticsearch/9200; do sleep 5; done; echo 'Elasticsearch is ready'; source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
 CMD ["/bin/bash", "-c", "\
 while ! ping -c 1 db > /dev/null 2>&1; do \
     echo 'Waiting for db...'; \
@@ -128,8 +96,3 @@ bash /home/app/data/seed/init_db.sh; \
 python /home/app/manage.py migrate; \
 python /home/app/manage.py runserver 0.0.0.0:8000; \
 "]
-
-
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>

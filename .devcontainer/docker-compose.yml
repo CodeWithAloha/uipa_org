@@ -21,6 +21,7 @@ services:
     image: postgis/postgis:14-3.1
     volumes:
       - pg-data:/var/lib/postgresql/data/
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
     environment:
       POSTGRES_USER: froide
       POSTGRES_PASSWORD: froide
@@ -34,7 +35,7 @@ services:
       retries: 5
     command: >
       bash -c "
-      docker-entrypoint.sh postgres &
+      docker-entrypoint.sh postgres -c 'config_file=/var/lib/postgresql/data/postgresql.conf' &
       sleep 10;
       psql -U froide -d froide -c 'CREATE EXTENSION IF NOT EXISTS postgis;';
       tail -f /dev/null
