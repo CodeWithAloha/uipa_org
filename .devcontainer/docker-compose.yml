@@ -6,11 +6,15 @@ services:
       dockerfile: .devcontainer/Dockerfile
     ports:
       - "127.0.0.1:8000:8000"
+    environment:
+      - DATABASE_URL=postgres://froide:froide@db:5432/froide
+      - ELASTICSEARCH_URL=http://elastic:froide@elasticsearch:9200
     depends_on:
       db:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+    command: bash -c "while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
   db:
     image: postgis/postgis:14-3.1
@@ -18,8 +22,8 @@ services:
       - pg-data:/var/lib/postgresql/data/
     environment:
       POSTGRES_USER: froide
-      POSTGRES_DB: froide
       POSTGRES_PASSWORD: froide
+      POSTGRES_DB: froide
     ports:
       - "127.0.0.1:5432:5432"
     healthcheck:
