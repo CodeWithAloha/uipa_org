@@ -56,7 +56,7 @@ RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsea
 
 
 
-    
+
 # Create the static files directory
 RUN mkdir -p /home/app/build
 
@@ -111,8 +111,23 @@ USER baseuser
 # CMD ["/bin/bash",]#
 # CMD [ "sleep", "infinity" ]
 # Set the CMD to run your application directly
-CMD ["/bin/bash", "-c", "source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
-
+# CMD ["/bin/bash", "-c", "source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
+# CMD ["/bin/bash", "-c", "while !</dev/tcp/db/5432; do sleep 5; done; while !</dev/tcp/elasticsearch/9200; do sleep 5; done; source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
+# CMD ["/bin/bash", "-c", "while !</dev/tcp/db/5432; do sleep 5; done; echo 'Database is ready'; while !</dev/tcp/elasticsearch/9200; do sleep 5; done; echo 'Elasticsearch is ready'; source /home/app/venv/bin/activate && bash /home/app/data/seed/init_db.sh && python /home/app/manage.py migrate && python /home/app/manage.py runserver 0.0.0.0:8000"]
+CMD ["/bin/bash", "-c", "\
+while ! ping -c 1 db > /dev/null 2>&1; do \
+    echo 'Waiting for db...'; \
+    sleep 5; \
+done; \
+while ! ping -c 1 elasticsearch > /dev/null 2>&1; do \
+    echo 'Waiting for elasticsearch...'; \
+    sleep 5; \
+done; \
+source /home/app/venv/bin/activate; \
+bash /home/app/data/seed/init_db.sh; \
+python /home/app/manage.py migrate; \
+python /home/app/manage.py runserver 0.0.0.0:8000; \
+"]
 
 
 # [Optional] Uncomment this section to install additional OS packages.
