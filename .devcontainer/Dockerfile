@@ -17,6 +17,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         pkg-config \
         build-essential \
         python3-venv \
+        libproj-dev \
+        proj-data \
+        proj-bin \
+        libgeos-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -45,6 +49,21 @@ RUN apt-get update \
 # Create directories for Elasticsearch and add necessary permissions
 RUN mkdir -p /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch \
     && chown -R baseuser:baseuser /usr/share/elasticsearch /var/lib/elasticsearch /var/log/elasticsearch
+
+
+
+
+
+
+
+    
+# Create the static files directory
+RUN mkdir -p /home/app/build
+
+
+
+
+
 
 WORKDIR /home/app
 
