@@ -1,4 +1,3 @@
-# Use any Debian/Ubuntu based image
 FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 
 # root access for the beginning of the script
@@ -23,7 +22,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libgeos-dev \
         postgresql-client \
         curl \
-        passwd \
+        iputils-ping \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -47,7 +46,6 @@ RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     && /bin/bash /tmp/library-scripts/docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" \
     && groupadd -r baseuser && useradd -r -g baseuser baseuser \
-    && echo 'baseuser:password' | chpasswd \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
 # Create directories for Elasticsearch and add necessary permissions
