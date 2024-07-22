@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
 USER root
 
 # Install system-wide dependencies that cannot be done in a venv
+# Install system-wide dependencies that cannot be done in a venv
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends \
         libpoppler-cpp-dev \
@@ -23,6 +24,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         postgresql-client \
         curl \
         iputils-ping \
+        postgis \
+        postgresql-postgis \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
