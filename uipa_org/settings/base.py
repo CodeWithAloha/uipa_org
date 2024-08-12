@@ -92,7 +92,7 @@ class UipaOrgThemeBase(Base):
             request_public_after_due_days=14,
             payment_possible=False,
             default_law=1,
-            greetings=[rec(u"Aloha (?:Mr\.?|Ms\.? .*?)")],
+            greetings=[rec(u"Aloha (?:Mr.|Ms. .*?)")],
             closings=[rec(u"Mahalo,?")],
             public_body_boosts={},
             dryrun=False,
