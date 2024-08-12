@@ -1,6 +1,6 @@
-FROM ssthapa/django5:0.1
+FROM ssthapa/django4:0.2
 
-MAINTAINER Suchandra Thapa <suchandra.spam+docker@gmail.com>
+LABEL maintainer="Suchandra Thapa <suchandra.spam+docker@gmail.com>"
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
@@ -16,11 +16,11 @@ RUN apk update && \
     apk add rust cargo qpdf qpdf-dev poppler poppler-dev g++ gdal geos alpine-sdk \
             imagemagick imagemagick-dev pango nodejs npm yarn
 
-ENV PYTHONPATH "${PYTHONPATH}:/srv/django"
+ENV PYTHONPATH="${PYTHONPATH}:/srv/django"
 WORKDIR /srv/django
 COPY . /srv/django
-RUN yarn link && yarn link uipa_org && yarn install
-RUN /root/.local/bin/poetry config installer.max-workers 3
+#RUN yarn link && yarn link uipa_org && yarn install
+RUN /root/.local/bin/poetry config installer.max-workers 1
 RUN /root/.local/bin/poetry install --no-root --no-interaction
 
 
@@ -28,5 +28,6 @@ COPY local_settings.py /srv/django/uipa_org/settings/local_settings.py
 COPY settings.py /srv/django/uipa_org/settings/settings.py
 COPY run-backend.sh /srv/django
 
+#ENTRYPOINT ["/bin/sleep", "3600"]
 ENTRYPOINT  /srv/django/run-backend.sh
 
