@@ -1,0 +1,19 @@
+{
+    "name": "UIPA DevBox",
+    "dockerComposeFile": "docker-compose.yml",
+    // "postStartCommand": "bash entrypoint.sh",
+    "service": "app",
+    "forwardPorts": [8000, 5432, 9200],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+				"ms-azuretools.vscode-docker"
+            ],
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "remoteUser": "vscode"
+}

@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - DATABASE_URL=postgres://froide:froide@db:5432/froide
+      - ELASTICSEARCH_URL=http://elastic:froide@elasticsearch:9200
+    depends_on:
+      db:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  db:
+    image: postgis/postgis:14-3.1
+    volumes:
+      - pg-data:/var/lib/postgresql/data/
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+    environment:
+      POSTGRES_USER: froide
+      POSTGRES_PASSWORD: froide
+      POSTGRES_DB: froide
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U froide -d froide"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: >
+      bash -c "
+      docker-entrypoint.sh postgres -c 'config_file=/var/lib/postgresql/data/postgresql.conf' &
+      sleep 10;
+      psql -U froide -d froide -c 'CREATE EXTENSION IF NOT EXISTS postgis;';
+      tail -f /dev/null
+      "
+    networks:
+      - app-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    user: root
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - es-logs:/var/log
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=froide
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - cluster.routing.allocation.disk.watermark.low=3gb
+      - cluster.routing.allocation.disk.watermark.high=2gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=1gb
+    ports:
+      - "127.0.0.1:9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -u elastic:froide http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"' || curl -s -u elastic:froide http://localhost:9200/_cluster/health | grep -q '\"status\":\"yellow\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
+
+volumes:
+  es-data: {}
+  es-logs: {}
+  pg-data: {}
+
+networks:
+  app-network:
