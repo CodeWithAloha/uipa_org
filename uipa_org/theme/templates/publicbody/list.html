@@ -1,4 +1,5 @@
-{% overextends 'publicbody/list.html' %}
+<!-- uipa_org/theme/templates/publicbody/list.html (over)extends "publicbody/list.html" -->
+{% extends 'publicbody/list.html' %}
 
 {% load i18n %}
 
@@ -36,13 +37,7 @@
         <ul class="media-list">
           {% for object in object_list %}
           <li class="media">
-            {% if object.object %}
-              {% with object=object.object %}
-                {% include "publicbody/snippets/publicbody_item.html" %}
-              {% endwith %}
-            {% else %}
               {% include "publicbody/snippets/publicbody_item.html" %}
-            {% endif %}
           </li>
         {% endfor %}
         </ul>
@@ -81,22 +76,24 @@
     </div>
     <h3>{% trans "Topics" %}</h3>
     <div class="list-group">
-      {% for top in topics %}
-        {% if jurisdiction and topic == top %}
-          {% url 'publicbody-list' jurisdiction=jurisdiction.slug as top_url %}
-        {% elif jurisdiction %}
-          {% url 'publicbody-list' jurisdiction=jurisdiction.slug topic=top.slug as top_url %}
-        {% elif topic == top %}
-          {% url 'publicbody-list' as top_url %}
-        {% else %}
-          {% url 'publicbody-list' topic=top.slug as top_url %}
-        {% endif %}
-        <a class="list-group-item{% if topic == top %} active{% endif %}" href="{{ top_url }}{% if query %}?q={{ query }}{% endif %}">
-          <span class="badge">{{ top.num_publicbodies }}</span>
-          <span class="small-icon topic-{{ top.slug }}"></span>
-          {{ top.name }}
-        </a>
-      {% endfor %}
+      {% if topic %}
+          {% for top in topics %}
+            {% if jurisdiction and topic == top %}
+              {% url 'publicbody-list' jurisdiction=jurisdiction.slug as top_url %}
+            {% elif jurisdiction %}
+              {% url 'publicbody-list' jurisdiction=jurisdiction.slug topic=top.slug as top_url %}
+            {% elif topic == top %}
+              {% url 'publicbody-list' as top_url %}
+            {% else %}
+              {% url 'publicbody-list' topic=top.slug as top_url %}
+            {% endif %}
+            <a class="list-group-item{% if topic == top %} active{% endif %}" href="{{ top_url }}{% if query %}?q={{ query }}{% endif %}">
+              <span class="badge">{{ top.num_publicbodies }}</span>
+              <span class="small-icon topic-{{ top.slug }}"></span>
+              {{ top.name }}
+            </a>
+          {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

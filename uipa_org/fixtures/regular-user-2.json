@@ -1,0 +1,30 @@
+[
+{
+  "model": "account.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$36000$3J8A8NaKuVJm$QorhZeUyv8lSFGY6t0NICVwLxKhTD3Mcz8qq8l/g5lY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "joe",
+    "first_name": "Joe",
+    "last_name": "Aloha",
+    "email": "joe@uipa.org",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-12-18T02:46:00Z",
+    "organization": "",
+    "organization_url": "",
+    "private": false,
+    "address": "",
+    "terms": true,
+    "newsletter": false,
+    "is_trusted": false,
+    "is_blocked": false,
+    "is_deleted": false,
+    "date_left": null,
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

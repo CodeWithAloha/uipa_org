@@ -1,0 +1,30 @@
+[
+{
+  "model": "account.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$36000$RlWJbmcc0I6P$GyNfs7PIjTv4ZU6ZSm0CwE9L+AO+3xOWjpjdT5Pyxo4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "lani",
+    "first_name": "Lani",
+    "last_name": "Aloha",
+    "email": "lani@uipa.org",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-11-15T23:53:00Z",
+    "organization": "",
+    "organization_url": "",
+    "private": false,
+    "address": "",
+    "terms": true,
+    "newsletter": false,
+    "is_trusted": false,
+    "is_blocked": false,
+    "is_deleted": false,
+    "date_left": null,
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

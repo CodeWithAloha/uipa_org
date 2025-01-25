@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+
 
 from celery.schedules import crontab
 from configurations import values
@@ -44,8 +44,6 @@ class UipaOrgThemeBase(ThemeBase):
             'django.contrib.redirects',
             'uipa_org.uipa_constants',
             'uipa_org.theme.templatetags.uipa_extras',
-            'tinymce',
-            'raven.contrib.django.raven_compat'
         ]
         return installed
 
@@ -73,9 +71,13 @@ class UipaOrgThemeBase(ThemeBase):
 
     HAYSTACK_CONNECTIONS = {
         'default': {
-            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            #'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
             'URL': 'http://127.0.0.1:9200/',
             'INDEX_NAME': 'haystack',
+            #'KWARGS': {
+            #        'http_auth': ('elastic', 'froide'),
+            #},
         }
     }
 
@@ -135,8 +137,8 @@ class UipaOrgThemeBase(ThemeBase):
             request_public_after_due_days=14,
             payment_possible=False,
             default_law=1,
-            greetings=[rec(u"Aloha (?:Mr\.?|Ms\.? .*?)")],
-            closings=[rec(u"Mahalo,?")],
+            greetings=[rec("Aloha (?:Mr\.?|Ms\.? .*?)")],
+            closings=[rec("Mahalo,?")],
             public_body_boosts={},
             dryrun=True,
             dryrun_domain="beta.uipa.org",
@@ -212,7 +214,7 @@ class S3Enabled(object):
 class Dev(UipaOrgThemeBase, Base):
 
     DEBUG = True
-    ALLOWED_HOSTS = values.TupleValue(('localhost',))
+    ALLOWED_HOSTS = values.TupleValue(('localhost', '127.0.0.1'))
 
     COMPRESS_ENABLED = values.BooleanValue(True)
     COMPRESS_OFFLINE = True
@@ -227,12 +229,17 @@ class Dev(UipaOrgThemeBase, Base):
             "STATIC_URL": super(Dev, self).STATIC_URL
         }
 
+    # uploads subdirectory in the directory where this settings file lives.
+    MEDIA_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'uploads')
+
     CACHES = {
         'default': {
             'LOCATION': 'dev-uipa',
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
         }
     }
+
+    SECRET_KEY = 'make_me_unique!!'
 
     LOGGING = {
         'version': 1,
@@ -251,8 +258,7 @@ class Dev(UipaOrgThemeBase, Base):
         },
         'formatters': {
             'verbose': {
-                'format': '[%(asctime)s] %(levelname)s [%(module)s %(process)d %(thread)d - %(name)s.%(funcName)s:%(lineno)d] %(message)s',
-                'datefmt': '%Y-%m-%d %H:%M:%S'
+                'format': '[%(asctime)s] %(levelname)s (pid: %(process)d) [%(name)s.%(module)s: %(funcName)s:%(lineno)d] %(message)s',
             },
         },
         'handlers': {
@@ -269,7 +275,7 @@ class Dev(UipaOrgThemeBase, Base):
             'uipa_org_logfile': {
                 'level': 'DEBUG',
                 'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(os.path.dirname(os.path.realpath(__file__)), 'uipa_org_dev_app.log'),
+                'filename': 'uipa_org_dev_app.log', # put in the working directory
                 'maxBytes': 1024*1024*5,  # 5MB
                 'backupCount': 10,
                 'formatter': 'verbose',
@@ -279,12 +285,15 @@ class Dev(UipaOrgThemeBase, Base):
             'froide': {
                 'handlers': ['uipa_org_logfile'],
                 'level': 'DEBUG',
+                'propagate': False,
             },
             'django': {
                 'handlers': ['uipa_org_logfile'],
-                'level': 'DEBUG'
+                'level': 'DEBUG',
+                'propagate': False,
             },
-            'django.request': {
+            # Use instead of 'django.request' to log all requests; added in Django 1.11.
+            'django.server': {
                 'handlers': ['uipa_org_logfile'],
                 'level': 'DEBUG',
                 'propagate': False,
@@ -299,15 +308,72 @@ class Dev(UipaOrgThemeBase, Base):
                 'handlers': ['uipa_org_logfile'],
                 'propagate': False,
             },
+            'django.template': {
+                'level': 'INFO',
+                'handlers': ['uipa_org_logfile'],
+                'propagate': False,
+            },
             'uipa_org': {
                 'handlers': ['uipa_org_logfile'],
                 'level': 'DEBUG',
+                'propagate': False,
             },
         }
     }
 
     HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 
+    ## For elasticsearch connection authentication.
+    #from urllib.parse import urlparse
+    #parsed = urlparse("http://elastic:froide@127.0.0.1:9200")
+
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            #'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+            'INDEX_NAME': 'haystack',
+            'URL': 'http://127.0.0.1:9200'
+            # elasticsearch 2.x doesn't have authentication.
+            #'URL': parsed.hostname,
+            #'KWARGS': {
+            #    'port': parsed.port,
+            #    'http_auth': (parsed.username, parsed.password),
+            #    'use_ssl': False,
+            #},
+        }
+        #'default': {
+        #    # This doesn't support updates.
+        #    'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        #}
+    }
+
+    DATABASES = {
+        'default': {
+            #'ENGINE': 'django.db.backends.sqlite3',  # Load from fixtures doesn't work with SQLite3.
+            #'NAME': 'dev.db',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'uipa',
+            'USER': 'uipa',
+            'PASSWORD': 'uipa',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+
+    # Send email to the console
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+    @property
+    def FROIDE_CONFIG(self):
+        config = super(Dev, self).FROIDE_CONFIG
+        config.update(dict(
+            dryrun=False,
+            make_public_num_days_after_due_date=365,
+            doc_conversion_binary="/Applications/LibreOffice.app/Contents/MacOS/soffice",
+        ))
+        return config
+
+    TEST_SELENIUM_DRIVER = 'chromedriver'
 
 class Beta(SentryEnabled, NginxSecureStaticEnabled, S3Enabled, SslEnabled, UipaOrgThemeBase, Base):
 

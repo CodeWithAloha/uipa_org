@@ -1,0 +1,4 @@
+pytest-django
+factory-boy
+mock
+selenium

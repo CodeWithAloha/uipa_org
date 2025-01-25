@@ -9,8 +9,8 @@ from contextlib import contextmanager
 from django.conf import settings
 from django.core.files import File
 from django.dispatch import receiver
-from doc_utilities import create_uipa_document_request_from_foi_request
-from doc_utilities import prepare_for_final_archiving
+from .doc_utilities import create_uipa_document_request_from_foi_request
+from .doc_utilities import prepare_for_final_archiving
 from froide.foirequest.file_utils import convert_to_pdf
 from froide.foirequest.models import FoiAttachment
 from froide.foirequest.models import FoiRequest

@@ -111,3 +111,6 @@ solr-webapp
 
 # Source for an editable project that pip installed
 src
+
+# MEDIA_ROOT for uploads
+uipa_org/uploads/

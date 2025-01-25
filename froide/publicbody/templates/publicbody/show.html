@@ -1,0 +1,141 @@
+{% extends 'publicbody/base.html' %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+{% load markup %}
+
+{% block title %}{{ object.name }} - {{ SITE_NAME }}{% endblock %}
+
+{% block metadescription %}{% blocktrans with name=object.name classification=object.classification juris=object.jurisdiction.name site_name=SITE_NAME %}{{ name }} is a {{ classification }} in {{ juris }} on {{ site_name }}{% endblocktrans %}{% endblock %}
+
+{% block body %}
+<div itemscope itemtype="http://schema.org/Organization">
+
+<h2 itemprop="name">{{ object.name }}</h2>
+
+{% if object.email %}
+<p>
+  <a class="btn btn-primary" href="{% url 'foirequest-make_request' public_body=object.slug %}">{% blocktrans %}Make a Request to this public body!{% endblocktrans %}</a>
+</p>
+{% endif %}
+
+
+<div class="row">
+  <div class="col-lg-4 col-md-4">
+    <dl>
+      <dt>{% blocktrans %}Jurisdiction{% endblocktrans %}:</dt>
+      <dd><a href="{{ object.jurisdiction.get_absolute_url }}">{{ object.jurisdiction }}</a></dd>
+      <dt>{% blocktrans %}Classification:{% endblocktrans %}</dt>
+      <dd>{{ object.classification }}</dd>
+      <dt>{% blocktrans %}Topics:{% endblocktrans %}</dt>
+      <dd>
+        {% for tag in object.tags.all %}
+          {{ tag.name }}
+          {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </dd>
+      {% if object.url %}
+        <dt>{% blocktrans %}Website:{% endblocktrans %}</dt>
+        <dd><a href="{{ object.url }}" class="target-new">{{ object.url|truncatechars:30 }}</a></dd>
+      {% endif %}
+
+      {% if object.email %}
+        <dt>{% blocktrans %}Email:{% endblocktrans %}</dt>
+        <dd>
+          <span itemprop="email">{{ object.email }}</span>
+        </dd>
+      {% endif %}
+      <dt>{% blocktrans %}Contact:{% endblocktrans %}</dt>
+      <dd>{{ object.contact|urlizetrunc:35|linebreaksbr }}</dd>
+      <dt>{% blocktrans %}Mailing Address:{% endblocktrans %}</dt>
+      <dd itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        {{ object.address|linebreaksbr }}
+      </dd>
+      {% if object.file_index %}
+        <dt>{% blocktrans %}File Index:{% endblocktrans %}</dt>
+        <dd>
+          <a href="{{ object.file_index }}">{{ object.file_index|urlizetrunc:40 }}</a>
+        </dd>
+      {% endif %}
+      {% if object.org_chart %}
+        <dt>{% blocktrans %}Organisation Chart:{% endblocktrans %}</dt>
+        <dd>
+          <a href="{{ object.org_chart }}">{{ object.org_chart|urlizetrunc:40 }}</a>
+        </dd>
+      {% endif %}
+    </dl>
+
+    {% if user.is_staff %}
+      <a class="btn btn-default" href="{% url 'admin:publicbody_publicbody_change' object.id %}">
+        <span class="glyphicon glyphicon-cog"></span>
+        {% trans "View on Admin site" %}
+      </a>
+    {% endif %}
+  </div>
+  <div class="col-lg-8 col-md-8">
+    {% if object.request_note %}
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans "Special note" %}</h3>
+        </div>
+        <div class="panel-body">
+          {{ object.request_note_html|safe }}
+        </div>
+      </div>
+    {% endif %}
+    {% if foirequest_count %}
+      <h3>{% trans "Summary of Results" %}</h3>
+      <table class="table">
+        {% for res in resolutions %}
+        <tr>
+          <td>
+            {% block result_image %}
+            {% endblock result_image %}
+            <a href="{% url 'foirequest-list' public_body=object.slug %}?status={{ res.url_slug }}">
+              {{ res.name }}
+            </a>
+            <br/>
+            <small class="text-muted">{{ res.description }}</small>
+          </td>
+          <td class="text-right">
+            {{ res.count }}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h3>
+        {% blocktrans count count=foirequest_count %}One requests to this public body{% plural %}{{ count }} requests to this public body{% endblocktrans %}
+      </h3>
+      <ul class="media-list">
+        {% for object in foirequests %}
+          <li class="media">
+            {% include "foirequest/snippets/request_item.html" %}
+          </li>
+        {% endfor %}
+      </ul>
+      <p>
+        <a href="{% url 'foirequest-list_feed' public_body=object.slug %}">
+          <i class="rss-icon"></i>
+          {% trans "RSS Feed" %}
+        </a>
+        <br/>
+        <a href="{% url 'foirequest-list_feed_atom' public_body=object.slug %}">
+          <i class="atom-icon"></i>
+          {% trans "Atom Feed" %}
+        </a>
+      </p>
+      {% if foirequest_count > foirequests|length %}
+        <p>
+          <a href="{% url 'foirequest-list' public_body=object.slug %}">
+            {% trans "See all FOI requests for this public body" %}
+          </a>
+        </p>
+      {% endif %}
+    {% else %}
+      <p>{% trans "There are no requests for this public body yet" %}</p>
+    {% endif %}
+  </div>
+</div>
+
+</div>
+{% endblock %}

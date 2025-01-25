@@ -1,0 +1,19 @@
+<!-- uipa_org/theme/templates/publicbody/snippets/publicbody_item.html -->
+{% load i18n %}
+
+<div class="media-body">
+  <h4 class="media-heading">
+    <a href="{{ object.url }}">
+      {{ object.name }}
+    </a>
+    <br/>
+    <small>
+      {{ object.jurisdiction }},
+        {% if object.number_of_requests %}
+          {% blocktrans count num=object.number_of_requests %}{{ num }} request{% plural %}{{ num }} requests{% endblocktrans %}
+        {% else %}
+          {% trans "no requests yet" %}
+        {% endif %}
+    </small>
+  </h4>
+</div>

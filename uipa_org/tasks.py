@@ -5,7 +5,7 @@
 #
 # Distributed under terms of the MIT license.
 
-from __future__ import absolute_import
+
 from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.core.mail import send_mail
@@ -43,7 +43,7 @@ def private_public_reminder(*args, **kwargs):
         logger.info("Sending private/public reminder to request {0} on {1}".format(foirequest.pk, now))
 
         try:
-            send_mail(u'{0}'.format(
+            send_mail('{0}'.format(
                     _("%(site_name)s: Reminder that your request is being made public in 14 days") % {
                         "site_name": settings.SITE_NAME
                     },
@@ -99,7 +99,7 @@ def deferred_message_notification(*args, **kwargs):
         logger.info("Deferred messages came in yesterday / today -> sending notification email")
 
         try:
-            send_mail(u'{0}'.format(
+            send_mail('{0}'.format(
                     _("%(site_name)s: You have deferred messages from yesterday/today") % {
                         "site_name": settings.SITE_NAME
                     },

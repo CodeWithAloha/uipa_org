@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - pg-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: uipa
+      POSTGRES_USER: uipa
+      POSTGRES_PASSWORD: uipa
+    ports:
+      - "127.0.0.1:5432:5432"
+  es:
+    build:
+      dockerfile: ./es.Dockerfile
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - es-logs:/usr/share/elasticsearch/log
+    ports:
+      - "127.0.0.1:9200:9200"
+
+volumes:
+  es-data: {}
+  es-logs: {}
+  pg-data: {}

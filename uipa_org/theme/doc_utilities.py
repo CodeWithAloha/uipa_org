@@ -119,7 +119,7 @@ def create_uipa_document_request(
     paragraphs = document.paragraphs
 
     for idx, paragraph in enumerate(paragraphs):
-        for k, v in DELIMITER_REPLACEMENT_MAP.iteritems():
+        for k, v in list(DELIMITER_REPLACEMENT_MAP.items()):
             if k in paragraph.text:
                 paragraph.text = paragraph.text.replace(k, v)
 

@@ -1,0 +1,36 @@
+[project]
+name = "uipa"
+version = "0.1.0"
+description = "UIPA.org upgrade to current Python and Django"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "django==1.11.29",
+  "django-appconf==1.0.2",
+  "Markdown",
+  "importlib-metadata<5.0",
+  "celery<5.0",
+  "celery-haystack",
+  "django-haystack",
+  "django-celery-email",
+  "django-taggit==0.18.1",
+  "requests==2.11.1",
+  "django-floppyforms~=1.8",
+  "python-magic==0.4.6",
+  "django-tastypie==0.13.3",
+  "python-mimeparse>=0.1.4",
+  "django-configurations==2.0",
+  "django-storages==1.5.0",
+  "dj-database-url==0.4.1",
+  "django-cache-url==1.2.0",
+  "django-compressor==2.1",
+  "django-contrib-comments==1.7.1",
+  "unicodecsv==0.14.1",
+  "honcho==0.6.6",
+  "python-docx==0.8.5",
+  "elasticsearch==2.3.0",
+  "psycopg2>=2.8,<2.9",
+  "lxml",
+  "boto==2.43.0",
+  "setuptools==56.0.0",
+]

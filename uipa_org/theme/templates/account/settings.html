@@ -1,4 +1,5 @@
-{% overextends 'base.html' %}
+<!-- uipa_org/theme/templates/account/settings.html -->
+{% extends 'base.html' %}
 {% load i18n %}
 {% load floppyforms %}
 
@@ -59,7 +60,7 @@
       {% else %}
         <a href="#change-password" class="toggle">{% blocktrans %}Change your password{% endblocktrans %}</a>
         <div id="change-password"{% if not password_change_form %} class="js-hidden"{% endif %}>
-        {% endif %}
+      {% endif %}
           <form action="{% url 'account-change_password' %}" method="post">
             {% csrf_token %}
             {% if password_change_form %}
@@ -69,9 +70,9 @@
             {% endif %}
             <button type="submit" class="btn btn-default">{% blocktrans %}Change password{% endblocktrans %}</button>
           </form>
-        {% if not user.is_new %}
+      {% if not user.is_new %}
           </div>
-        {% endif %}
+      {% endif %}
     </div>
 
     <div id="delete-account-section" class="section">

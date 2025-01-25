@@ -1,0 +1,31 @@
+<!-- froide/templates/simple_base.html extends 'scaffold.html' -->
+{% extends "scaffold.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+{% load compress %}
+
+{% block body_tag %}
+
+<div id="main" class="container">
+{% include "snippets/messages.html" %}
+
+{% block body %}
+{% endblock %}
+
+</div>
+
+{% block scripts %}
+  {% compress js %}
+  <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  <script src="{{ STATIC_URL }}js/libs/mustache.js"></script>
+  <script src="{{ STATIC_URL }}js/libs/jquery.autocomplete.js"></script>
+  <script src="{{ STATIC_URL }}js/script.js"></script>
+  {% endcompress %}
+{% endblock %}
+
+{% block extra_footer %}
+{% endblock %}
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 
 # This should have been added to supervisord
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'uipa_org.settings')
